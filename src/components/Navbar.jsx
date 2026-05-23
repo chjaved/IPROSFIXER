@@ -47,9 +47,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link to="/" className="font-head font-black text-xl italic select-none flex-shrink-0">
-            <span className="text-white">iPRO</span>
-            <span className="text-gold">FIXER</span>
+          <Link to="/" className="flex-shrink-0 flex items-center h-16 py-2.5">
+            <img src="/logo.png" alt="iPROFIXER" className="h-full w-auto max-w-[180px]" style={{ mixBlendMode: 'screen' }} />
           </Link>
 
           {/* Desktop nav */}

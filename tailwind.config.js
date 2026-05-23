@@ -15,8 +15,10 @@ export default {
         'wa-dark':  '#1aab52',
       },
       fontFamily: {
-        head: ['Sora', 'sans-serif'],
-        body: ['DM Sans', 'sans-serif'],
+        head:    ['"Barlow Condensed"', 'sans-serif'],
+        display: ['"Barlow Condensed"', 'sans-serif'],
+        body:    ['Barlow', 'Inter', 'sans-serif'],
+        sans:    ['Inter', 'Barlow', 'sans-serif'],
       },
       borderRadius: {
         card: '12px',

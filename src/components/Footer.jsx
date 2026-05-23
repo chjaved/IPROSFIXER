@@ -16,9 +16,8 @@ export default function Footer() {
 
           {/* Brand col — wider */}
           <div className="lg:col-span-2">
-            <Link to="/" className="font-head font-black text-2xl italic block mb-4">
-              <span className="text-white">iPRO</span>
-              <span className="text-gold">FIXER</span>
+            <Link to="/" className="block mb-4">
+              <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" style={{ mixBlendMode: 'screen' }} />
             </Link>
             <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">
               Malaysia's trusted home services platform — connecting homeowners with certified professionals across Klang Valley.
