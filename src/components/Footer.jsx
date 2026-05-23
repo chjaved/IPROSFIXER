@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import AppBadges from './AppBadges.jsx'
 
 const WA_ICON = (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -24,22 +25,7 @@ export default function Footer() {
             </p>
 
             {/* App Store badges */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-6">
-              <a href="#" className="flex items-center gap-3 bg-white/8 hover:bg-white/15 border border-white/15 px-4 py-2.5 rounded-xl transition-all duration-200 group">
-                <span className="text-xl">🍎</span>
-                <div className="text-left">
-                  <div className="text-white/40 text-[10px] leading-none mb-0.5">Download on the</div>
-                  <div className="text-white font-bold text-sm">App Store</div>
-                </div>
-              </a>
-              <a href="#" className="flex items-center gap-3 bg-white/8 hover:bg-white/15 border border-white/15 px-4 py-2.5 rounded-xl transition-all duration-200 group">
-                <span className="text-xl">▶️</span>
-                <div className="text-left">
-                  <div className="text-white/40 text-[10px] leading-none mb-0.5">Get it on</div>
-                  <div className="text-white font-bold text-sm">Google Play</div>
-                </div>
-              </a>
-            </div>
+            <AppBadges className="mb-6" />
 
             {/* Social icons */}
             <div className="flex gap-2">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronDown, Star, ArrowRight, CheckCircle, Phone, MapPin, Mail } from 'lucide-react'
+import AppBadges from '../components/AppBadges.jsx'
 import { useApi } from '../hooks/useApi.js'
 
 /* ─── REAL PHOTO URLs (Unsplash — free, no auth needed) ─────────────────────── */
@@ -545,16 +546,7 @@ export default function Home() {
               </div>
 
               {/* App badges */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-3 rounded-xl transition-all">
-                  <span className="text-2xl">🍎</span>
-                  <div><div className="text-white/40 text-[10px]">Download on the</div><div className="text-white font-head font-bold text-sm uppercase">App Store</div></div>
-                </a>
-                <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-3 rounded-xl transition-all">
-                  <span className="text-2xl">▶️</span>
-                  <div><div className="text-white/40 text-[10px]">Get it on</div><div className="text-white font-head font-bold text-sm uppercase">Google Play</div></div>
-                </a>
-              </div>
+              <AppBadges className="mb-8" />
 
               {/* Large logo in footer CTA */}
               <img src="/logo.png" alt="iPROFIXER" className="h-16 w-auto opacity-90" style={{ mixBlendMode: 'screen' }} />
