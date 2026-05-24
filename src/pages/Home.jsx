@@ -84,12 +84,14 @@ const TESTIMONIALS = [
   { photo: PHOTOS.review6, name: 'Azman Mokhtar', loc: 'Shah Alam',       text: 'Weekly cleaning subscription is the best thing I found this year. Consistent quality every single time.' },
 ]
 
+const BIG_CITIES = ['Kuala Lumpur', 'Petaling Jaya', 'Subang Jaya', 'Shah Alam', 'Cheras', 'Klang', 'Putrajaya', 'Cyberjaya']
+
 const FAQS = [
-  { q: 'How do I book a service?',           a: 'Use the quote form on this page, visit our Services page, or WhatsApp +60162104127. We confirm within 30 minutes.' },
+  { q: 'How do I book a service?',           a: 'Download our iOS or Android app, or use the booking form on this page. We confirm within 30 minutes.' },
   { q: 'What payment methods are accepted?', a: "Cash, DuitNow, TnG eWallet and GrabPay. Payment after job completion — no upfront deposits." },
-  { q: 'Which areas do you cover?',          a: 'All Klang Valley: KL, PJ, Subang Jaya, Shah Alam, Klang, Cheras, Ampang, Putrajaya & Cyberjaya.' },
+  { q: 'Which areas do you cover?',          a: `Major Klang Valley cities: ${BIG_CITIES.slice(0, 6).join(', ')} and more.` },
   { q: 'Is there a satisfaction guarantee?', a: 'Yes — unhappy within 24 hours? We send someone back for free. All pros are vetted, trained and insured.' },
-  { q: 'Can I reschedule or cancel?',        a: 'Yes, up to 4 hours before the job at no charge. Just WhatsApp us with your booking reference.' },
+  { q: 'Can I reschedule or cancel?',        a: 'Yes, up to 4 hours before the job at no charge. Contact us via the app with your booking reference.' },
   { q: 'How do I join as a professional?',   a: 'Visit our For Professionals page or WhatsApp us. Applications reviewed in 48 hours. No joining fee.' },
 ]
 
@@ -249,19 +251,9 @@ export default function Home() {
 
             {/* Left: Copy + mascot logo */}
             <div>
-              {/* Actual logo image */}
-              <div className="mb-8">
-                <img
-                  src="/logo.png"
-                  alt="iPROFIXER"
-                  className="h-24 sm:h-28 w-auto"
-                  style={{ mixBlendMode: 'screen' }}
-                />
-              </div>
-
               <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 rounded-full px-4 py-1.5 mb-5">
                 <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-                <span className="text-gold text-xs font-bold uppercase tracking-widest">🇲🇾 Malaysia's #1 Home Services App</span>
+                <span className="text-gold text-xs font-bold uppercase tracking-widest">Malaysia's #1 Home Services App</span>
               </div>
 
               <h1 className="font-head font-black text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.0] mb-6 tracking-tight uppercase">
@@ -284,22 +276,47 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-4">
-                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 bg-wa hover:bg-wa-dark text-white font-head font-bold text-base uppercase tracking-wide px-7 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-wa/30">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  Chat on WhatsApp
+              {/* App Store Download Buttons */}
+              <div className="flex flex-wrap gap-4 mb-6">
+                <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white hover:bg-gray-50 text-brand font-bold px-5 py-3 rounded-xl transition-all duration-200 shadow-lg">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                  <div className="text-left">
+                    <div className="text-[10px] leading-none uppercase tracking-wide">Get it on</div>
+                    <div className="text-sm font-head font-black leading-none">Google Play</div>
+                  </div>
                 </a>
-                <Link to="/services"
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-head font-bold text-base uppercase tracking-wide px-7 py-3.5 rounded-xl transition-all duration-200">
-                  Browse Services <ArrowRight size={16} />
-                </Link>
+                <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-5 py-3 rounded-xl transition-all duration-200">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+                  <div className="text-left">
+                    <div className="text-[10px] leading-none uppercase tracking-wide">Download on the</div>
+                    <div className="text-sm font-head font-black leading-none">App Store</div>
+                  </div>
+                </a>
               </div>
+
+              {/* Alternative: Browse Services Link */}
+              <Link to="/services"
+                className="inline-flex items-center gap-2 text-gold hover:text-white font-head font-bold text-sm uppercase tracking-wide transition-all duration-200">
+                Or browse services on web <ArrowRight size={14} />
+              </Link>
 
               {/* Trust badges */}
               <div className="flex flex-wrap gap-2 mt-6">
-                {['✅ Background Checked','🔒 Fully Insured','⭐ 98% Satisfaction','📱 iOS & Android'].map(t => (
-                  <span key={t} className="text-xs bg-white/8 border border-white/15 text-white/65 px-3.5 py-1.5 rounded-full font-body">{t}</span>
+                {[
+                  { icon: 'shield', text: 'Background Checked' },
+                  { icon: 'lock', text: 'Fully Insured' },
+                  { icon: 'star', text: '98% Satisfaction' },
+                  { icon: 'phone', text: 'iOS & Android' },
+                ].map(({ icon, text }) => (
+                  <span key={text} className="flex items-center gap-1.5 text-xs bg-white/8 border border-white/15 text-white/65 px-3.5 py-1.5 rounded-full font-body">
+                    {icon === 'shield' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                    {icon === 'lock' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
+                    {icon === 'star' && <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>}
+                    {icon === 'phone' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>}
+                    {text}
+                  </span>
                 ))}
               </div>
             </div>
