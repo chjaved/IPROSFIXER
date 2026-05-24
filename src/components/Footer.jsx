@@ -67,8 +67,9 @@ export default function Footer() {
                 { label: 'For Professionals', to: '/for-professionals' },
                 { label: 'FAQ',               to: '/faq' },
                 { label: 'Contact',           to: '/contact' },
-                { label: 'Privacy Policy',    to: '#' },
-                { label: 'Terms of Service',  to: '#' },
+                { label: 'Privacy Policy',    to: '/privacy' },
+                { label: 'Terms of Service',  to: '/terms' },
+                { label: 'Cookie Policy',     to: '/cookie-policy' },
               ].map(l => (
                 <li key={l.to + l.label}>
                   <Link to={l.to} className="text-white/55 hover:text-gold text-sm transition-colors duration-200">{l.label}</Link>
