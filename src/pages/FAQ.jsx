@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, FileText, Wallet, MapPin, ShieldCheck, Wrench, HelpCircle, MessageCircle, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero.jsx'
 
 const CATEGORIES = [
-  { id: 'all',      label: 'All Questions' },
-  { id: 'booking',  label: '📄 Booking' },
-  { id: 'payment',  label: '💰 Payment' },
-  { id: 'coverage', label: '📍 Coverage' },
-  { id: 'guarantee',label: '✅ Guarantee' },
-  { id: 'pros',     label: '🔧 For Professionals' },
+  { id: 'all',       label: 'All Questions',       Icon: HelpCircle },
+  { id: 'booking',   label: 'Booking',           Icon: FileText },
+  { id: 'payment',   label: 'Payment',           Icon: Wallet },
+  { id: 'coverage',  label: 'Coverage',          Icon: MapPin },
+  { id: 'guarantee', label: 'Guarantee',         Icon: ShieldCheck },
+  { id: 'pros',      label: 'For Professionals', Icon: Wrench },
 ]
 
 const FAQS = [
@@ -39,16 +39,16 @@ const FAQS = [
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border border-gray-200 rounded-card overflow-hidden">
+    <div className={`border rounded-xl overflow-hidden transition-all duration-200 ${open ? 'border-gold/40 bg-gold/5' : 'border-gray-200 bg-white hover:border-gold/20'}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-brand text-sm hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-6 py-5 text-left font-head font-bold text-brand text-base hover:bg-gold/5 transition-colors"
       >
-        <span>{q}</span>
-        <ChevronDown size={18} className={`flex-shrink-0 ml-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <span className="pr-4">{q}</span>
+        <ChevronDown size={18} className={`flex-shrink-0 text-gold transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="px-5 pb-5 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">{a}</div>
+        <div className="px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-gold/10 pt-4 font-body">{a}</div>
       )}
     </div>
   )
@@ -62,39 +62,60 @@ export default function FAQ() {
     <>
       <PageHero tag="Help Centre" title="Frequently Asked Questions" subtitle="Find quick answers to the most common questions about iPROFIXER." breadcrumb="FAQ" />
 
-      <section className="py-16 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
           {/* Category pills */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {CATEGORIES.map(c => (
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {CATEGORIES.map(({ id, label, Icon }) => (
               <button
-                key={c.id}
-                onClick={() => setActive(c.id)}
-                className={`text-xs font-semibold px-4 py-2 rounded-full transition-all duration-200 border ${
-                  active === c.id
-                    ? 'bg-brand text-white border-brand'
+                key={id}
+                onClick={() => setActive(id)}
+                className={`flex items-center gap-2 text-xs font-head font-bold uppercase tracking-wide px-5 py-2.5 rounded-full transition-all duration-200 border ${
+                  active === id
+                    ? 'bg-brand text-white border-brand shadow-lg shadow-brand/20'
                     : 'bg-white text-gray-600 border-gray-200 hover:border-gold hover:text-gold'
                 }`}
               >
-                {c.label}
+                <Icon size={14} /> {label}
               </button>
             ))}
           </div>
 
+          {/* FAQ count */}
+          <div className="text-center mb-6">
+            <span className="text-sm text-gray-400 font-body">
+              Showing {filtered.length} of {FAQS.length} questions
+            </span>
+          </div>
+
           {/* FAQ list */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             {filtered.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}
           </div>
 
           {/* CTA */}
-          <div className="mt-12 bg-gray-50 border border-gray-200 rounded-lg2 p-8 text-center">
-            <span className="text-4xl block mb-4">💬</span>
-            <h3 className="font-head font-bold text-brand text-lg mb-2">Still Have Questions?</h3>
-            <p className="text-gray-500 text-sm mb-6">Our team typically responds within 10 minutes on WhatsApp.</p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer" className="btn-wa px-6 py-2.5 text-sm">💬 Chat on WhatsApp</a>
-              <Link to="/contact" className="btn-dark px-6 py-2.5 text-sm">Send a Message</Link>
+          <div className="mt-16 relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0">
+              <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000&q=80" alt="Support" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-brand/90" />
+            </div>
+            <div className="relative p-10 text-center">
+              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-5">
+                <MessageCircle size={28} className="text-gold" />
+              </div>
+              <h3 className="font-head font-black text-white text-2xl uppercase tracking-wide mb-3">Still Have Questions?</h3>
+              <p className="text-white/60 mb-8 max-w-md mx-auto font-body">Our team typically responds within 10 minutes on WhatsApp during operating hours.</p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-wa hover:bg-wa-dark text-white font-head font-bold text-sm uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all">
+                  <MessageCircle size={16} /> Chat on WhatsApp
+                </a>
+                <Link to="/contact"
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-head font-bold text-sm uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all">
+                  Send a Message <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
