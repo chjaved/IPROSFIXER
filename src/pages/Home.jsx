@@ -22,7 +22,7 @@ function useReveal(threshold = 0.15) {
   return ref
 }
 
-function useStaggerReveal(count, threshold = 0.1) {
+function useStaggerReveal(threshold = 0.1) {
   const ref = useRef(null)
   useEffect(() => {
     const container = ref.current
@@ -99,52 +99,127 @@ const SERVICES = [
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>),
     name: 'Electricians',
     desc: 'Wiring faults, trips, new points - our licensed electricians fix it right the first time.',
+    img: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=80',
+    imgAlt: 'Electrician fixing home wiring in Malaysia',
   },
   {
     gradient: 'from-sky-400 to-blue-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/><path d="M4.93 19.07A10 10 0 0 1 2 12"/></svg>),
     name: 'AC Repair & Service',
     desc: 'Too hot? AC not cooling? We service all brands - Samsung, Daikin, Panasonic and more.',
+    img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
+    imgAlt: 'AC technician servicing air conditioner in Petaling Jaya',
   },
   {
     gradient: 'from-violet-500 to-purple-700',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>),
     name: 'Appliance Repair',
     desc: 'Washing machine, fridge, oven or dryer giving you trouble? We diagnose and fix on the spot.',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+    imgAlt: 'Appliance repair technician fixing washing machine',
   },
   {
     gradient: 'from-[#0B6B52] to-emerald-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
     name: 'Cleaning Services',
     desc: 'Home deep clean, regular maid service, post-reno cleanup - you choose, we handle the rest.',
+    img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&q=80',
+    imgAlt: 'Home cleaning service in Kuala Lumpur',
   },
   {
     gradient: 'from-rose-400 to-pink-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>),
     name: 'Caregiver',
     desc: 'Reliable, trained caregivers for your elderly parents or family members. Hourly or full-day.',
+    img: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&q=80',
+    imgAlt: 'Professional caregiver helping elderly person at home',
   },
   {
     gradient: 'from-amber-400 to-yellow-500',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>),
     name: 'Laundry',
     desc: 'Wash, dry and fold - or full ironing service. We collect from your door and return the same day.',
+    img: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80',
+    imgAlt: 'Laundry and ironing service in Selangor',
   },
   {
     gradient: 'from-emerald-400 to-green-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
     name: 'House Maid',
     desc: 'Need a trustworthy part-time maid? Weekly, bi-weekly or one-off. Always the same person.',
+    img: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80',
+    imgAlt: 'Part-time house maid service in Klang Valley',
   },
 ]
 
 const TESTIMONIALS = [
-  { name: 'Ahmad Hafizi', loc: 'Petaling Jaya', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face', text: 'Booked a deep clean after moving into my new place. The team came on time, knew exactly what they were doing and the house smelled amazing after. Will definitely book again.' },
-  { name: 'Raj Kumar',    loc: 'Cheras',        img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face', text: 'Post-reno cleaning after my renovation. The cement dust, paint splatters - all gone. I was honestly shocked at how good the result was.' },
-  { name: 'Nurul Kasih',  loc: 'Ara Damansara', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face', text: 'My regular cleaner Kak Siti has been coming every week for 3 months now. Always the same person, knows how I like things. That consistency is priceless.' },
-  { name: 'James Lim',    loc: 'Bangsar South', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face', text: 'The electrician came within 2 hours of booking. Fixed my circuit trip issue in 45 minutes and explained what caused it. No upselling, just honest work.' },
-  { name: 'Lily Heng',    loc: 'Subang Jaya',   img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face', text: "Booked post-event cleanup after my daughter's birthday party. 2 hours later the house looked like nothing happened. Complete lifesaver." },
-  { name: 'Azman Mokhtar',loc: 'Shah Alam',     img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face', text: 'AC was not cooling properly for weeks. Booked through iPROFIXER, the technician came next morning. Turns out just needed a gas top-up. RM80 fix. Fair price.' },
+  {
+    name: 'Ahmad Hafizi',
+    loc: 'Petaling Jaya',
+    img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face',
+    text: 'Booked a deep clean after moving into my new place. The team came on time, knew exactly what they were doing and the house smelled amazing after. Will definitely book again.',
+  },
+  {
+    name: 'Raj Kumar',
+    loc: 'Cheras',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face',
+    text: 'Post-reno cleaning after my renovation. The cement dust, paint splatters - all gone. I was honestly shocked at how good the result was.',
+  },
+  {
+    name: 'Nurul Kasih',
+    loc: 'Ara Damansara',
+    img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80&fit=crop&crop=face',
+    text: 'My regular cleaner Kak Siti has been coming every week for 3 months now. Always the same person, knows how I like things. That consistency is priceless.',
+  },
+  {
+    name: 'James Lim',
+    loc: 'Bangsar South',
+    img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80&fit=crop&crop=face',
+    text: 'The electrician came within 2 hours of booking. Fixed my circuit trip issue in 45 minutes and explained what caused it. No upselling, just honest work.',
+  },
+  {
+    name: 'Lily Heng',
+    loc: 'Subang Jaya',
+    img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&fit=crop&crop=face',
+    text: "Booked post-event cleanup after my daughter's birthday party. 2 hours later the house looked like nothing happened. Complete lifesaver.",
+  },
+  {
+    name: 'Azman Mokhtar',
+    loc: 'Shah Alam',
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&fit=crop&crop=face',
+    text: 'AC was not cooling properly for weeks. Booked through iPROFIXER, the technician came next morning. Turns out just needed a gas top-up. RM80 fix. Fair price.',
+  },
+]
+
+const HIW_STEPS = [
+  {
+    n: '1',
+    title: 'Tell us what you need',
+    desc: 'Pick your service and area. Takes 30 seconds.',
+    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80',
+    imgAlt: 'Person using phone to book home service in Malaysia',
+  },
+  {
+    n: '2',
+    title: 'We match you with a pro',
+    desc: "You'll get a WhatsApp message with your matched professional within 15 minutes.",
+    img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&q=80',
+    imgAlt: 'Receiving WhatsApp confirmation for home service booking',
+  },
+  {
+    n: '3',
+    title: 'They show up and do the job',
+    desc: 'Vetted, insured, on time. You can track them live.',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
+    imgAlt: 'iPROFIXER technician arriving at home in Klang Valley',
+  },
+  {
+    n: '4',
+    title: 'Pay after. Rate your pro',
+    desc: "Cash, DuitNow, TnG or GrabPay. Only pay when you're satisfied.",
+    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80',
+    imgAlt: 'Cashless payment after home service job completed',
+  },
 ]
 
 const CITIES = ['Kuala Lumpur','Petaling Jaya','Shah Alam','Subang Jaya','Cheras','Klang','Cyberjaya','Putrajaya','Ampang','Bangsar','Mont Kiara','Damansara']
@@ -169,26 +244,36 @@ const CheckIcon = () => (
   </svg>
 )
 
+const AVATAR_STACK = [
+  { src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+  { src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+  { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+  { src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+  { src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+]
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null)
-  const servicesRef = useStaggerReveal(7)
-  const reviewsRef  = useStaggerReveal(6)
-  const r1 = useReveal(); const r2 = useReveal(); const r3 = useReveal()
-  const r4 = useReveal(); const r5 = useReveal(); const r6 = useReveal()
-  const r7 = useReveal(); const r8 = useReveal(); const r9 = useReveal()
+  const servicesRef = useStaggerReveal()
+  const reviewsRef  = useStaggerReveal()
+  const r1  = useReveal(); const r2  = useReveal(); const r3  = useReveal()
+  const r4  = useReveal(); const r5  = useReveal(); const r6  = useReveal()
+  const r7  = useReveal(); const r8  = useReveal(); const r9  = useReveal()
   const r10 = useReveal(); const r11 = useReveal(); const r12 = useReveal()
 
   function toggleFaq(i) { setOpenFaq(openFaq === i ? null : i) }
 
   return (
     <>
-      {/* HERO */}
+      
       <section
         className="hero-circle-bg relative overflow-hidden pt-[68px]"
         style={{ background: 'linear-gradient(135deg, #04342C 0%, #0B6B52 55%, #1D9E75 100%)' }}
         aria-label="iPROFIXER home services Malaysia hero"
       >
         <div className="max-w-content mx-auto px-4 sm:px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-12 items-center">
+
+          {/* Left copy */}
           <div className="text-white">
             <div className="fade-up inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-xs font-medium px-4 py-2 rounded-full mb-6">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#1D9E75"/><path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -218,7 +303,9 @@ export default function Home() {
                 {WA_SVG} Chat on WhatsApp
               </a>
             </div>
-            <div className="fade-up fade-up-5 flex flex-wrap gap-3 mb-5">
+
+            {/* App download buttons */}
+            <div className="fade-up fade-up-5 flex flex-wrap gap-3 mb-6">
               <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-3 bg-black/70 hover:bg-black text-white px-4 py-2.5 rounded-xl transition-all border border-white/15">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="white" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
@@ -230,18 +317,35 @@ export default function Home() {
                 <div><div className="text-[10px] text-white/60 leading-none">Download on the</div><div className="text-sm font-bold leading-tight">App Store</div></div>
               </a>
             </div>
-            <p className="fade-up text-white/50 text-sm">Trusted by <strong className="text-white/80">9,000+ homeowners</strong> in Klang Valley</p>
+
+            {/* Stacked avatars social proof */}
+            <div className="fade-up flex items-center gap-3">
+              <div className="flex -space-x-2.5">
+                {AVATAR_STACK.map((av, i) => (
+                  <img key={i} src={av.src} alt={av.alt}
+                    className="w-9 h-9 rounded-full border-2 border-[#0B6B52] object-cover"
+                    loading="lazy" style={{ objectFit: 'cover' }} />
+                ))}
+              </div>
+              <p className="text-white/80 text-sm">
+                <strong className="text-white">9,000+ homeowners</strong> trust us across Klang Valley
+              </p>
+            </div>
           </div>
 
-          {/* Right: hero image with floating cards */}
+          {/* Right: real hero photo with floating badges */}
           <div className="fade-up fade-up-2 lg:justify-self-end w-full max-w-md lg:ml-auto">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-[20px] overflow-hidden shadow-2xl" style={{ height: '460px' }}>
               <img
                 src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
-                alt="iPROFIXER professional at work"
-                className="w-full h-[420px] object-cover object-center"
+                alt="iPROFIXER professional handyman at work in a Malaysian home"
+                className="w-full h-full object-cover object-center"
+                style={{ objectFit: 'cover' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#04342C]/85 via-[#04342C]/10 to-transparent" />
+              {/* dark overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#04342C]/80 via-[#04342C]/10 to-transparent" />
+
+              {/* Top-left badge */}
               <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-teal flex items-center justify-center flex-shrink-0">
                   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -251,6 +355,8 @@ export default function Home() {
                   <div className="text-xs font-bold text-gray-800">500+ Professionals</div>
                 </div>
               </div>
+
+              {/* Top-right rating badge */}
               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg text-center">
                 <div className="flex items-center gap-0.5 justify-center mb-0.5">
                   {[0,1,2,3,4].map(i => <StarIcon key={i} />)}
@@ -258,15 +364,15 @@ export default function Home() {
                 <div className="text-xs font-bold text-gray-800">4.9 / 5.0</div>
                 <div className="text-[10px] text-gray-500">9,641 reviews</div>
               </div>
+
+              {/* Bottom: stacked client avatars */}
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg flex items-center gap-3">
                   <div className="flex -space-x-2 flex-shrink-0">
-                    {[
-                      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face',
-                      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face',
-                      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face',
-                    ].map((src, i) => (
-                      <img key={i} src={src} alt="customer" className="w-8 h-8 rounded-full border-2 border-white object-cover" loading="lazy"/>
+                    {AVATAR_STACK.slice(0,3).map((av, i) => (
+                      <img key={i} src={av.src} alt={av.alt}
+                        className="w-8 h-8 rounded-full border-2 border-white object-cover"
+                        loading="lazy" style={{ objectFit: 'cover' }} />
                     ))}
                   </div>
                   <div>
@@ -277,10 +383,11 @@ export default function Home() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* STATS */}
+      
       <section style={{ background: '#04342C' }} className="py-12" aria-label="iPROFIXER statistics">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x divide-white/10">
@@ -292,7 +399,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      
       <section id="services" className="py-20 bg-bg-soft" aria-label="Home services available in Malaysia">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div ref={r1} className="reveal text-center mb-12">
@@ -302,16 +409,30 @@ export default function Home() {
           </div>
           <div ref={servicesRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map((s) => (
-              <div key={s.name} className="service-card reveal-card">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center mb-1 shadow-md flex-shrink-0`} aria-hidden="true">
-                  {s.icon}
+              <div key={s.name} className="service-card reveal-card overflow-hidden !p-0 !gap-0">
+                {/* Service image */}
+                <div className="relative w-full h-36 overflow-hidden">
+                  <img
+                    src={s.img}
+                    alt={s.imgAlt}
+                    className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover' }}
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className={`absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center shadow-md`} aria-hidden="true">
+                    {s.icon}
+                  </div>
                 </div>
-                <h3 className="font-head font-bold text-lg text-text">{s.name}</h3>
-                <p className="text-muted text-sm leading-relaxed flex-1">{s.desc}</p>
-                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-                  className="text-teal font-semibold text-sm hover:text-teal-dark transition-colors">
-                  Book Now &#8594;
-                </a>
+                {/* Card body */}
+                <div className="flex flex-col gap-2 p-5 flex-1">
+                  <h3 className="font-head font-bold text-lg text-text">{s.name}</h3>
+                  <p className="text-muted text-sm leading-relaxed flex-1">{s.desc}</p>
+                  <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+                    className="text-teal font-semibold text-sm hover:text-teal-dark transition-colors mt-1">
+                    Book Now &#8594;
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -324,7 +445,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      
       <section id="how-it-works" className="py-20 bg-white" aria-label="How iPROFIXER booking works">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div ref={r3} className="reveal text-center mb-14">
@@ -332,22 +453,30 @@ export default function Home() {
             <h2 className="font-head font-bold text-3xl sm:text-4xl text-text mt-2 mb-3">Booking Takes Less Than 2 Minutes</h2>
             <p className="text-muted max-w-xl mx-auto">We've made it as simple as possible. Here's how it works.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-            {[
-              { n: '1', title: 'Tell us what you need',       desc: 'Pick your service and area. Takes 30 seconds.' },
-              { n: '2', title: 'We match you with a pro',     desc: "You'll get a WhatsApp message with your matched professional within 15 minutes." },
-              { n: '3', title: 'They show up and do the job', desc: 'Vetted, insured, on time. You can track them live.' },
-              { n: '4', title: 'Pay after. Rate your pro',    desc: "Cash, DuitNow, TnG or GrabPay. Only pay when you're satisfied." },
-            ].map((step, i) => (
-              <div key={step.n} ref={[r4,r5,r6,r7][i]} className="reveal flex flex-col items-center text-center gap-3 relative">
-                <div className="w-14 h-14 rounded-full bg-teal flex items-center justify-center text-white font-head font-bold text-xl flex-shrink-0 z-10">
-                  {step.n}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {HIW_STEPS.map((step, i) => (
+              <div key={step.n} ref={[r4,r5,r6,r7][i]} className="reveal flex flex-col gap-4 relative">
+                {/* Step photo */}
+                <div className="relative w-full h-40 rounded-xl overflow-hidden shadow-md">
+                  <img
+                    src={step.img}
+                    alt={step.imgAlt}
+                    className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover' }}
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-3 left-3 w-9 h-9 rounded-full bg-teal flex items-center justify-center text-white font-head font-bold text-base shadow-md">
+                    {step.n}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-head font-semibold text-base text-text mb-1">{step.title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{step.desc}</p>
                 </div>
                 {i < 3 && (
-                  <div className="hidden lg:block absolute top-7 left-[calc(50%+28px)] right-[calc(-50%+28px)] border-t-2 border-dashed border-teal/25" aria-hidden="true" />
+                  <div className="hidden lg:block absolute top-20 left-[calc(100%+0px)] w-6 text-center text-teal/40 font-bold text-lg" aria-hidden="true">&#8594;</div>
                 )}
-                <h3 className="font-head font-semibold text-base text-text">{step.title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -360,44 +489,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TWO-SIDED PLATFORM */}
+      
       <section id="for-pros" className="py-20 bg-bg-soft" aria-label="iPROFIXER for homeowners and professionals">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-6">
+            {/* For Homeowners */}
             <div ref={r9} className="reveal platform-card relative overflow-hidden">
-              <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full w-fit relative z-10">FOR HOMEOWNERS</span>
-              <h3 className="font-head font-bold text-2xl text-text relative z-10">Find someone you can actually trust</h3>
-              <p className="text-muted text-sm leading-relaxed relative z-10">We check every professional before they join. Background check, IC verification, skills test and insurance. So you don't have to worry.</p>
-              <ul className="space-y-2 relative z-10">
+              <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full w-fit">FOR HOMEOWNERS</span>
+              <h3 className="font-head font-bold text-2xl text-text">Find someone you can actually trust</h3>
+              <p className="text-muted text-sm leading-relaxed">We check every professional before they join. Background check, IC verification, skills test and insurance.</p>
+              <ul className="space-y-2">
                 {['Fixed upfront pricing - no surprises','Same-day bookings available','Live tracking when your pro is on the way',"Free replacement if you're not satisfied"].map(b => (
                   <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
                 ))}
               </ul>
-              <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer" className="btn-orange w-fit relative z-10">Book Your First Service &#8594;</a>
+              <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer" className="btn-orange w-fit">Book Your First Service &#8594;</a>
             </div>
-            <div ref={r10} className="reveal platform-card relative overflow-hidden" style={{ background: '#F0FBF7', borderColor: '#B2E0D2' }}>
-              <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full w-fit relative z-10">FOR PROFESSIONALS</span>
-              <h3 className="font-head font-bold text-2xl text-text relative z-10">Earn more. Work on your own terms.</h3>
-              <p className="text-muted text-sm leading-relaxed relative z-10">Join 500+ professionals already earning through iPROFIXER. Set your own hours, pick your own jobs and get paid straight after every booking.</p>
-              <ul className="space-y-2 relative z-10">
-                {['Free to join - no monthly fee','Set your own rates and availability','Get client requests in your city','Payments secured on every job'].map(b => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
-                ))}
-              </ul>
-              <Link to="/for-professionals" className="btn-teal w-fit relative z-10">Join as a Professional &#8594;</Link>
+
+            {/* For Professionals - with real photo */}
+            <div ref={r10} className="reveal relative overflow-hidden rounded-xl2 border border-border" style={{ background: '#F0FBF7', borderColor: '#B2E0D2' }}>
+              {/* Pro photo */}
+              <div className="relative w-full h-48 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+                  alt="Confident Southeast Asian professional handyman ready for work"
+                  className="w-full h-full object-cover object-top"
+                  style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#F0FBF7]/90 to-transparent" />
+                <div className="absolute bottom-3 left-4">
+                  <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full">FOR PROFESSIONALS</span>
+                </div>
+              </div>
+              <div className="p-8 pt-4 flex flex-col gap-4">
+                <h3 className="font-head font-bold text-2xl text-text">Earn more. Work on your own terms.</h3>
+                <p className="text-muted text-sm leading-relaxed">Join 500+ professionals already earning through iPROFIXER. Set your own hours, pick your own jobs and get paid straight after every booking.</p>
+                <ul className="space-y-2">
+                  {['Free to join - no monthly fee','Set your own rates and availability','Get client requests in your city','Payments secured on every job'].map(b => (
+                    <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
+                  ))}
+                </ul>
+                <Link to="/for-professionals" className="btn-teal w-fit">Join as a Professional &#8594;</Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      
       <section className="py-20 bg-white" aria-label="Customer reviews for iPROFIXER home services">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div ref={r11} className="reveal text-center mb-8">
             <span className="section-label">Real Reviews</span>
             <h2 className="font-head font-bold text-3xl sm:text-4xl text-text mt-2 mb-4">What Our Customers Say</h2>
+            {/* Google Rating Badge */}
             <div className="inline-flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-5 py-3 shadow-sm">
-              <svg viewBox="0 0 24 24" width="26" height="26" aria-label="Google reviews">
+              <svg viewBox="0 0 24 24" width="26" height="26" aria-label="Google">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
@@ -420,9 +568,13 @@ export default function Home() {
                 </div>
                 <p className="text-muted text-sm leading-relaxed italic flex-1">"{t.text}"</p>
                 <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
-                  <img src={t.img} alt={t.name}
-                    className="w-11 h-11 rounded-full object-cover border-2 border-teal-light flex-shrink-0"
-                    loading="lazy"/>
+                  <img
+                    src={t.img}
+                    alt={`${t.name} from ${t.loc} - iPROFIXER customer review`}
+                    className="w-12 h-12 rounded-full object-cover border-2 border-teal-light flex-shrink-0"
+                    style={{ objectFit: 'cover', borderRadius: '50%', width: '48px', height: '48px' }}
+                    loading="lazy"
+                  />
                   <div>
                     <p className="font-semibold text-text text-sm">{t.name}</p>
                     <p className="text-muted text-xs">{t.loc}</p>
@@ -434,7 +586,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COVERAGE */}
+      
       <section className="py-20 bg-bg-soft" aria-label="Coverage areas in Klang Valley">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div ref={r12} className="reveal text-center mb-10">
@@ -453,7 +605,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ */}
+      
       <section id="faq" className="py-20" style={{ background: '#F8FAF9' }} aria-label="Frequently asked questions about iPROFIXER">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -468,7 +620,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      
       <section className="py-16 px-4" style={{ background: '#0B6B52' }} aria-label="Book home services in Malaysia">
         <div className="max-w-content mx-auto text-center">
           <h2 className="font-head font-bold text-3xl sm:text-4xl text-white mb-3">Ready to Book? Let's Sort It Out Today.</h2>
@@ -488,7 +640,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MOBILE BOTTOM BAR */}
+      
       <div className="mobile-bar" aria-label="Mobile quick actions">
         <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
           className="flex-1 bg-orange text-white font-bold text-sm py-4 text-center hover:bg-orange-dark transition-colors">
