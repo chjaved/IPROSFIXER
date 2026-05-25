@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronDown, Star, ArrowRight, CheckCircle, Phone, MapPin, Mail } from 'lucide-react'
+import { ChevronDown, Star, ArrowRight, CheckCircle, Phone, MapPin, Mail, Smartphone, Download } from 'lucide-react'
 import AppBadges from '../components/AppBadges.jsx'
-import { useApi } from '../hooks/useApi.js'
 
 /* ─── REAL PHOTO URLs (Unsplash — free, no auth needed) ─────────────────────── */
 const PHOTOS = {
@@ -29,11 +28,18 @@ const STATS = [
   { num: '50+',    label: 'Services Available' },
 ]
 
+const PHOTOS_CLEANING = [
+  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80',
+  'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=800&q=80',
+  'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
+  'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+]
+
 const SERVICES = [
-  { img: PHOTOS.electrician, tag: 'ELECTRICAL', title: 'Electricians',       desc: 'Wiring, DB box, switches, smart home — fully certified, TNB compliant.' },
-  { img: PHOTOS.acRepair,    tag: 'COOLING',    title: 'AC Repair & Service', desc: 'Chemical wash, gas top-up, compressor repair for all AC brands.' },
-  { img: PHOTOS.cleaning,    tag: 'CLEANING',   title: 'Cleaning Services',   desc: 'Deep clean, post-reno, sofa & carpet — eco-friendly products.' },
-  { img: PHOTOS.caregiver,   tag: 'CARE',       title: 'Caregiver',           desc: 'Elderly, post-op & special needs care — trained and background-checked.' },
+  { img: PHOTOS_CLEANING[0], tag: 'DEEP CLEAN',     title: 'Home Deep Clean',          desc: 'Full top-to-bottom deep cleaning for kitchens, bathrooms & living areas — eco-friendly products.' },
+  { img: PHOTOS_CLEANING[1], tag: 'HOUSEKEEPING',   title: 'Regular Maid Service',     desc: 'Weekly or bi-weekly part-time maid — vetted, insured, flexible scheduling.' },
+  { img: PHOTOS_CLEANING[2], tag: 'SOFA & CARPET',  title: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment and carpet shampooing.' },
+  { img: PHOTOS_CLEANING[3], tag: 'POST-RENO',      title: 'Post-Renovation Clean',    desc: 'Industrial-grade clean — remove cement dust, debris and construction residue fast.' },
 ]
 
 const FEATURES = [
@@ -76,93 +82,137 @@ const FEATURES = [
 ]
 
 const TESTIMONIALS = [
-  { photo: PHOTOS.review1, name: 'Ahmad Hafizi',  loc: 'Petaling Jaya',  text: 'The electrician arrived within 2 hours. Fixed our DB box and replaced all switches. Super professional. 10/10.' },
-  { photo: PHOTOS.review2, name: 'Raj Kumar',     loc: 'Cheras',          text: 'Washing machine was leaking. The repair guy came same afternoon, fixed it in under an hour. Very reasonable price.' },
-  { photo: PHOTOS.review3, name: 'Nurul Kasih',   loc: 'Ara Damansara',   text: 'Booked AC service for 3 units. Technician caught a gas leak early. Saved so much money and hassle!' },
-  { photo: PHOTOS.review4, name: 'James Lim',     loc: 'Bangsar South',   text: 'Used the caregiver service for my mother post-surgery. Incredibly patient staff. I feel safe leaving mum with them.' },
-  { photo: PHOTOS.review5, name: 'Lily Heng',     loc: 'Subang Jaya',     text: 'My maid through iPROFIXER is trustworthy and hardworking. House spotless after post-raya cleaning. Highly recommended!' },
-  { photo: PHOTOS.review6, name: 'Azman Mokhtar', loc: 'Shah Alam',       text: 'Weekly cleaning subscription is the best thing I found this year. Consistent quality every single time.' },
+  { photo: PHOTOS.review1, name: 'Ahmad Hafizi',  loc: 'Petaling Jaya',  text: 'Booked a full home deep clean after moving in. The team arrived on time and the house was spotless. Highly recommend!' },
+  { photo: PHOTOS.review2, name: 'Raj Kumar',     loc: 'Cheras',          text: 'Post-reno cleaning was incredible. Cement dust gone, tiles polished. Could not believe how good it looked after.' },
+  { photo: PHOTOS.review3, name: 'Nurul Kasih',   loc: 'Ara Damansara',   text: 'My weekly cleaner Kak Siti is amazing. Same person every week, knows exactly how I like things. 10/10.' },
+  { photo: PHOTOS.review4, name: 'James Lim',     loc: 'Bangsar South',   text: 'Sofa extraction cleaning was worth every ringgit. Stains I thought were permanent just vanished. Super professional.' },
+  { photo: PHOTOS.review5, name: 'Lily Heng',     loc: 'Subang Jaya',     text: 'Booked post-event cleanup after my daughter\'s birthday party. 2 hours and the house was back to normal. Lifesaver!' },
+  { photo: PHOTOS.review6, name: 'Azman Mokhtar', loc: 'Shah Alam',       text: 'Weekly cleaning subscription is the best thing I found this year. Consistent quality and always eco-friendly products.' },
 ]
 
-const BIG_CITIES = ['Kuala Lumpur', 'Petaling Jaya', 'Subang Jaya', 'Shah Alam', 'Cheras', 'Klang', 'Putrajaya', 'Cyberjaya']
+const BIG_CITIES = [
+  { name: 'Kuala Lumpur',  tag: 'KL' },
+  { name: 'Petaling Jaya', tag: 'PJ' },
+  { name: 'Subang Jaya',   tag: 'SJ' },
+  { name: 'Shah Alam',     tag: 'SA' },
+  { name: 'Cheras',        tag: 'CH' },
+  { name: 'Klang',         tag: 'KG' },
+  { name: 'Putrajaya',     tag: 'PJ' },
+  { name: 'Cyberjaya',     tag: 'CJ' },
+  { name: 'Ampang',        tag: 'AM' },
+  { name: 'Bangsar',       tag: 'BS' },
+  { name: 'Mont Kiara',    tag: 'MK' },
+  { name: 'Damansara',     tag: 'DM' },
+]
 
 const FAQS = [
-  { q: 'How do I book a service?',           a: 'Download our iOS or Android app, or use the booking form on this page. We confirm within 30 minutes.' },
-  { q: 'What payment methods are accepted?', a: "Cash, DuitNow, TnG eWallet and GrabPay. Payment after job completion — no upfront deposits." },
-  { q: 'Which areas do you cover?',          a: `Major Klang Valley cities: ${BIG_CITIES.slice(0, 6).join(', ')} and more.` },
-  { q: 'Is there a satisfaction guarantee?', a: 'Yes — unhappy within 24 hours? We send someone back for free. All pros are vetted, trained and insured.' },
-  { q: 'Can I reschedule or cancel?',        a: 'Yes, up to 4 hours before the job at no charge. Contact us via the app with your booking reference.' },
-  { q: 'How do I join as a professional?',   a: 'Visit our For Professionals page or WhatsApp us. Applications reviewed in 48 hours. No joining fee.' },
+  { q: 'How do I book a cleaning?',           a: 'Download the iPROFIXER app (iOS or Android), select your cleaning type, pick a city and time. Confirmed within 30 minutes.' },
+  { q: 'What payment methods are accepted?', a: 'Cash, DuitNow, TnG eWallet and GrabPay. Payment after job completion — no upfront deposits.' },
+  { q: 'Which cities do you cover?',          a: 'Kuala Lumpur, Petaling Jaya, Subang Jaya, Shah Alam, Cheras, Klang, Putrajaya, Cyberjaya, Ampang, Bangsar, Mont Kiara and Damansara.' },
+  { q: 'Is there a satisfaction guarantee?', a: 'Yes — unhappy within 24 hours? We send a cleaner back for free. All staff are vetted, trained and insured.' },
+  { q: 'Can I reschedule or cancel?',        a: 'Yes, up to 4 hours before the booking at no charge. Manage everything in the app.' },
+  { q: 'How do I join as a cleaning professional?', a: 'Visit our For Professionals page or WhatsApp us. Applications reviewed in 48 hours. No joining fee.' },
 ]
 
 const PARTNERS = ['Maxis','Grab','Sunway','IGB','Tropicana','UEM Sunrise','IOI Properties','SP Setia','CIMB','Maybank']
 
-/* ─── BOOKING FORM ──────────────────────────────────────────────────────────── */
-function BookingForm() {
-  const { post, loading, success, error } = useApi()
-  const [form, setForm] = useState({ service: '', area: '', name: '', phone: '', date: '' })
-  const handle = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const submit = async e => { e.preventDefault(); await post('booking', form) }
+/* ─── HERO APP CTA CARD ─────────────────────────────────────────────────────── */
+function HeroAppCard() {
+  return (
+    <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 flex flex-col gap-6">
+      <div>
+        <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 rounded-full px-3 py-1 mb-4">
+          <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+          <span className="text-gold text-xs font-bold uppercase tracking-widest">Book in 60 seconds</span>
+        </div>
+        <h3 className="font-head font-black text-3xl text-brand uppercase tracking-tight leading-tight mb-2">
+          Malaysia's #1<br />Cleaning App
+        </h3>
+        <p className="text-gray-500 text-sm font-body leading-relaxed">
+          Book vetted cleaners in KL, PJ, Shah Alam & 9 more cities — same-day, tracked, guaranteed.
+        </p>
+      </div>
 
-  if (success) return (
-    <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
-      <div className="text-5xl mb-3">✅</div>
-      <div className="font-head font-bold text-xl text-green-800 mb-1">Request Sent!</div>
-      <p className="text-green-700 text-sm">{success}</p>
+      <div className="space-y-3">
+        {[
+          'Same-day & scheduled bookings',
+          'Live GPS tracking of your cleaner',
+          'Pay after — DuitNow, TnG, GrabPay',
+          '24h satisfaction guarantee',
+        ].map(t => (
+          <div key={t} className="flex items-center gap-3 text-sm text-gray-700 font-body">
+            <span className="w-5 h-5 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
+              <CheckCircle size={12} className="text-brand" />
+            </span>
+            {t}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-brand hover:bg-brand-light text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200 shadow-lg">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+          Download on Google Play
+        </a>
+        <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200 shadow-lg">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+          Download on App Store
+        </a>
+        <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book via WhatsApp
+        </a>
+      </div>
+
+      <div className="flex items-center justify-center gap-6 pt-1 border-t border-gray-100">
+        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> Free download</span>
+        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> No signup fee</span>
+        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> Pay after job</span>
+      </div>
     </div>
   )
+}
 
+/* ─── CITIES GRID ───────────────────────────────────────────────────────────── */
+function CitiesGrid() {
   return (
-    <form onSubmit={submit} className="bg-white rounded-2xl shadow-2xl p-7 space-y-4 border border-gray-100">
-      <div className="mb-2">
-        <h3 className="font-head font-bold text-2xl text-brand tracking-wide">GET A FREE QUOTE</h3>
-        <p className="text-gray-400 text-sm mt-0.5">We confirm within 30 minutes</p>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="form-label">Service *</label>
-          <select name="service" value={form.service} onChange={handle} required className="form-input text-sm">
-            <option value="">Select service</option>
-            {['Electrician','AC Repair','Appliance Repair','Caregiver','Cleaning','Laundry','House Maid'].map(s => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
+    <section className="py-16 bg-brand">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10">
+          <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">Coverage</span>
+          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight">We Clean Across Malaysia</h2>
+          <p className="text-white/50 mt-3 font-body">Professional cleaning in all major Klang Valley cities — same prices, same standards.</p>
         </div>
-        <div>
-          <label className="form-label">Area *</label>
-          <select name="area" value={form.area} onChange={handle} required className="form-input text-sm">
-            <option value="">Select area</option>
-            {['Kuala Lumpur','Petaling Jaya','Ara Damansara','Subang Jaya','Shah Alam','Klang','Cheras','Ampang','Putrajaya'].map(a => (
-              <option key={a}>{a}</option>
-            ))}
-          </select>
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-10">
+          {BIG_CITIES.map(c => (
+            <div key={c.name} className="group relative bg-white/5 hover:bg-gold/15 border border-white/10 hover:border-gold/50 rounded-2xl p-4 text-center transition-all duration-200 cursor-default">
+              <div className="font-head font-black text-lg text-gold mb-1">{c.tag}</div>
+              <div className="text-white/70 text-xs font-body">{c.name}</div>
+            </div>
+          ))}
         </div>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="form-label">Your Name</label>
-          <input name="name" value={form.name} onChange={handle} placeholder="Full name" className="form-input text-sm" />
-        </div>
-        <div>
-          <label className="form-label">Phone</label>
-          <input name="phone" value={form.phone} onChange={handle} placeholder="+60 1X-XXXX" className="form-input text-sm" />
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all shadow-xl">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+            Get on Google Play
+          </a>
+          <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+            Get on App Store
+          </a>
+          <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Book via WhatsApp
+          </a>
         </div>
       </div>
-      <div>
-        <label className="form-label">Preferred Date</label>
-        <input type="date" name="date" value={form.date} onChange={handle} className="form-input text-sm" />
-      </div>
-      {error && <p className="text-red-500 text-xs bg-red-50 p-2 rounded-lg">{error}</p>}
-      <button type="submit" disabled={loading}
-        className="w-full bg-gold hover:bg-gold-dark text-brand font-head font-bold text-lg tracking-wide py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-gold/30">
-        {loading ? 'SENDING…' : 'GET FREE QUOTE →'}
-      </button>
-      <div className="flex items-center justify-center gap-4 pt-1">
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={12} className="text-green-500" /> No credit card</span>
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={12} className="text-green-500" /> Free quote</span>
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={12} className="text-green-500" /> No commitment</span>
-      </div>
-    </form>
+    </section>
   )
 }
 
@@ -181,48 +231,32 @@ function FaqItem({ q, a }) {
   )
 }
 
-/* ─── CONTACT FORM ──────────────────────────────────────────────────────────── */
-function ContactBandForm() {
-  const { post, loading, success, error } = useApi()
-  const [form, setForm] = useState({ name: '', phone: '', email: '', subject: 'Book a Service', message: '' })
-  const handle = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const submit = async e => { e.preventDefault(); await post('contact', form) }
-
-  if (success) return (
-    <div className="bg-white rounded-2xl p-8 text-center">
-      <div className="text-5xl mb-3">✅</div>
-      <div className="font-head font-bold text-xl text-brand">{success}</div>
-    </div>
-  )
-
+/* ─── CONTACT BAND APP CTA ───────────────────────────────────────────────────── */
+function ContactBandCTA() {
   return (
-    <form onSubmit={submit} className="bg-white rounded-2xl p-7 shadow-xl space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="form-label">Name *</label>
-          <input name="name" value={form.name} onChange={handle} required placeholder="Your name" className="form-input" />
-        </div>
-        <div>
-          <label className="form-label">Phone *</label>
-          <input name="phone" value={form.phone} onChange={handle} required placeholder="+60 1X-XXXX" className="form-input" />
-        </div>
-      </div>
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col gap-6">
       <div>
-        <label className="form-label">Email</label>
-        <input type="email" name="email" value={form.email} onChange={handle} placeholder="you@email.com" className="form-input" />
+        <div className="font-head font-black text-2xl text-gold uppercase tracking-tight mb-2">Download & Start Booking</div>
+        <p className="text-white/60 text-sm font-body leading-relaxed">The fastest way to book a cleaner in Malaysia. Available on iOS and Android. Free to download.</p>
       </div>
-      <div>
-        <label className="form-label">Service Needed</label>
-        <select name="subject" value={form.subject} onChange={handle} className="form-input">
-          {['Book a Service','General Enquiry','Join as a Professional','Other'].map(s => <option key={s}>{s}</option>)}
-        </select>
+      <div className="flex flex-col gap-3">
+        <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+          Google Play
+        </a>
+        <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+          App Store
+        </a>
+        <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us
+        </a>
       </div>
-      {error && <p className="text-red-500 text-xs bg-red-50 p-2 rounded-lg">{error}</p>}
-      <button type="submit" disabled={loading}
-        className="w-full bg-gold hover:bg-gold-dark text-brand font-head font-bold text-lg tracking-wide py-3.5 rounded-xl transition-all">
-        {loading ? 'SENDING…' : 'SUBMIT →'}
-      </button>
-    </form>
+    </div>
   )
 }
 
@@ -321,9 +355,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Booking Form */}
+            {/* Right: App CTA Card */}
             <div className="lg:justify-self-end w-full max-w-md lg:ml-auto">
-              <BookingForm />
+              <HeroAppCard />
             </div>
           </div>
         </div>
@@ -350,8 +384,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">What We Offer</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Our Home Services</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto font-body">50+ services. 500+ vetted professionals. One platform.</p>
+            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Professional Cleaning Services</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto font-body">Vetted cleaners across 12 major Malaysian cities — book in 60 seconds on the app.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {SERVICES.map(s => (
@@ -370,11 +404,22 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <Link to="/services"
+          <div className="flex flex-wrap gap-4 justify-center mt-10">
+            <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-brand text-white font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl hover:bg-brand-light transition-all duration-200">
-              View All 50+ Services <ArrowRight size={16} />
-            </Link>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+              Google Play
+            </a>
+            <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all duration-200">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+              App Store
+            </a>
+            <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all duration-200">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
           </div>
         </div>
       </section>
@@ -536,18 +581,23 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          CONTACT BAND — dark with form
+          CITIES COVERAGE
+      ══════════════════════════════════════════════════════ */}
+      <CitiesGrid />
+
+      {/* ══════════════════════════════════════════════════════
+          CONTACT BAND — app download focus
       ══════════════════════════════════════════════════════ */}
       <section className="bg-brand py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-14 items-start">
             <div>
-              <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Get In Touch</span>
+              <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Book a Cleaning Today</span>
               <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight mt-2 mb-4 leading-tight">
-                Let Us Help<br />Your Home
+                Clean Home.<br />Happy Life.
               </h2>
               <p className="text-white/60 text-base leading-relaxed mb-8 font-body max-w-sm">
-                Whether you need home services or want to join our professional network — we respond in under 10 minutes on WhatsApp.
+                Professional cleaning services across Kuala Lumpur, Petaling Jaya, Shah Alam and 9 more cities. Respond in under 10 minutes on WhatsApp.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -562,13 +612,10 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* App badges */}
               <AppBadges className="mb-8" />
-
-              {/* Large logo in footer CTA */}
               <img src="/logo.png" alt="iPROFIXER" className="h-16 w-auto opacity-90" style={{ mixBlendMode: 'screen' }} />
             </div>
-            <div><ContactBandForm /></div>
+            <div><ContactBandCTA /></div>
           </div>
         </div>
       </section>

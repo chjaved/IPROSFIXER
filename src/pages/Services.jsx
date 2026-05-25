@@ -36,66 +36,30 @@ const IMG = {
 
 const CATEGORIES = [
   {
-    id: 'electrician', tag: 'Electrical', title: 'Electricians',
-    tagImg: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80',
-    cards: [
-      { img: IMG.wiring,  name: 'Wiring & Rewiring',    desc: 'Full home wiring, partial rewiring, conduit installation and cable management.', feats: ['New wiring installation','Faulty wire tracing & repair','Safety certification available'], wa: 'Wiring service' },
-      { img: IMG.switch,  name: 'Switch & Socket Repair', desc: 'Replace broken switches, power points, USB sockets and smart switches. Fast turnaround.', feats: ['All brands & types','Same-day service available','Child-safe socket options'], wa: 'Switch repair' },
-      { img: IMG.db,      name: 'DB Box & MCB',          desc: 'Distribution board upgrade, MCB replacement, ELCB installation and TNB compliance checks.', feats: ['TNB compliant work','ELCB / RCD installation','Full board replacement'], wa: 'DB Box service' },
-    ],
-  },
-  {
-    id: 'ac', tag: 'Cooling', title: 'AC Repair & Service',
-    tagImg: 'https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?w=1200&q=80',
-    cards: [
-      { img: IMG.acClean, name: 'AC Deep Cleaning',   desc: 'Chemical wash, filter cleaning, drainage flush and coil cleaning for all AC brands.', feats: ['All brands supported','Removes mould & bacteria','Improves cooling efficiency'], wa: 'AC cleaning' },
-      { img: IMG.acGas,   name: 'Gas Top-Up',         desc: 'Refrigerant top-up with leak detection. Restore your AC cooling power.', feats: ['All refrigerant types','Leak detection included','Transparent pricing'], wa: 'AC gas top-up' },
-      { img: IMG.acRepair,name: 'Compressor & Parts', desc: 'Diagnose and repair AC compressors, PCB boards, fan motors from all major brands.', feats: ['Daikin, Panasonic, Midea & more','Genuine spare parts','90-day repair warranty'], wa: 'AC repair' },
-    ],
-  },
-  {
-    id: 'appliances', tag: 'Appliances', title: 'Appliance Repair',
-    tagImg: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
-    cards: [
-      { img: IMG.washingMach, name: 'Washing Machine',  desc: 'Diagnose and fix drum issues, water leaks, pump failure and spin problems.', feats: ['Front & top loader','All major brands','Spare parts available'], wa: 'Washing machine repair' },
-      { img: IMG.fridge,      name: 'Fridge & Freezer', desc: 'Compressor repair, gas recharge, thermostat and door seal replacement.', feats: ['1-door to multi-door','Commercial fridges too','Same-day diagnosis'], wa: 'Fridge repair' },
-      { img: IMG.oven,        name: 'Oven & Microwave', desc: 'Heating element, magnetron, control panel and door latch repair for all oven types.', feats: ['Built-in & freestanding','Microwave & combi ovens','Safety inspection included'], wa: 'Oven repair' },
-    ],
-  },
-  {
-    id: 'caregiver', tag: 'Care Services', title: 'Caregiver',
-    tagImg: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=1200&q=80',
-    cards: [
-      { img: IMG.elderly, name: 'Elderly Care',       desc: 'Compassionate, trained caregivers for daily assistance, mobility support and companionship.', feats: ['Part-time or live-in','Background-checked staff','First aid certified'], wa: 'Elderly care' },
-      { img: IMG.postop,  name: 'Post-Op Care',        desc: 'Professional care after surgery — wound care, physiotherapy support and medication management.', feats: ['Coordinated with doctors','Daily & overnight options','Progress reporting'], wa: 'Post-op care' },
-      { img: IMG.special, name: 'Special Needs Care',  desc: 'Dedicated caregivers trained to support individuals with physical or learning disabilities.', feats: ['OKU-friendly support','Sensory-aware caregivers','Family coordination'], wa: 'Special needs care' },
-    ],
-  },
-  {
-    id: 'cleaning', tag: 'Cleaning', title: 'Cleaning Services',
+    id: 'deep-clean', tag: 'Deep Cleaning', title: 'Home Deep Clean',
     tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
-      { img: IMG.deepClean, name: 'Home Deep Clean',          desc: 'Full top-to-bottom deep cleaning including kitchen, bathrooms, bedrooms and living areas.', feats: ['Eco-friendly products','3-8 hour packages','Satisfaction guaranteed'], wa: 'Home deep cleaning' },
-      { img: IMG.renoClean, name: 'Post-Renovation Cleaning', desc: 'Remove dust, debris, cement stains and construction residue after renovation work.', feats: ['Tile & glass polishing','Dust extraction equipment','Industrial-grade cleaning'], wa: 'Post-reno cleaning' },
-      { img: IMG.sofa,      name: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment and carpet shampooing.', feats: ['Dry & wet extraction','Deodorising treatment','Quick-dry technology'], wa: 'Sofa cleaning' },
+      { img: IMG.deepClean, name: 'Full Home Deep Clean',      desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Ideal for move-in/move-out.', feats: ['Eco-friendly products','3–8 hour packages','Satisfaction guaranteed'], wa: 'Full home deep clean' },
+      { img: IMG.renoClean, name: 'Kitchen Deep Clean',        desc: 'Grease removal, cabinet wipe-down, appliance exterior clean and full floor scrub.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
+      { img: IMG.sofa,      name: 'Bathroom Deep Clean',       desc: 'Tile scrubbing, limescale removal, toilet sanitising and mirror polishing.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
     ],
   },
   {
-    id: 'laundry', tag: 'Laundry', title: 'Laundry Service',
-    tagImg: 'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=1200&q=80',
-    cards: [
-      { img: IMG.laundry,      name: 'Wash, Dry & Fold',   desc: 'Regular laundry washed, dried and neatly folded — pickup & delivery within 24-48 hours.', feats: ['Premium detergents','Colour separation','Delicate fabric care'], wa: 'Laundry service' },
-      { img: IMG.ironing,      name: 'Ironing Service',     desc: 'Professional steam ironing for shirts, pants, uniforms, curtains and bed linen.', feats: ['Steam press quality','Hanger or fold options','Next-day turnaround'], wa: 'Ironing service' },
-      { img: IMG.subscription, name: 'Weekly Subscription', desc: 'Weekly or bi-weekly laundry pickup subscription — fixed schedule, fixed price.', feats: ['Fixed weekly pricing','Dedicated laundry handler','Track via WhatsApp'], wa: 'Laundry subscription' },
-    ],
-  },
-  {
-    id: 'maid', tag: 'Housekeeping', title: 'House Maid',
+    id: 'regular-maid', tag: 'Housekeeping', title: 'Regular Maid Service',
     tagImg: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=1200&q=80',
     cards: [
-      { img: IMG.parttime,  name: 'Part-Time Maid',        desc: 'Flexible 4-8 hour cleaning sessions — weekly, bi-weekly or one-off bookings.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Part-time maid' },
-      { img: IMG.livein,    name: 'Full-Time Live-In Maid', desc: 'Dedicated full-time live-in housekeeping — cooking, cleaning, childcare and errands.', feats: ['FOMEMA certified','Replacement guarantee','6-month trial period'], wa: 'Full-time maid enquiry' },
-      { img: IMG.postEvent, name: 'Post-Event Cleanup',    desc: 'After your kenduri, birthday or gathering — restore your home to pristine condition.', feats: ['Same-day availability','Waste disposal included','2-4 hour rapid clean'], wa: 'Post-event cleanup' },
+      { img: IMG.parttime,  name: 'Part-Time Maid',           desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings for your home.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Part-time maid booking' },
+      { img: IMG.livein,    name: 'Weekly Cleaning Plan',     desc: 'A dedicated cleaner on a fixed weekly schedule — same person, same standard every time.', feats: ['Same cleaner every visit','Fixed monthly pricing','Manage via app'], wa: 'Weekly cleaning plan' },
+      { img: IMG.postEvent, name: 'Post-Event Cleanup',       desc: 'After your kenduri, birthday or gathering — restore your home to pristine condition fast.', feats: ['Same-day availability','Waste disposal included','2–4 hour rapid clean'], wa: 'Post-event cleanup' },
+    ],
+  },
+  {
+    id: 'specialised', tag: 'Specialised', title: 'Specialised Cleaning',
+    tagImg: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
+    cards: [
+      { img: IMG.renoClean,    name: 'Post-Renovation Cleaning', desc: 'Industrial-grade clean to remove cement dust, paint splatters, debris and construction residue.', feats: ['Tile & glass polishing','Dust extraction equipment','Same-day available'], wa: 'Post-reno cleaning' },
+      { img: IMG.sofa,         name: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment, carpet shampooing and deodorising.', feats: ['Dry & wet extraction','Quick-dry technology','Deodorising treatment'], wa: 'Sofa & carpet cleaning' },
+      { img: IMG.subscription, name: 'Mattress & Upholstery',    desc: 'Steam and UV cleaning for mattresses, curtains and upholstered furniture to eliminate dust mites.', feats: ['UV sanitisation','Dust mite elimination','Allergen-friendly'], wa: 'Mattress cleaning' },
     ],
   },
 ]
@@ -140,7 +104,7 @@ function ServiceCard({ card }) {
 export default function Services() {
   return (
     <>
-      <PageHero tag="What We Offer" title="All Home Services" subtitle="Professional, vetted experts for every corner of your home." breadcrumb="Services" />
+      <PageHero tag="Cleaning Services" title="Professional Cleaning" subtitle="Vetted cleaners across 12 major Malaysian cities — book in 60 seconds on the app." breadcrumb="Services" />
 
       {/* Sticky quick-nav pills */}
       <div className="bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
