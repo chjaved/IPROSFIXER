@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronDown, Star, ArrowRight, CheckCircle, Phone, MapPin, Mail, Smartphone, Download } from 'lucide-react'
+import { ChevronDown, Star, ArrowRight, Phone, MapPin, Mail } from 'lucide-react'
 import AppBadges from '../components/AppBadges.jsx'
 
 /* ─── REAL PHOTO URLs (Unsplash — free, no auth needed) ─────────────────────── */
@@ -119,59 +119,40 @@ const PARTNERS = ['Maxis','Grab','Sunway','IGB','Tropicana','UEM Sunrise','IOI P
 /* ─── HERO APP CTA CARD ─────────────────────────────────────────────────────── */
 function HeroAppCard() {
   return (
-    <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 flex flex-col gap-6">
+    <div className="bg-white rounded-2xl p-8 border border-border flex flex-col gap-6 shadow-sm">
       <div>
-        <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 rounded-full px-3 py-1 mb-4">
-          <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-          <span className="text-gold text-xs font-bold uppercase tracking-widest">Book in 60 seconds</span>
-        </div>
-        <h3 className="font-head font-black text-3xl text-brand uppercase tracking-tight leading-tight mb-2">
-          The Cleaning<br />Services Marketplace
-        </h3>
-        <p className="text-gray-500 text-sm font-body leading-relaxed">
-          Clients book vetted pros. Vendors grow their business. All in one app — KL, PJ, Shah Alam & 9 more cities.
+        <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-3">Available on iOS & Android</p>
+        <h3 className="font-head text-2xl font-bold text-brand mb-2">The cleaning services marketplace</h3>
+        <p className="text-gray-500 text-sm leading-relaxed">
+          Clients book vetted pros. Vendors grow their business. All in one app — KL, PJ, Shah Alam and 9 more cities.
         </p>
       </div>
 
-      <div className="space-y-3">
-        {[
-          'Clients: browse & book vetted pros instantly',
-          'Vendors: list your services, set your prices',
-          'Live GPS tracking on every booking',
-          'Pay after — DuitNow, TnG, GrabPay',
-        ].map(t => (
-          <div key={t} className="flex items-center gap-3 text-sm text-gray-700 font-body">
-            <span className="w-5 h-5 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
-              <CheckCircle size={12} className="text-brand" />
-            </span>
-            {t}
-          </div>
-        ))}
-      </div>
+      <ul className="space-y-2 text-sm text-gray-600">
+        <li>— Browse and book vetted cleaning vendors instantly</li>
+        <li>— Vendors list services, set their own prices</li>
+        <li>— Live tracking on every booking</li>
+        <li>— Pay after the job — DuitNow, TnG, GrabPay</li>
+      </ul>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2.5">
         <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-brand hover:bg-brand-light text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200 shadow-lg">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+          className="flex items-center justify-center gap-2 bg-brand hover:bg-brand-light text-white font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
           Download on Google Play
         </a>
         <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200 shadow-lg">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+          className="flex items-center justify-center gap-2 bg-gold hover:bg-gold-dark text-white font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
           Download on App Store
         </a>
         <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
           Book via WhatsApp
         </a>
       </div>
 
-      <div className="flex items-center justify-center gap-6 pt-1 border-t border-gray-100">
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> Free download</span>
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> No signup fee</span>
-        <span className="text-xs text-gray-400 flex items-center gap-1"><CheckCircle size={11} className="text-green-500" /> Pay after job</span>
-      </div>
+      <p className="text-xs text-gray-400 text-center pt-1 border-t border-border">Free to download · No signup fee · Pay after the job</p>
     </div>
   )
 }
@@ -179,36 +160,30 @@ function HeroAppCard() {
 /* ─── CITIES GRID ───────────────────────────────────────────────────────────── */
 function CitiesGrid() {
   return (
-    <section className="py-16 bg-brand">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-10">
-          <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">Coverage</span>
-          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight">Vendors & Clients Across Malaysia</h2>
-          <p className="text-white/50 mt-3 font-body">Our marketplace connects clients and cleaning vendors in all major Klang Valley cities.</p>
+    <section className="py-16 bg-surface border-y border-border">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="mb-8">
+          <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Coverage</p>
+          <h2 className="font-head text-2xl font-bold text-brand">Active across Malaysia</h2>
+          <p className="text-gray-500 text-sm mt-1">Our marketplace is live in all major Klang Valley cities.</p>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-10">
+        <div className="flex flex-wrap gap-2 mb-8">
           {BIG_CITIES.map(c => (
-            <div key={c.name} className="group relative bg-white/5 hover:bg-gold/15 border border-white/10 hover:border-gold/50 rounded-2xl p-4 text-center transition-all duration-200 cursor-default">
-              <div className="font-head font-black text-lg text-gold mb-1">{c.tag}</div>
-              <div className="text-white/70 text-xs font-body">{c.name}</div>
-            </div>
+            <span key={c.name} className="border border-border bg-white text-brand text-sm px-4 py-1.5 rounded-full">{c.name}</span>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-wrap gap-3">
           <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all shadow-xl">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-            Get on Google Play
+            className="inline-flex items-center gap-2 bg-brand hover:bg-brand-light text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors duration-200">
+            Google Play
           </a>
           <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
-            Get on App Store
+            className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors duration-200">
+            App Store
           </a>
           <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Book via WhatsApp
+            className="inline-flex items-center gap-2 border border-border hover:border-brand text-brand font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors duration-200">
+            WhatsApp us
           </a>
         </div>
       </div>
@@ -220,13 +195,13 @@ function CitiesGrid() {
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className={`border rounded-xl overflow-hidden transition-all duration-200 ${open ? 'border-gold/40 bg-gold/5' : 'border-gray-200 bg-white'}`}>
+    <div className="border-b border-border">
       <button onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left font-head font-bold text-base text-brand tracking-wide hover:bg-gold/5 transition-colors">
+        className="w-full flex items-center justify-between py-4 text-left font-semibold text-sm text-brand hover:text-gold transition-colors">
         {q}
-        <ChevronDown size={17} className={`flex-shrink-0 ml-3 text-gold transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown size={15} className={`flex-shrink-0 ml-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
-      {open && <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gold/20 pt-3">{a}</div>}
+      {open && <div className="pb-4 text-sm text-gray-500 leading-relaxed">{a}</div>}
     </div>
   )
 }
@@ -234,26 +209,23 @@ function FaqItem({ q, a }) {
 /* ─── CONTACT BAND APP CTA ───────────────────────────────────────────────────── */
 function ContactBandCTA() {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col gap-6">
+    <div className="bg-white/8 border border-white/10 rounded-xl p-7 flex flex-col gap-5">
       <div>
-        <div className="font-head font-black text-2xl text-gold uppercase tracking-tight mb-2">Download & Start Booking</div>
-        <p className="text-white/60 text-sm font-body leading-relaxed">The fastest way to book a cleaner in Malaysia. Available on iOS and Android. Free to download.</p>
+        <h3 className="font-head text-xl font-bold text-white mb-1">Download the app</h3>
+        <p className="text-white/55 text-sm leading-relaxed">Book a cleaning professional or list your business. Free on iOS and Android.</p>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2.5">
         <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+          className="flex items-center justify-center bg-white hover:bg-gray-100 text-brand font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
           Google Play
         </a>
         <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
+          className="flex items-center justify-center bg-gold hover:bg-gold-dark text-white font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
           App Store
         </a>
         <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide py-4 rounded-2xl transition-all duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp Us
+          className="flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold text-sm py-3 rounded-lg transition-colors duration-200">
+          WhatsApp us
         </a>
       </div>
     </div>
@@ -285,73 +257,50 @@ export default function Home() {
 
             {/* Left: Copy + mascot logo */}
             <div>
-              <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 rounded-full px-4 py-1.5 mb-5">
-                <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-                <span className="text-gold text-xs font-bold uppercase tracking-widest">Malaysia's #1 Cleaning Services Marketplace</span>
-              </div>
+              <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-4">Cleaning Services Marketplace · Malaysia</p>
 
-              <h1 className="font-head font-black text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.0] mb-6 tracking-tight uppercase">
-                Connect Clients<br />
-                <span className="text-gold italic">With Cleaning</span><br />
-                Professionals
+              <h1 className="font-head text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
+                Connect with vetted cleaning professionals
               </h1>
 
-              <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-lg font-body">
-                iPROFIXER is a multi-vendor marketplace — clients find and book vetted cleaning professionals, vendors grow their business. One platform, two sides.
+              <p className="text-white/65 text-lg leading-relaxed mb-8 max-w-lg">
+                iPROFIXER is a multi-vendor marketplace. Clients find and book cleaning professionals. Vendors list their services and grow their client base.
               </p>
 
               {/* Stats row */}
-              <div className="flex flex-wrap gap-0 mb-8 border-l-2 border-gold/30 pl-5">
-                {STATS.map((s, i) => (
-                  <div key={s.label} className={`pr-8 ${i < STATS.length - 1 ? 'border-r border-white/20 mr-8' : ''}`}>
-                    <div className="font-head font-black text-3xl text-gold">{s.num}</div>
-                    <div className="text-white/55 text-xs mt-0.5 font-body">{s.label}</div>
+              <div className="flex flex-wrap gap-x-8 gap-y-3 mb-8">
+                {STATS.map(s => (
+                  <div key={s.label}>
+                    <div className="font-head text-2xl font-bold text-gold">{s.num}</div>
+                    <div className="text-white/50 text-xs mt-0.5">{s.label}</div>
                   </div>
                 ))}
               </div>
 
-              {/* App Store Download Buttons */}
-              <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex flex-wrap gap-3 mb-5">
                 <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-white hover:bg-gray-50 text-brand font-bold px-5 py-3 rounded-xl transition-all duration-200 shadow-lg">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                  <div className="text-left">
-                    <div className="text-[10px] leading-none uppercase tracking-wide">Get it on</div>
-                    <div className="text-sm font-head font-black leading-none">Google Play</div>
-                  </div>
+                  className="bg-white hover:bg-gray-100 text-brand font-semibold text-sm px-5 py-3 rounded-lg transition-colors">
+                  Google Play
                 </a>
                 <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-5 py-3 rounded-xl transition-all duration-200">
-                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
-                  <div className="text-left">
-                    <div className="text-[10px] leading-none uppercase tracking-wide">Download on the</div>
-                    <div className="text-sm font-head font-black leading-none">App Store</div>
-                  </div>
+                  className="bg-gold hover:bg-gold-dark text-white font-semibold text-sm px-5 py-3 rounded-lg transition-colors">
+                  App Store
+                </a>
+                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+                  className="border border-white/25 hover:border-white/50 text-white/80 font-semibold text-sm px-5 py-3 rounded-lg transition-colors">
+                  WhatsApp
                 </a>
               </div>
+              <Link to="/services" className="text-sm text-white/40 hover:text-white/70 transition-colors">Browse services on web →</Link>
 
-              {/* Alternative: Browse Services Link */}
-              <Link to="/services"
-                className="inline-flex items-center gap-2 text-gold hover:text-white font-head font-bold text-sm uppercase tracking-wide transition-all duration-200">
-                Or browse services on web <ArrowRight size={14} />
-              </Link>
-
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-2 mt-6">
-                {[
-                  { icon: 'shield', text: 'Background Checked' },
-                  { icon: 'lock', text: 'Fully Insured' },
-                  { icon: 'star', text: '98% Satisfaction' },
-                  { icon: 'phone', text: 'iOS & Android' },
-                ].map(({ icon, text }) => (
-                  <span key={text} className="flex items-center gap-1.5 text-xs bg-white/8 border border-white/15 text-white/65 px-3.5 py-1.5 rounded-full font-body">
-                    {icon === 'shield' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
-                    {icon === 'lock' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
-                    {icon === 'star' && <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>}
-                    {icon === 'phone' && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>}
-                    {text}
-                  </span>
-                ))}
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-6 text-xs text-white/40">
+                <span>Background checked</span>
+                <span>·</span>
+                <span>Fully insured</span>
+                <span>·</span>
+                <span>98% satisfaction</span>
+                <span>·</span>
+                <span>iOS & Android</span>
               </div>
             </div>
 
@@ -366,13 +315,10 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           PARTNER TICKER
       ══════════════════════════════════════════════════════ */}
-      <div className="bg-gray-50 border-y border-gray-200 py-4 overflow-hidden">
+      <div className="bg-surface border-y border-border py-3 overflow-hidden">
         <div className="ticker-track">
           {[...PARTNERS, ...PARTNERS].map((p, i) => (
-            <div key={i} className="flex-shrink-0 mx-10 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-              <span className="text-gray-300 font-head font-black text-base uppercase tracking-widest select-none">{p}</span>
-            </div>
+            <span key={i} className="flex-shrink-0 mx-8 text-gray-300 text-xs font-semibold uppercase tracking-widest select-none">{p}</span>
           ))}
         </div>
       </div>
@@ -380,61 +326,50 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           TWO-SIDED PLATFORM SPLIT
       ══════════════════════════════════════════════════════ */}
-      <section className="py-16 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-3">A Two-Sided Platform</span>
-            <h2 className="font-head font-black text-3xl sm:text-4xl text-brand uppercase tracking-tight">Who Is iPROFIXER For?</h2>
+      <section className="py-14 bg-white border-b border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Who is it for</p>
+            <h2 className="font-head text-2xl font-bold text-brand">A platform built for two sides</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* For Clients */}
-            <div className="relative rounded-3xl overflow-hidden bg-brand p-8 flex flex-col gap-5">
-              <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 rounded-full px-3 py-1 w-fit">
-                <span className="text-gold text-xs font-bold uppercase tracking-widest">For Clients</span>
-              </div>
-              <h3 className="font-head font-black text-3xl text-white uppercase tracking-tight leading-tight">Find & Book a Cleaning Pro</h3>
-              <p className="text-white/65 font-body text-sm leading-relaxed">Browse hundreds of independently listed cleaning vendors. Compare ratings, prices and availability — then book in 2 minutes directly on the app.</p>
-              <ul className="space-y-2">
-                {['Browse vetted vendors by city & service', 'Compare quotes from multiple pros', 'Track your booking live on the app', 'Pay after the job is done'].map(t => (
-                  <li key={t} className="flex items-center gap-2 text-sm text-white/80 font-body">
-                    <CheckCircle size={14} className="text-gold flex-shrink-0" /> {t}
-                  </li>
-                ))}
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="bg-brand rounded-xl p-7 flex flex-col gap-4">
+              <p className="text-xs font-semibold text-gold uppercase tracking-widest">For clients</p>
+              <h3 className="font-head text-xl font-bold text-white">Find and book a cleaning professional</h3>
+              <p className="text-white/60 text-sm leading-relaxed">Browse independently listed vendors near you. Compare ratings, prices and availability — then book in minutes on the app.</p>
+              <ul className="space-y-1.5 text-sm text-white/65">
+                <li>— Browse vendors by city and service type</li>
+                <li>— Compare quotes from multiple professionals</li>
+                <li>— Pay the vendor directly after the job</li>
               </ul>
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-wrap gap-2 pt-1">
                 <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                  Download App
+                  className="bg-gold hover:bg-gold-dark text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  Download the app
                 </a>
                 <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
-                  Book via WhatsApp
+                  className="border border-white/20 hover:border-white/50 text-white/80 font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  WhatsApp us
                 </a>
               </div>
             </div>
-            {/* For Vendors */}
-            <div className="relative rounded-3xl overflow-hidden bg-gold p-8 flex flex-col gap-5">
-              <div className="inline-flex items-center gap-2 bg-brand/20 border border-brand/30 rounded-full px-3 py-1 w-fit">
-                <span className="text-brand text-xs font-bold uppercase tracking-widest">For Vendors / Professionals</span>
-              </div>
-              <h3 className="font-head font-black text-3xl text-brand uppercase tracking-tight leading-tight">List Your Business. Get More Clients.</h3>
-              <p className="text-brand/70 font-body text-sm leading-relaxed">Register as a cleaning vendor on the iPROFIXER marketplace. Set your own services, prices and schedule — and start receiving booking requests from clients in your city.</p>
-              <ul className="space-y-2">
-                {['Free to join — no listing fee', 'Set your own prices & availability', 'Receive client requests via the app', 'Get paid directly after every job'].map(t => (
-                  <li key={t} className="flex items-center gap-2 text-sm text-brand/80 font-body">
-                    <CheckCircle size={14} className="text-brand flex-shrink-0" /> {t}
-                  </li>
-                ))}
+            <div className="bg-surface border border-border rounded-xl p-7 flex flex-col gap-4">
+              <p className="text-xs font-semibold text-gold uppercase tracking-widest">For vendors</p>
+              <h3 className="font-head text-xl font-bold text-brand">List your business, grow your clients</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">Register as a cleaning vendor on iPROFIXER. Set your own services, pricing and schedule — and start receiving bookings from clients in your city.</p>
+              <ul className="space-y-1.5 text-sm text-gray-500">
+                <li>— Free to join, no listing fee</li>
+                <li>— Set your own prices and availability</li>
+                <li>— Get paid directly after every job</li>
               </ul>
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-wrap gap-2 pt-1">
                 <Link to="/for-professionals"
-                  className="inline-flex items-center gap-2 bg-brand hover:bg-brand-light text-white font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
-                  Join as a Vendor <ArrowRight size={14} />
+                  className="bg-brand hover:bg-brand-light text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  Join as a vendor
                 </Link>
                 <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-brand/10 hover:bg-brand/20 border border-brand/25 text-brand font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
-                  WhatsApp Us
+                  className="border border-border hover:border-brand text-brand font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  WhatsApp us
                 </a>
               </div>
             </div>
@@ -445,46 +380,32 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           SERVICES PHOTO GRID
       ══════════════════════════════════════════════════════ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">What We Offer</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Cleaning Services On The Marketplace</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto font-body">Hundreds of independently listed cleaning vendors across 12 major Malaysian cities — compare, choose and book.</p>
+      <section className="py-16 bg-white border-b border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">On the marketplace</p>
+            <h2 className="font-head text-2xl font-bold text-brand">Cleaning services you can book</h2>
+            <p className="text-gray-500 text-sm mt-1">All services are listed by independent vendors. Compare, choose, and book directly.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {SERVICES.map(s => (
               <Link key={s.title} to="/services"
-                className="group relative overflow-hidden rounded-2xl aspect-[4/5] block cursor-pointer">
-                <img src={s.img} alt={s.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand/95 via-brand/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="text-xs font-head font-black uppercase tracking-[0.2em] text-gold mb-1">{s.tag}</div>
-                  <h3 className="font-head font-black text-xl text-white uppercase tracking-wide mb-1">{s.title}</h3>
-                  <p className="text-white/65 text-xs leading-relaxed font-body">{s.desc}</p>
-                </div>
-                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-2 group-hover:translate-y-0">
-                  <ArrowRight size={14} className="text-brand" />
+                className="group relative overflow-hidden rounded-xl aspect-[4/5] block">
+                <img src={s.img} alt={s.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-xs text-gold/80 mb-0.5">{s.tag}</p>
+                  <h3 className="font-head font-semibold text-base text-white leading-snug">{s.title}</h3>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="flex flex-wrap gap-4 justify-center mt-10">
+          <div className="flex flex-wrap gap-3 mt-8">
             <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-brand text-white font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl hover:bg-brand-light transition-all duration-200">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-              Google Play
-            </a>
+              className="bg-brand hover:bg-brand-light text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">Google Play</a>
             <a href="https://apps.apple.com/app/iprofixer/id1234567890" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all duration-200">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
-              App Store
-            </a>
-            <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-head font-bold text-base uppercase tracking-wide px-8 py-3.5 rounded-xl transition-all duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              WhatsApp
-            </a>
+              className="bg-gold hover:bg-gold-dark text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">App Store</a>
+            <Link to="/services" className="border border-border hover:border-brand text-brand font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">Browse all services</Link>
           </div>
         </div>
       </section>
@@ -492,50 +413,27 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           ALTERNATING FEATURE SECTIONS with real photos
       ══════════════════════════════════════════════════════ */}
-      <section className="bg-gray-50 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center py-12">
-            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">One Stop Solution</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Your Home Services Platform</h2>
+      <section className="bg-surface border-b border-border py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="mb-10">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">How it works</p>
+            <h2 className="font-head text-2xl font-bold text-brand">Why use iPROFIXER</h2>
           </div>
-
           {FEATURES.map((feat, i) => (
             <div key={feat.tag}
-              className={`grid lg:grid-cols-2 gap-12 items-center py-14 border-t border-gray-200 ${i % 2 === 1 ? 'lg:[&_.feat-text]:order-2 lg:[&_.feat-img]:order-1' : ''}`}>
-
+              className={`grid lg:grid-cols-2 gap-10 items-center py-10 border-t border-border ${i % 2 === 1 ? 'lg:[&_.feat-text]:order-2 lg:[&_.feat-img]:order-1' : ''}`}>
               <div className="feat-text">
-                <div className="inline-block text-xs font-head font-black uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-3 py-1 rounded mb-5">{feat.tag}</div>
-                <h3 className="font-head font-black text-4xl sm:text-5xl text-brand leading-tight mb-5 uppercase tracking-tight">{feat.title}</h3>
-                <p className="text-gray-500 text-base leading-relaxed mb-6 max-w-md font-body">{feat.desc}</p>
-                <ul className="space-y-3 mb-8">
-                  {feat.bullets.map(b => (
-                    <li key={b} className="flex items-center gap-3 text-sm text-gray-700 font-body">
-                      <span className="w-5 h-5 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
-                        <CheckCircle size={12} className="text-brand" />
-                      </span>
-                      {b}
-                    </li>
-                  ))}
+                <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-3">{feat.tag}</p>
+                <h3 className="font-head text-xl font-bold text-brand mb-3">{feat.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">{feat.desc}</p>
+                <ul className="space-y-1.5 text-sm text-gray-500 mb-6">
+                  {feat.bullets.map(b => <li key={b}>— {b}</li>)}
                 </ul>
-                <Link to={feat.link}
-                  className="inline-flex items-center gap-2 font-head font-bold text-base uppercase tracking-wide text-gold hover:gap-3 transition-all duration-200">
-                  Learn More <ArrowRight size={16} />
-                </Link>
+                <Link to={feat.link} className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors">Learn more →</Link>
               </div>
-
               <div className="feat-img">
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
+                <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
                   <img src={feat.img} alt={feat.imgAlt} className="w-full h-full object-cover" />
-                  {/* Brand overlay badge */}
-                  <div className="absolute bottom-5 left-5 bg-brand/90 backdrop-blur-sm rounded-xl px-4 py-3 flex items-center gap-3">
-                    <img src="/logo.png" alt="iPROFIXER" className="h-7 w-auto" style={{ mixBlendMode: 'screen' }} />
-                    <div>
-                      <div className="font-head font-black text-gold text-xs uppercase tracking-wide">Verified Pro</div>
-                      <div className="flex gap-0.5 mt-0.5">
-                        {[...Array(5)].map((_,i) => <Star key={i} size={9} fill="#FFB800" stroke="none" />)}
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -546,33 +444,17 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           ON-DEMAND CTA BAND
       ══════════════════════════════════════════════════════ */}
-      <section className="relative py-0 overflow-hidden">
-        <div className="relative h-[320px]">
-          <img src={PHOTOS.team} alt="iPROFIXER team" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/85 to-gold/80" />
-          <div className="absolute inset-0 flex items-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-                <div>
-                  <div className="text-xs font-head font-black uppercase tracking-[0.2em] text-gold/70 mb-2">On-Demand Service</div>
-                  <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight leading-tight">
-                    Get A Pro At Your<br />Door Today
-                  </h2>
-                  <p className="text-white/70 mt-2 font-body">Same-day bookings. Vetted. Insured. On time.</p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-                  <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-white text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl hover:bg-gold transition-all shadow-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Book on WhatsApp
-                  </a>
-                  <Link to="/services"
-                    className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-base uppercase tracking-wide px-8 py-4 rounded-xl transition-all">
-                    All Services <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            </div>
+      <section className="bg-brand py-14">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <h2 className="font-head text-2xl font-bold text-white mb-1">Ready to get started?</h2>
+            <p className="text-white/55 text-sm">Find a cleaning pro in your city, or list your business today.</p>
+          </div>
+          <div className="flex flex-wrap gap-3 flex-shrink-0">
+            <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+              className="bg-gold hover:bg-gold-dark text-white font-semibold text-sm px-6 py-3 rounded-lg transition-colors">Download the app</a>
+            <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+              className="border border-white/20 hover:border-white/50 text-white/80 font-semibold text-sm px-6 py-3 rounded-lg transition-colors">WhatsApp us</a>
           </div>
         </div>
       </section>
@@ -580,28 +462,24 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           TESTIMONIALS — with real profile photos
       ══════════════════════════════════════════════════════ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">Real Reviews</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight mb-2">Perform At Your Best</h2>
-            <p className="text-gray-400 font-body">Real reviews from homeowners across Klang Valley.</p>
+      <section className="py-16 bg-white border-b border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">Reviews</p>
+            <h2 className="font-head text-2xl font-bold text-brand">What clients are saying</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {TESTIMONIALS.map(t => (
-              <div key={t.name} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={13} fill="#FFB800" stroke="none" />)}
+              <div key={t.name} className="bg-surface border border-border rounded-xl p-5">
+                <div className="flex gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={12} fill="#0ea5e9" stroke="none" />)}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-5 font-body italic">"{t.text}"</p>
-                <div className="flex items-center gap-3">
-                  <img src={t.photo} alt={t.name}
-                    className="w-11 h-11 rounded-full object-cover flex-shrink-0 border-2 border-gold/30" />
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">"{t.text}"</p>
+                <div className="flex items-center gap-2.5">
+                  <img src={t.photo} alt={t.name} className="w-9 h-9 rounded-full object-cover flex-shrink-0" />
                   <div>
-                    <div className="font-head font-bold text-brand text-sm uppercase tracking-wide">{t.name}</div>
-                    <div className="text-gray-400 text-xs font-body flex items-center gap-1">
-                      <MapPin size={10} /> {t.loc}
-                    </div>
+                    <p className="font-semibold text-brand text-sm">{t.name}</p>
+                    <p className="text-gray-400 text-xs">{t.loc}</p>
                   </div>
                 </div>
               </div>
@@ -613,12 +491,12 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           PARTNER LOGOS STATIC
       ══════════════════════════════════════════════════════ */}
-      <section className="py-14 bg-gray-50 border-y border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-gray-400 text-xs font-head font-bold uppercase tracking-[0.2em] mb-8">Trusted by homeowners in</p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+      <section className="py-10 bg-surface border-y border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-5">Trusted by homeowners across</p>
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
             {PARTNERS.map(p => (
-              <div key={p} className="font-head font-black text-lg text-gray-300 uppercase tracking-wide hover:text-gold-dark transition-colors cursor-default">{p}</div>
+              <span key={p} className="text-gray-300 text-sm font-semibold">{p}</span>
             ))}
           </div>
         </div>
@@ -627,20 +505,18 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           FAQs — two-column
       ══════════════════════════════════════════════════════ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">Help Centre</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Common Questions</h2>
+      <section className="py-16 bg-white border-b border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="mb-8">
+            <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-2">FAQ</p>
+            <h2 className="font-head text-2xl font-bold text-brand">Common questions</h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-4 mb-8">
-            <div className="space-y-3">{faqLeft.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
-            <div className="space-y-3">{faqRight.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
+          <div className="grid lg:grid-cols-2 gap-x-12">
+            <div>{faqLeft.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
+            <div>{faqRight.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}</div>
           </div>
-          <div className="text-center">
-            <Link to="/faq" className="inline-flex items-center gap-2 font-head font-bold text-base uppercase tracking-wide text-gold hover:underline">
-              View All FAQs <ArrowRight size={15} />
-            </Link>
+          <div className="mt-6">
+            <Link to="/faq" className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors">View all FAQs →</Link>
           </div>
         </div>
       </section>
@@ -653,32 +529,20 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════
           CONTACT BAND — app download focus
       ══════════════════════════════════════════════════════ */}
-      <section className="bg-brand py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-14 items-start">
+      <section className="bg-brand py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Join the Platform</span>
-              <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight mt-2 mb-4 leading-tight">
-                Client or Pro?<br />We've Got You.
-              </h2>
-              <p className="text-white/60 text-base leading-relaxed mb-8 font-body max-w-sm">
-                Clients — download the app and book a vetted cleaning professional in minutes. Vendors — list your business, set your rates and start earning. Active across KL, PJ, Shah Alam and 9 more cities.
+              <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-4">Get in touch</p>
+              <h2 className="font-head text-2xl font-bold text-white mb-3">Join the marketplace</h2>
+              <p className="text-white/55 text-sm leading-relaxed mb-7">
+                Clients, download the app and book a vetted professional in minutes. Vendors, list your business and start receiving bookings.
               </p>
-
-              <div className="space-y-4 mb-8">
-                {[
-                  { Icon: MapPin, label: 'Ara Damansara, PJ, Selangor' },
-                  { Icon: Phone, label: '+03-8080 5249' },
-                  { Icon: Mail,  label: 'for_services@iprofixer.com.my' },
-                ].map(({ Icon, label }) => (
-                  <div key={label} className="flex items-center gap-3 text-white/65 text-sm font-body">
-                    <Icon size={15} className="text-gold flex-shrink-0" /> {label}
-                  </div>
-                ))}
+              <div className="space-y-2 text-sm text-white/50">
+                <p>Ara Damansara, Petaling Jaya, Selangor</p>
+                <p>+03-8080 5249</p>
+                <p>for_services@iprofixer.com.my</p>
               </div>
-
-              <AppBadges className="mb-8" />
-              <img src="/logo.png" alt="iPROFIXER" className="h-16 w-auto opacity-90" style={{ mixBlendMode: 'screen' }} />
             </div>
             <div><ContactBandCTA /></div>
           </div>

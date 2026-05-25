@@ -21,7 +21,7 @@ export default function Footer() {
               <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" style={{ mixBlendMode: 'screen' }} />
             </Link>
             <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">
-              Malaysia's trusted home services platform — connecting homeowners with certified professionals across Klang Valley.
+              Malaysia's cleaning services marketplace — connecting clients with independent cleaning professionals across Klang Valley.
             </p>
 
             {/* App Store badges */}
@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-black uppercase tracking-[0.15em] text-white/40 mb-5">Services</h4>
             <ul className="space-y-3">
-              {['Electricians','AC Repair','Appliance Repair','Caregiver','Cleaning','Laundry','House Maid'].map(s => (
+              {['Home Deep Clean','Regular Maid','Sofa & Carpet','Post-Reno Clean','Post-Event Cleanup','Mattress Cleaning'].map(s => (
                 <li key={s}>
                   <Link to="/services" className="text-white/55 hover:text-gold text-sm transition-colors duration-200">{s}</Link>
                 </li>
@@ -82,23 +82,20 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-black uppercase tracking-[0.15em] text-white/40 mb-5">Contact Us</h4>
             <div className="space-y-4 text-sm">
-              <div className="flex gap-3 text-white/50">
-                <span className="flex-shrink-0">📍</span>
-                <span>Ara Damansara, Petaling Jaya,<br />Selangor, Malaysia</span>
+              <div className="text-white/50">
+                <p>Ara Damansara, Petaling Jaya,</p>
+                <p>Selangor, Malaysia</p>
               </div>
-              <div className="flex gap-3">
-                <span>📞</span>
+              <div>
                 <a href="tel:+60380805249" className="text-white/55 hover:text-gold transition-colors">+03-8080 5249</a>
               </div>
-              <div className="flex gap-3">
-                <span className="flex-shrink-0">✉️</span>
+              <div>
                 <a href="mailto:for_services@iprofixer.com.my" className="text-white/55 hover:text-gold transition-colors break-all">
                   for_services@iprofixer.com.my
                 </a>
               </div>
-              <div className="flex gap-3 text-white/50">
-                <span>🕐</span>
-                <span>Mon–Sat: 8am–9pm<br />Sun: 9am–6pm</span>
+              <div className="text-white/50">
+                <p>Mon–Sat: 8am–9pm · Sun: 9am–6pm</p>
               </div>
 
               {/* WhatsApp CTA */}
