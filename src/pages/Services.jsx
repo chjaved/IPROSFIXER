@@ -29,7 +29,7 @@ const IMG = {
   ironing:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
   subscription: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=600&q=80',
   /* Maid */
-  parttime:     'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=600&q=80',
+  parttime:     'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&q=80',
   livein:       'https://images.unsplash.com/photo-1556909172-8c2f041fca1e?w=600&q=80',
   postEvent:    'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&q=80',
 }
@@ -46,7 +46,7 @@ const CATEGORIES = [
   },
   {
     id: 'regular-maid', tag: 'Housekeeping', title: 'Regular Maid Service',
-    tagImg: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=1200&q=80',
+    tagImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=1200&q=80',
     cards: [
       { img: IMG.parttime,  name: 'Part-Time Maid',           desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings for your home.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Part-time maid booking' },
       { img: IMG.livein,    name: 'Weekly Cleaning Plan',     desc: 'A dedicated cleaner on a fixed weekly schedule — same person, same standard every time.', feats: ['Same cleaner every visit','Fixed monthly pricing','Manage via app'], wa: 'Weekly cleaning plan' },
@@ -79,11 +79,11 @@ function ServiceCard({ card }) {
       </div>
 
       <div className="p-6">
-        <h3 className="font-head font-black text-brand text-xl uppercase tracking-wide mb-2">{card.name}</h3>
-        <p className="text-gray-500 text-sm leading-relaxed mb-4 font-body">{card.desc}</p>
+        <h3 className="font-head font-black text-gray-900 text-xl uppercase tracking-wide mb-2">{card.name}</h3>
+        <p className="text-gray-700 text-sm leading-relaxed mb-4 font-body">{card.desc}</p>
         <div className="space-y-1.5 mb-5">
           {card.feats.map(f => (
-            <div key={f} className="flex items-center gap-2 text-xs text-gray-600 font-body">
+            <div key={f} className="flex items-center gap-2 text-xs text-gray-800 font-body font-medium">
               <CheckCircle size={13} className="text-gold flex-shrink-0" />
               {f}
             </div>
@@ -92,8 +92,9 @@ function ServiceCard({ card }) {
         <a
           href="https://play.google.com/store/apps/details?id=com.iprofixer.app"
           target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-gold hover:bg-gold-dark text-brand font-head font-bold text-sm uppercase tracking-wide py-3 rounded-xl transition-all duration-200"
+          className="flex items-center justify-center gap-2 w-full bg-gold hover:bg-gold-dark text-brand font-head font-bold text-sm uppercase tracking-wide py-3 rounded-xl transition-all duration-200 overflow-hidden relative"
         >
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=48&h=48&fit=crop" alt="" aria-hidden="true" className="w-5 h-5 rounded object-cover opacity-80" />
           <Smartphone size={16} /> Book in App
         </a>
       </div>

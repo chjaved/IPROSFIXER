@@ -23,7 +23,7 @@ export default function PageHero({ tag, title, subtitle, breadcrumb }) {
           </span>
         )}
         <h1 className="font-head font-extrabold text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight">{title}</h1>
-        {subtitle && <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
+        {subtitle && <p className="text-white/90 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
       </div>
     </section>
   )
