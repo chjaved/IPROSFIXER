@@ -36,5 +36,10 @@ export default {
       },
     },
   },
+  safelist: [
+    { pattern: /^from-/ },
+    { pattern: /^to-/ },
+    { pattern: /^via-/ },
+  ],
   plugins: [],
 }

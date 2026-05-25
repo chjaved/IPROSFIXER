@@ -113,7 +113,7 @@ const SERVICES = [
     desc: 'Washing machine, fridge, oven or dryer giving you trouble? We diagnose and fix on the spot.',
   },
   {
-    gradient: 'from-teal to-emerald-600',
+    gradient: 'from-[#0B6B52] to-emerald-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
     name: 'Cleaning Services',
     desc: 'Home deep clean, regular maid service, post-reno cleanup - you choose, we handle the rest.',
