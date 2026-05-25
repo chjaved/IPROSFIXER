@@ -22,10 +22,10 @@ const PHOTOS = {
 
 /* ─── DATA ──────────────────────────────────────────────────────────────────── */
 const STATS = [
-  { num: '9,641+', label: 'Jobs Completed' },
-  { num: '98%',    label: 'Satisfaction Rate' },
-  { num: '500+',   label: 'Vetted Pros' },
-  { num: '50+',    label: 'Services Available' },
+  { num: '9,641+', label: 'Jobs Matched' },
+  { num: '98%',    label: 'Client Satisfaction' },
+  { num: '500+',   label: 'Pro Vendors Listed' },
+  { num: '2 Min',  label: 'Avg. Booking Time' },
 ]
 
 const PHOTOS_CLEANING = [
@@ -36,48 +36,48 @@ const PHOTOS_CLEANING = [
 ]
 
 const SERVICES = [
-  { img: PHOTOS_CLEANING[0], tag: 'DEEP CLEAN',     title: 'Home Deep Clean',          desc: 'Full top-to-bottom deep cleaning for kitchens, bathrooms & living areas — eco-friendly products.' },
-  { img: PHOTOS_CLEANING[1], tag: 'HOUSEKEEPING',   title: 'Regular Maid Service',     desc: 'Weekly or bi-weekly part-time maid — vetted, insured, flexible scheduling.' },
-  { img: PHOTOS_CLEANING[2], tag: 'SOFA & CARPET',  title: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment and carpet shampooing.' },
-  { img: PHOTOS_CLEANING[3], tag: 'POST-RENO',      title: 'Post-Renovation Clean',    desc: 'Industrial-grade clean — remove cement dust, debris and construction residue fast.' },
+  { img: PHOTOS_CLEANING[0], tag: 'DEEP CLEAN',     title: 'Home Deep Clean',          desc: 'Browse & hire vetted deep-clean specialists near you — compare ratings, prices and availability.' },
+  { img: PHOTOS_CLEANING[1], tag: 'HOUSEKEEPING',   title: 'Regular Maid Service',     desc: 'Find trusted part-time maids in your area — weekly, bi-weekly or one-off. All independently listed.' },
+  { img: PHOTOS_CLEANING[2], tag: 'SOFA & CARPET',  title: 'Sofa & Carpet Cleaning',   desc: 'Connect with certified upholstery specialists. Compare quotes and book directly through the app.' },
+  { img: PHOTOS_CLEANING[3], tag: 'POST-RENO',      title: 'Post-Renovation Clean',    desc: 'Hire vetted post-reno cleaning pros who list their services on the iPROFIXER marketplace.' },
 ]
 
 const FEATURES = [
   {
-    tag: 'HIRE ON DEMAND',
-    title: 'Find The Right Pro For You, Instantly',
-    desc: 'Browse 500+ vetted professionals near you and book in under 2 minutes. Real-time matching, no more waiting days for a callback.',
-    bullets: ['Same-day bookings available', 'See ratings & reviews before booking', 'Fixed prices — no surprise bills'],
+    tag: 'FOR CLIENTS',
+    title: 'Find & Book Any Cleaning Pro Near You',
+    desc: 'Browse hundreds of independently listed cleaning professionals. Compare ratings, reviews and prices — then book instantly in 2 minutes.',
+    bullets: ['Same-day & scheduled bookings', 'Compare quotes from multiple vendors', 'Fixed prices — no hidden fees'],
     link: '/services',
-    img: PHOTOS.electrician,
-    imgAlt: 'Electrician professional at work',
-  },
-  {
-    tag: 'TRACK YOUR JOB',
-    title: 'Real-Time Tracking & Live Updates',
-    desc: 'See your professional on a live map. Get notified when they\'re on the way, when they arrive, and when the job is done.',
-    bullets: ['Live GPS tracking', 'In-app chat with your pro', 'Digital receipt on completion'],
-    link: '/how-it-works',
     img: PHOTOS.booking,
-    imgAlt: 'Customer tracking job on mobile phone',
+    imgAlt: 'Client booking a professional on the app',
   },
   {
-    tag: 'CERTIFIED PROS',
-    title: 'Trained, Vetted & Insured Professionals',
-    desc: 'Every professional on iPROFIXER goes through a rigorous background check, skills test and in-person orientation before their first job.',
+    tag: 'FOR PROFESSIONALS',
+    title: 'List Your Cleaning Business. Grow Your Client Base.',
+    desc: 'iPROFIXER is an open marketplace. Register as a cleaning vendor, set your own prices and availability, and get matched with clients in your city.',
+    bullets: ['Free to list — no joining fee', 'Set your own prices & schedule', 'Get paid directly after each job'],
+    link: '/for-professionals',
+    img: PHOTOS.team,
+    imgAlt: 'Professional cleaning vendor',
+  },
+  {
+    tag: 'PLATFORM TRUST',
+    title: 'Every Vendor is Vetted Before They List',
+    desc: 'We verify every professional on the platform. Background checks, IC verification, skills assessment and insurance before they can accept bookings.',
     bullets: ['Background & IC check', 'Skills assessment & certification', 'Personal accident insurance on every job'],
     link: '/about',
     img: PHOTOS.team,
-    imgAlt: 'iPROFIXER professional team',
+    imgAlt: 'iPROFIXER verified platform',
   },
   {
     tag: 'LOYALTY REWARDS',
-    title: 'Earn Points. Get Free Services.',
-    desc: 'Every booking earns you iPRO Points. Redeem them for free services, priority scheduling and exclusive member discounts.',
-    bullets: ['Points on every booking', 'Redeem for free services', 'VIP priority scheduling for members'],
+    title: 'Earn Points on Every Booking.',
+    desc: 'Every booking through the platform earns you iPRO Points. Redeem for discounts, free bookings or priority matching with top-rated vendors.',
+    bullets: ['Points on every booking', 'Redeem for free bookings', 'VIP priority matching for members'],
     link: '/contact',
     img: PHOTOS.cleaning,
-    imgAlt: 'Happy customer after cleaning service',
+    imgAlt: 'Happy client after cleaning service',
   },
 ]
 
@@ -106,12 +106,12 @@ const BIG_CITIES = [
 ]
 
 const FAQS = [
-  { q: 'How do I book a cleaning?',           a: 'Download the iPROFIXER app (iOS or Android), select your cleaning type, pick a city and time. Confirmed within 30 minutes.' },
-  { q: 'What payment methods are accepted?', a: 'Cash, DuitNow, TnG eWallet and GrabPay. Payment after job completion — no upfront deposits.' },
-  { q: 'Which cities do you cover?',          a: 'Kuala Lumpur, Petaling Jaya, Subang Jaya, Shah Alam, Cheras, Klang, Putrajaya, Cyberjaya, Ampang, Bangsar, Mont Kiara and Damansara.' },
-  { q: 'Is there a satisfaction guarantee?', a: 'Yes — unhappy within 24 hours? We send a cleaner back for free. All staff are vetted, trained and insured.' },
-  { q: 'Can I reschedule or cancel?',        a: 'Yes, up to 4 hours before the booking at no charge. Manage everything in the app.' },
-  { q: 'How do I join as a cleaning professional?', a: 'Visit our For Professionals page or WhatsApp us. Applications reviewed in 48 hours. No joining fee.' },
+  { q: 'Is iPROFIXER a cleaning company?',    a: 'No — we are a marketplace platform. We connect clients who need cleaning services with independent professional vendors. The pros are not our employees.' },
+  { q: 'How do I find and book a cleaner?',   a: 'Download the iPROFIXER app, browse listed vendors by service type and city, compare ratings and prices, then book directly in the app.' },
+  { q: 'How do I list my cleaning business?', a: 'Visit our For Professionals page or WhatsApp us. Set up your vendor profile, list your services and pricing, and start receiving booking requests. No joining fee.' },
+  { q: 'What payment methods are accepted?', a: 'Cash, DuitNow, TnG eWallet and GrabPay. Clients pay the vendor directly after job completion — no upfront deposits.' },
+  { q: 'Which cities is the marketplace active in?', a: 'Kuala Lumpur, Petaling Jaya, Subang Jaya, Shah Alam, Cheras, Klang, Putrajaya, Cyberjaya, Ampang, Bangsar, Mont Kiara and Damansara.' },
+  { q: 'Is there a satisfaction guarantee?', a: 'Yes — if you are unhappy within 24 hours, we facilitate a re-booking with the vendor at no extra charge. All listed vendors are vetted and insured.' },
 ]
 
 const PARTNERS = ['Maxis','Grab','Sunway','IGB','Tropicana','UEM Sunrise','IOI Properties','SP Setia','CIMB','Maybank']
@@ -126,19 +126,19 @@ function HeroAppCard() {
           <span className="text-gold text-xs font-bold uppercase tracking-widest">Book in 60 seconds</span>
         </div>
         <h3 className="font-head font-black text-3xl text-brand uppercase tracking-tight leading-tight mb-2">
-          Malaysia's #1<br />Cleaning App
+          The Cleaning<br />Services Marketplace
         </h3>
         <p className="text-gray-500 text-sm font-body leading-relaxed">
-          Book vetted cleaners in KL, PJ, Shah Alam & 9 more cities — same-day, tracked, guaranteed.
+          Clients book vetted pros. Vendors grow their business. All in one app — KL, PJ, Shah Alam & 9 more cities.
         </p>
       </div>
 
       <div className="space-y-3">
         {[
-          'Same-day & scheduled bookings',
-          'Live GPS tracking of your cleaner',
+          'Clients: browse & book vetted pros instantly',
+          'Vendors: list your services, set your prices',
+          'Live GPS tracking on every booking',
           'Pay after — DuitNow, TnG, GrabPay',
-          '24h satisfaction guarantee',
         ].map(t => (
           <div key={t} className="flex items-center gap-3 text-sm text-gray-700 font-body">
             <span className="w-5 h-5 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
@@ -183,8 +183,8 @@ function CitiesGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
           <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">Coverage</span>
-          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight">We Clean Across Malaysia</h2>
-          <p className="text-white/50 mt-3 font-body">Professional cleaning in all major Klang Valley cities — same prices, same standards.</p>
+          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight">Vendors & Clients Across Malaysia</h2>
+          <p className="text-white/50 mt-3 font-body">Our marketplace connects clients and cleaning vendors in all major Klang Valley cities.</p>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-10">
           {BIG_CITIES.map(c => (
@@ -287,17 +287,17 @@ export default function Home() {
             <div>
               <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 rounded-full px-4 py-1.5 mb-5">
                 <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-                <span className="text-gold text-xs font-bold uppercase tracking-widest">Malaysia's #1 Home Services App</span>
+                <span className="text-gold text-xs font-bold uppercase tracking-widest">Malaysia's #1 Cleaning Services Marketplace</span>
               </div>
 
               <h1 className="font-head font-black text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.0] mb-6 tracking-tight uppercase">
-                Home Services<br />
-                <span className="text-gold italic">For Your</span><br />
-                Blended Life
+                Connect Clients<br />
+                <span className="text-gold italic">With Cleaning</span><br />
+                Professionals
               </h1>
 
               <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-lg font-body">
-                Vetted electricians, AC technicians, cleaners, caregivers and more — booked in 2 minutes and at your door on time, every time.
+                iPROFIXER is a multi-vendor marketplace — clients find and book vetted cleaning professionals, vendors grow their business. One platform, two sides.
               </p>
 
               {/* Stats row */}
@@ -378,14 +378,79 @@ export default function Home() {
       </div>
 
       {/* ══════════════════════════════════════════════════════
+          TWO-SIDED PLATFORM SPLIT
+      ══════════════════════════════════════════════════════ */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-3">A Two-Sided Platform</span>
+            <h2 className="font-head font-black text-3xl sm:text-4xl text-brand uppercase tracking-tight">Who Is iPROFIXER For?</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* For Clients */}
+            <div className="relative rounded-3xl overflow-hidden bg-brand p-8 flex flex-col gap-5">
+              <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 rounded-full px-3 py-1 w-fit">
+                <span className="text-gold text-xs font-bold uppercase tracking-widest">For Clients</span>
+              </div>
+              <h3 className="font-head font-black text-3xl text-white uppercase tracking-tight leading-tight">Find & Book a Cleaning Pro</h3>
+              <p className="text-white/65 font-body text-sm leading-relaxed">Browse hundreds of independently listed cleaning vendors. Compare ratings, prices and availability — then book in 2 minutes directly on the app.</p>
+              <ul className="space-y-2">
+                {['Browse vetted vendors by city & service', 'Compare quotes from multiple pros', 'Track your booking live on the app', 'Pay after the job is done'].map(t => (
+                  <li key={t} className="flex items-center gap-2 text-sm text-white/80 font-body">
+                    <CheckCircle size={14} className="text-gold flex-shrink-0" /> {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-brand font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                  Download App
+                </a>
+                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
+                  Book via WhatsApp
+                </a>
+              </div>
+            </div>
+            {/* For Vendors */}
+            <div className="relative rounded-3xl overflow-hidden bg-gold p-8 flex flex-col gap-5">
+              <div className="inline-flex items-center gap-2 bg-brand/20 border border-brand/30 rounded-full px-3 py-1 w-fit">
+                <span className="text-brand text-xs font-bold uppercase tracking-widest">For Vendors / Professionals</span>
+              </div>
+              <h3 className="font-head font-black text-3xl text-brand uppercase tracking-tight leading-tight">List Your Business. Get More Clients.</h3>
+              <p className="text-brand/70 font-body text-sm leading-relaxed">Register as a cleaning vendor on the iPROFIXER marketplace. Set your own services, prices and schedule — and start receiving booking requests from clients in your city.</p>
+              <ul className="space-y-2">
+                {['Free to join — no listing fee', 'Set your own prices & availability', 'Receive client requests via the app', 'Get paid directly after every job'].map(t => (
+                  <li key={t} className="flex items-center gap-2 text-sm text-brand/80 font-body">
+                    <CheckCircle size={14} className="text-brand flex-shrink-0" /> {t}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Link to="/for-professionals"
+                  className="inline-flex items-center gap-2 bg-brand hover:bg-brand-light text-white font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
+                  Join as a Vendor <ArrowRight size={14} />
+                </Link>
+                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-brand/10 hover:bg-brand/20 border border-brand/25 text-brand font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
+                  WhatsApp Us
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
           SERVICES PHOTO GRID
       ══════════════════════════════════════════════════════ */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-4">What We Offer</span>
-            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Professional Cleaning Services</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto font-body">Vetted cleaners across 12 major Malaysian cities — book in 60 seconds on the app.</p>
+            <h2 className="font-head font-black text-4xl sm:text-5xl text-brand uppercase tracking-tight">Cleaning Services On The Marketplace</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto font-body">Hundreds of independently listed cleaning vendors across 12 major Malaysian cities — compare, choose and book.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {SERVICES.map(s => (
@@ -592,12 +657,12 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-14 items-start">
             <div>
-              <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Book a Cleaning Today</span>
+              <span className="inline-block text-xs font-head font-bold uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Join the Platform</span>
               <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight mt-2 mb-4 leading-tight">
-                Clean Home.<br />Happy Life.
+                Client or Pro?<br />We've Got You.
               </h2>
               <p className="text-white/60 text-base leading-relaxed mb-8 font-body max-w-sm">
-                Professional cleaning services across Kuala Lumpur, Petaling Jaya, Shah Alam and 9 more cities. Respond in under 10 minutes on WhatsApp.
+                Clients — download the app and book a vetted cleaning professional in minutes. Vendors — list your business, set your rates and start earning. Active across KL, PJ, Shah Alam and 9 more cities.
               </p>
 
               <div className="space-y-4 mb-8">

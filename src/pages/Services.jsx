@@ -104,7 +104,7 @@ function ServiceCard({ card }) {
 export default function Services() {
   return (
     <>
-      <PageHero tag="Cleaning Services" title="Professional Cleaning" subtitle="Vetted cleaners across 12 major Malaysian cities — book in 60 seconds on the app." breadcrumb="Services" />
+      <PageHero tag="Marketplace" title="Cleaning Services" subtitle="Browse independently listed cleaning vendors across 12 major Malaysian cities. Compare, choose and book — all on the app." breadcrumb="Services" />
 
       {/* Sticky quick-nav pills */}
       <div className="bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
@@ -151,8 +151,8 @@ export default function Services() {
         </div>
         <div className="relative max-w-2xl mx-auto text-center px-4">
           <span className="inline-block text-xs font-head font-black uppercase tracking-[0.2em] text-gold bg-gold/10 border border-gold/25 px-4 py-1.5 rounded-full mb-5">Download Now</span>
-          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight mb-4">Book Services On The Go</h2>
-          <p className="text-white/60 mb-8 font-body">Download the iPROFIXER app for instant booking, real-time tracking and exclusive app-only deals.</p>
+          <h2 className="font-head font-black text-4xl sm:text-5xl text-white uppercase tracking-tight mb-4">Client or Vendor? Join the Marketplace.</h2>
+          <p className="text-white/60 mb-8 font-body">Clients — download the app and book a vetted cleaning pro in minutes. Vendors — list your services, set your rates, and grow your business on iPROFIXER.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="https://play.google.com/store/apps/details?id=com.iprofixer.app" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-white hover:bg-gray-50 text-brand font-bold px-6 py-3 rounded-xl transition-all shadow-lg">
