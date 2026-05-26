@@ -1,177 +1,265 @@
 import { Link } from 'react-router-dom'
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle, ArrowUp, CreditCard, Shield, Award, Clock, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 
 const SOCIAL_LINKS = [
-  { icon: Facebook, href: 'https://facebook.com/iprofixer', label: 'Facebook' },
-  { icon: Instagram, href: 'https://instagram.com/iprofixer', label: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com/company/iprofixer', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com/iprofixer', label: 'Twitter' },
-  { icon: Youtube, href: 'https://youtube.com/iprofixer', label: 'YouTube' },
+  { icon: Facebook, href: 'https://facebook.com/iprofixer', label: 'Facebook', color: 'hover:bg-[#1877F2]' },
+  { icon: Instagram, href: 'https://instagram.com/iprofixer', label: 'Instagram', color: 'hover:bg-[#E4405F]' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/iprofixer', label: 'LinkedIn', color: 'hover:bg-[#0A66C2]' },
+  { icon: Twitter, href: 'https://twitter.com/iprofixer', label: 'Twitter', color: 'hover:bg-[#1DA1F2]' },
+  { icon: Youtube, href: 'https://youtube.com/iprofixer', label: 'YouTube', color: 'hover:bg-[#FF0000]' },
 ]
 
 const SERVICES = [
-  { name: 'Electricians', to: '/services' },
-  { name: 'AC Repair', to: '/services' },
-  { name: 'Appliance Repair', to: '/services' },
   { name: 'Deep Cleaning', to: '/services' },
-  { name: 'Regular Maid', to: '/services' },
-  { name: 'Post-Reno Clean', to: '/services' },
-  { name: 'Sofa Cleaning', to: '/services' },
-  { name: 'Caregiver', to: '/services' },
-  { name: 'Laundry', to: '/services' },
+  { name: 'AC Repair & Service', to: '/services' },
+  { name: 'Electrical Works', to: '/services' },
+  { name: 'Plumbing', to: '/services' },
+  { name: 'Home Maid Service', to: '/services' },
+  { name: 'Sofa & Carpet Clean', to: '/services' },
 ]
 
 const COMPANY = [
-  { label: 'About Us', to: '/about' },
+  { label: 'About iPROFIXER', to: '/about' },
   { label: 'How It Works', to: '/how-it-works' },
-  { label: 'For Professionals', to: '/for-professionals' },
+  { label: 'Join as Professional', to: '/for-professionals' },
   { label: 'Careers', to: '#' },
-  { label: 'Blog', to: '#' },
-  { label: 'Contact Us', to: '/contact' },
+  { label: 'Blog & Tips', to: '#' },
 ]
 
 const SUPPORT = [
-  { label: 'Help Center', to: '/faq' },
+  { label: 'Help Center / FAQ', to: '/faq' },
   { label: 'Safety Guidelines', to: '#' },
   { label: 'Cancellation Policy', to: '#' },
   { label: 'Refund Policy', to: '#' },
   { label: 'Service Guarantee', to: '#' },
 ]
 
+const TRUST_BADGES = [
+  { icon: Shield, text: 'Verified Pros' },
+  { icon: Award, text: 'Quality Assured' },
+  { icon: Clock, text: 'On-Time Service' },
+]
+
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    if (email) {
+      setSubscribed(true)
+      setEmail('')
+    }
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="bg-gray-50 text-gray-800 border-t border-gray-200">
-      {/* Main Footer Content - Full Width */}
-      <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 pt-10 pb-6">
-        
-        {/* Top Section - Logo, Newsletter & Social */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6 mb-8 pb-6 border-b border-gray-200">
-          {/* Logo Section */}
-          <div className="text-center lg:text-left">
-            <Link to="/" className="inline-block mb-2" aria-label="iPROFIXER home">
-              <img src="/logo.png" alt="iPROFIXER" className="h-16 sm:h-20 w-auto" />
-            </Link>
-            <p className="text-gray-500 text-xs leading-relaxed max-w-xs">
-              Malaysia's trusted home services platform.
-            </p>
-          </div>
-
-          {/* Newsletter */}
-          <div className="w-full max-w-sm">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-2">Newsletter</h4>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
-              />
-              <button
-                type="submit"
-                className="bg-teal hover:bg-teal-dark text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-
-          {/* Social Media Icons */}
-          <div className="flex flex-col items-center lg:items-end gap-2">
-            <p className="text-xs font-medium text-gray-600">Follow Us</p>
-            <div className="flex gap-2">
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-teal hover:text-white hover:border-teal transition-all duration-200"
-                >
-                  <social.icon size={14} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          
-          {/* Services */}
-          <div className="col-span-2 md:col-span-1">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Services</h4>
-            <ul className="space-y-1.5">
-              {SERVICES.slice(0, 5).map((s) => (
-                <li key={s.name}>
-                  <Link to={s.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{s.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Company</h4>
-            <ul className="space-y-1.5">
-              {COMPANY.slice(0, 4).map((l) => (
-                <li key={l.label}>
-                  <Link to={l.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Support</h4>
-            <ul className="space-y-1.5">
-              {SUPPORT.slice(0, 4).map((l) => (
-                <li key={l.label}>
-                  <Link to={l.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Contact</h4>
-            <div className="space-y-1.5">
-              <a href="tel:+60380805249" className="flex items-center gap-1.5 text-gray-500 hover:text-teal text-xs transition-colors">
-                <Phone size={12} className="text-gray-400" />
-                +03-8080 5249
-              </a>
-              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-1.5 text-gray-500 hover:text-teal text-xs transition-colors">
-                <Mail size={12} className="text-gray-400" />
-                <span className="break-all">Email Us</span>
-              </a>
-              <a
-                href="https://wa.me/60162104127"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 bg-wa hover:bg-wa-dark text-white font-bold text-xs px-3 py-1.5 rounded-card transition-all duration-200 mt-1"
-              >
-                <MessageCircle size={12} /> WhatsApp
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-gray-200 pt-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-gray-400 text-xs text-center md:text-left">
-            &copy; {new Date().getFullYear()} iPROFIXER — All rights reserved.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
-            <Link to="/privacy" className="text-gray-500 hover:text-teal transition-colors">Privacy</Link>
-            <span className="text-gray-300">|</span>
-            <Link to="/terms" className="text-gray-500 hover:text-teal transition-colors">Terms</Link>
-            <span className="text-gray-300">|</span>
-            <Link to="/cookie-policy" className="text-gray-500 hover:text-teal transition-colors">Cookies</Link>
+    <footer className="bg-[#1a1a2e] text-white relative">
+      {/* Trust Bar */}
+      <div className="border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6">
+          <div className="grid grid-cols-3 gap-4">
+            {TRUST_BADGES.map((badge) => (
+              <div key={badge.text} className="flex items-center justify-center gap-3">
+                <div className="w-10 h-10 bg-teal/20 rounded-full flex items-center justify-center">
+                  <badge.icon size={20} className="text-teal" />
+                </div>
+                <span className="text-sm font-medium hidden sm:block">{badge.text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          {/* Brand Column */}
+          <div className="lg:col-span-4">
+            <Link to="/" className="inline-block mb-4">
+              <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto brightness-0 invert" />
+            </Link>
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+              Malaysia's most trusted home services platform. Connecting homeowners with verified professionals for cleaning, repairs, and maintenance.
+            </p>
+            
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <a href="tel:+60380805249" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
+                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
+                  <Phone size={14} className="text-teal group-hover:text-white" />
+                </div>
+                <span className="text-sm">+03-8080 5249</span>
+              </a>
+              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
+                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
+                  <Mail size={14} className="text-teal group-hover:text-white" />
+                </div>
+                <span className="text-sm break-all">for_services@iprofixer.com.my</span>
+              </a>
+              <div className="flex items-center gap-3 text-gray-300">
+                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                  <MapPin size={14} className="text-teal" />
+                </div>
+                <span className="text-sm">Ara Damansara, Petaling Jaya</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Links Columns */}
+          <div className="lg:col-span-5 grid grid-cols-3 gap-6">
+            <div>
+              <h4 className="text-sm font-semibold mb-4 text-white">Services</h4>
+              <ul className="space-y-2.5">
+                {SERVICES.map((s) => (
+                  <li key={s.name}>
+                    <Link to={s.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                      {s.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold mb-4 text-white">Company</h4>
+              <ul className="space-y-2.5">
+                {COMPANY.map((l) => (
+                  <li key={l.label}>
+                    <Link to={l.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-semibold mb-4 text-white">Support</h4>
+              <ul className="space-y-2.5">
+                {SUPPORT.map((l) => (
+                  <li key={l.label}>
+                    <Link to={l.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Newsletter Column */}
+          <div className="lg:col-span-3">
+            <h4 className="text-sm font-semibold mb-4 text-white">Stay Updated</h4>
+            <p className="text-gray-400 text-sm mb-4">
+              Get home maintenance tips and exclusive offers.
+            </p>
+            
+            {subscribed ? (
+              <div className="bg-teal/20 border border-teal/30 rounded-lg p-4 text-center">
+                <p className="text-teal text-sm font-medium">Thanks for subscribing!</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <div className="relative">
+                  <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-teal transition-colors"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-teal hover:bg-teal-dark text-white font-semibold text-sm py-3 rounded-lg transition-colors"
+                >
+                  Subscribe Now
+                </button>
+              </form>
+            )}
+
+            {/* WhatsApp CTA */}
+            <a
+              href="https://wa.me/60162104127"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold text-sm px-4 py-3 rounded-lg transition-colors"
+            >
+              <MessageCircle size={18} />
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        {/* Social & Payment Bar */}
+        <div className="mt-10 pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              <span className="text-gray-500 text-sm">Follow us:</span>
+              <div className="flex gap-2">
+                {SOCIAL_LINKS.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className={`w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white ${social.color} transition-all duration-200`}
+                  >
+                    <social.icon size={16} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Payment Methods */}
+            <div className="flex items-center gap-3">
+              <span className="text-gray-500 text-sm">We accept:</span>
+              <div className="flex gap-2">
+                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">Cash</div>
+                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">DuitNow</div>
+                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">TnG</div>
+                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">GrabPay</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright Bar */}
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6 text-sm">
+              <Link to="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="text-gray-500 hover:text-white transition-colors">Terms of Service</Link>
+              <Link to="/cookie-policy" className="text-gray-500 hover:text-white transition-colors">Cookies</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 w-12 h-12 bg-teal hover:bg-teal-dark text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 z-40"
+        aria-label="Back to top"
+      >
+        <ArrowUp size={20} />
+      </button>
     </footer>
   )
 }
