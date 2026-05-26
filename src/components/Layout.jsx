@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
 import WhatsAppFloat from './WhatsAppFloat.jsx'
+import ChatBot from './ChatBot.jsx'
 
 function StickyAppBar() {
   return (
@@ -41,6 +42,7 @@ export default function Layout() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ChatBot />
       <StickyAppBar />
     </div>
   )

@@ -337,7 +337,7 @@ export default function Home() {
           <div className="fade-up fade-up-2 lg:justify-self-end w-full max-w-md lg:ml-auto">
             <div className="relative rounded-[20px] overflow-hidden shadow-2xl" style={{ height: '460px' }}>
               <img
-                src="https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=800&q=80"
+                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
                 alt="Southeast Asian professional handyman at work in a Malaysian home"
                 className="w-full h-full object-cover object-center"
                 style={{ objectFit: 'cover' }}
