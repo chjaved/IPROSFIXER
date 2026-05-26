@@ -227,32 +227,33 @@ export default function Footer() {
             {/* Payment Methods */}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 text-sm">We accept:</span>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 {/* Visa */}
-                <svg className="h-5 w-auto" viewBox="0 0 48 16" fill="none">
-                  <path d="M17.5 2L15 14h3.5L21 2h-3.5zM12.5 2L8 9 7.5 7C6.5 4 4 2 4 2H0l6 12h3l4.5-12h-1zM42 2h-3c-1 0-2 .5-2.5 1.5L32 14h3.5l.5-2h4l.5 2H44L42 2zm-4 6l1-3 1.5 3H38z" fill="#1A1F71"/>
-                  <path d="M26 2c-1.5 0-2.5.5-3 1l-5 9h3.5l1-2.5h4l.5 2.5H31L28 2h-2zm-.5 3.5l1 4h-3l2-4z" fill="#1A1F71"/>
+                <svg className="h-8 w-12" viewBox="0 0 100 32" fill="none">
+                  <path d="M40 0L35 32h10l5-32H40zM25 0L15 16l-1.5-4C11 6 6 0 6 0H0l12 24h8l12-24h-7zM85 0h-8c-2.5 0-5 1-6.5 4L60 32h10l2-6h12l1 6h9L85 0zm-10 16l3-8 3 8H75z" fill="#1A1F71"/>
+                  <path d="M52 0c-4 0-6.5 1-8 3l-12 21h10l2-6h10l1 6h9L60 0h-8zm-1.5 8l3 10h-8l5-10z" fill="#1A1F71"/>
                 </svg>
                 {/* Mastercard */}
-                <div className="flex items-center h-8">
-                  <div className="w-6 h-6 rounded-full bg-[#EB001B] -mr-3"></div>
-                  <div className="w-6 h-6 rounded-full bg-[#F79E1B]"></div>
-                </div>
+                <svg className="h-8 w-12" viewBox="0 0 48 32" fill="none">
+                  <circle cx="16" cy="16" r="14" fill="#EB001B"/>
+                  <circle cx="32" cy="16" r="14" fill="#F79E1B"/>
+                  <path d="M24 6c3.5 3 6 8 6 14s-2.5 11-6 14c3.5-3 6-8 6-14s-2.5-11-6-14z" fill="#FF5F00"/>
+                </svg>
                 {/* PayPal */}
-                <svg className="h-5 w-auto" viewBox="0 0 80 20" fill="none">
-                  <path d="M8 3H3.5L1 17h3l.5-3H6c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5H4.5l.5-3H7c1.5 0 2 1 1.5 3z" fill="#003087"/>
-                  <path d="M23 3h-4.5L16 17h3l.5-3h2c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5h-3l.5-3h2c1.5 0 2 1 1.5 3z" fill="#0070E0"/>
-                  <path d="M36 7c-2.5-.5-3-.5-3-1.5 0-1 1-1.5 2-1.5 1.5 0 2.5.5 3 1l2-2c-1-1-2.5-1.5-4.5-1.5-3.5 0-6 2-6 5 0 2.5 2 3.5 4.5 4 2.5.5 3 .5 3 1.5 0 1-1 1.5-2.5 1.5-1.5 0-3-.5-4-1.5l-2 2c1.5 1.5 3.5 2 5.5 2 4 0 6.5-1.5 6.5-5 0-2.5-2-3.5-4-4z" fill="#003087"/>
-                  <path d="M52 3h-5L44 17h3l.5-3h2c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5h-3l.5-3h2c1.5 0 2 1 1.5 3z" fill="#0070E0"/>
-                  <path d="M65 3L62 17h3l3-14h-3zM75 3h-5l-1 7c0 2 1 3 2.5 3 1 0 2-.5 2.5-1l-.5 2.5c-.5.5-1.5.5-2.5.5-2.5 0-4.5-1.5-4-5l1.5-7h-3L65 3h8z" fill="#003087"/>
+                <svg className="h-8 w-20" viewBox="0 0 100 26" fill="none">
+                  <path d="M12 3H5L2 26h6l1.5-4h4c6 0 11-3 12-7.5C26 9 24 3 18 3h-6zm-1 13.5H7l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#003087"/>
+                  <path d="M34 3h-7L24 26h6l1.5-4h4c6 0 11-3 12-7.5 1-4.5-1-10.5-7-11.5h-6.5zm-1 13.5H29l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#0070E0"/>
+                  <path d="M56 9c-5-1-6-1-6-3 0-2 2-3 4-3 3 0 5 1 6 2l3-4c-2-2-5-3-9-3-7 0-12 4-12 10 0 5 4 7 9 8 5 1 6 1 6 3 0 2-2 3-5 3s-6-1-8-3l-3 4c3 3 7 4 11 4 8 0 13-3 13-10 0-5-4-7-9-8z" fill="#003087"/>
+                  <path d="M78 3h-7L68 26h6l1.5-4h4c6 0 11-3 12-7.5 1-4.5-1-10.5-7-11.5h-6.5zm-1 13.5H73l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#0070E0"/>
+                  <path d="M98 3L94 26h6l6-23h-8z" fill="#003087"/>
                 </svg>
                 {/* Apple Pay */}
-                <svg className="h-5 w-auto" viewBox="0 0 40 16" fill="none">
-                  <path d="M8.5 3.5c.5-1 1.5-1.5 2.5-1.5.5 0 1 .5 1 1.5 0 2-2 3-3 4.5-.5 1-.5 2-.5 2.5h3v-1h-2c.5-2 2.5-3 2.5-5.5 0-2-1-3-2.5-3-1 0-2 .5-2.5 1.5h-.5v-1.5h-3v1h2v7h1v-5.5z" fill="#000"/>
-                  <path d="M16 8c0-2.5 2-4.5 4-4.5s4 2 4 4.5-2 4.5-4 4.5-4-2-4-4.5zm7 0c0-2-1.5-3.5-3-3.5s-3 1.5-3 3.5 1.5 3.5 3 3.5 3-1.5 3-3.5z" fill="#000"/>
-                  <path d="M26 4h1v1h-1V4zm0 2h1v6.5h-1V6z" fill="#000"/>
-                  <path d="M30 6h-1v-1h3v6.5h-1V7c0-1-.5-1-1-1h-1V6z" fill="#000"/>
-                  <path d="M34 8.5c0-1.5.5-2.5 2-2.5h1v1h-1c-1 0-1.5.5-1.5 1.5v3.5h-1v-4z" fill="#000"/>
+                <svg className="h-6 w-16" viewBox="0 0 60 20" fill="none">
+                  <path d="M12 4c1-2 3-3 5-3 1 0 2 1 2 3 0 4-4 6-6 9-1 2-1 4-1 5h6v-2h-4c1-4 6-6 6-11 0-4-2-6-5-6-2 0-4 1-5 3h-1V0H6v2h3v12h3V4z" fill="#000"/>
+                  <path d="M24 10c0-5 4-9 8-9s8 4 8 9-4 9-8 9-8-4-8-9zm14 0c0-4-3-7-6-7s-6 3-6 7 3 7 6 7 6-3 6-7z" fill="#000"/>
+                  <path d="M40 5h2v2h-2V5zm0 4h2v10h-2V9z" fill="#000"/>
+                  <path d="M46 9h-2V7h6v10h-2v-5c0-2-1-3-3-3h-1v1z" fill="#000"/>
+                  <path d="M52 11.5c0-3 1-5 4-5h2v2h-2c-2 0-3 1-3 3v5h-2v-5h1z" fill="#000"/>
                 </svg>
               </div>
             </div>
