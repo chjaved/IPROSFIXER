@@ -27,7 +27,7 @@ const IMG = {
   /* Kitchen */
   kitchen:      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
   /* Bathroom */
-  bathroom:     'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?w=600&q=80',
+  bathroom:     'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80',
   /* Laundry */
   laundry:      'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=600&q=80',
   ironing:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
@@ -44,8 +44,8 @@ const CATEGORIES = [
     tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
       { img: IMG.deepClean, name: 'Full Home Deep Clean',      desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Ideal for move-in/move-out.', feats: ['Eco-friendly products','3–8 hour packages','Satisfaction guaranteed'], wa: 'Full home deep clean' },
-      { img: IMG.kitchen, name: 'Kitchen Deep Clean',        desc: 'Grease removal, cabinet wipe-down, appliance exterior clean and full floor scrub.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
-      { img: IMG.bathroom,  name: 'Bathroom Deep Clean',       desc: 'Tile scrubbing, limescale removal, toilet sanitising and mirror polishing.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
+      { img: IMG.kitchen, name: 'Kitchen Deep Clean',        desc: 'Complete kitchen transformation with grease removal, cabinet wipe-down, appliance exterior clean, full floor scrub, sink degreasing and wall tile cleaning.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
+      { img: IMG.bathroom,  name: 'Bathroom Deep Clean',       desc: 'Complete bathroom sanitisation with tile scrubbing, limescale removal, toilet sanitising, mirror polishing, shower glass cleaning and drain unclogging service.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
     ],
   },
   {
