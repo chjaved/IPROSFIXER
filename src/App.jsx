@@ -16,6 +16,20 @@ import Signup from './pages/Signup.jsx'
 import ProSignup from './pages/ProSignup.jsx'
 import ConsumerDashboard from './pages/ConsumerDashboard.jsx'
 import ProfessionalDashboard from './pages/ProfessionalDashboard.jsx'
+
+// Consumer Dashboard Pages
+import ConsumerProfile from './pages/dashboard/consumer/Profile.jsx'
+import ConsumerBookings from './pages/dashboard/consumer/Bookings.jsx'
+import ConsumerRefunds from './pages/dashboard/consumer/Refunds.jsx'
+import ConsumerServices from './pages/dashboard/consumer/Services.jsx'
+import ConsumerAppointments from './pages/dashboard/consumer/Appointments.jsx'
+
+// Professional Dashboard Pages
+import ProProfile from './pages/dashboard/professional/Profile.jsx'
+import ProJobs from './pages/dashboard/professional/Jobs.jsx'
+import ProEarnings from './pages/dashboard/professional/Earnings.jsx'
+import ProSchedule from './pages/dashboard/professional/Schedule.jsx'
+import ProReviews from './pages/dashboard/professional/Reviews.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 
 export default function App() {
@@ -41,23 +55,39 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/pro-signup" element={<ProSignup />} />
 
-        {/* Protected Dashboard routes */}
+        {/* Protected Consumer Dashboard routes */}
         <Route 
-          path="/dashboard/*" 
+          path="/dashboard" 
           element={
             <ProtectedRoute allowedTypes={['consumer']}>
               <ConsumerDashboard />
             </ProtectedRoute>
           } 
-        />
+        >
+          <Route index element={<div className="max-w-6xl"><h1 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Overview</h1><p className="text-gray-500">Welcome back to iPROFIXER</p></div>} />
+          <Route path="profile" element={<ConsumerProfile />} />
+          <Route path="bookings" element={<ConsumerBookings />} />
+          <Route path="refunds" element={<ConsumerRefunds />} />
+          <Route path="services" element={<ConsumerServices />} />
+          <Route path="appointments" element={<ConsumerAppointments />} />
+        </Route>
+
+        {/* Protected Professional Dashboard routes */}
         <Route 
-          path="/pro-dashboard/*" 
+          path="/pro-dashboard" 
           element={
             <ProtectedRoute allowedTypes={['professional']}>
               <ProfessionalDashboard />
             </ProtectedRoute>
           } 
-        />
+        >
+          <Route index element={<div className="max-w-6xl"><h1 className="text-2xl font-bold text-gray-900 mb-2">Professional Dashboard</h1><p className="text-gray-500">Manage your jobs and earnings</p></div>} />
+          <Route path="profile" element={<ProProfile />} />
+          <Route path="jobs" element={<ProJobs />} />
+          <Route path="earnings" element={<ProEarnings />} />
+          <Route path="schedule" element={<ProSchedule />} />
+          <Route path="reviews" element={<ProReviews />} />
+        </Route>
       </Routes>
     </AuthProvider>
   )
