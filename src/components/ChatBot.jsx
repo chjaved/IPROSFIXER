@@ -28,6 +28,13 @@ export default function ChatBot() {
     }
   }, [isOpen])
 
+  // Listen for toggle event from mobile app bar
+  useEffect(() => {
+    const handleToggle = () => setIsOpen(prev => !prev)
+    window.addEventListener('toggleChatbot', handleToggle)
+    return () => window.removeEventListener('toggleChatbot', handleToggle)
+  }, [])
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return
 
