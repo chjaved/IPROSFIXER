@@ -58,17 +58,17 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#1a1a2e] text-white relative">
+    <footer className="bg-gray-50 text-gray-800 relative border-t border-gray-200">
       {/* Trust Bar */}
-      <div className="border-b border-white/10">
+      <div className="border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6">
           <div className="grid grid-cols-3 gap-4">
             {TRUST_BADGES.map((badge) => (
               <div key={badge.text} className="flex items-center justify-center gap-3">
-                <div className="w-10 h-10 bg-teal/20 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-teal/10 rounded-full flex items-center justify-center">
                   <badge.icon size={20} className="text-teal" />
                 </div>
-                <span className="text-sm font-medium hidden sm:block">{badge.text}</span>
+                <span className="text-sm font-medium hidden sm:block text-gray-700">{badge.text}</span>
               </div>
             ))}
           </div>
@@ -82,28 +82,28 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-4">
             <Link to="/" className="inline-block mb-4">
-              <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto brightness-0 invert" />
+              <img src="/logo.png" alt="iPROFIXER" className="h-24 w-auto" />
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+            <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-sm">
               Malaysia's most trusted home services platform. Connecting homeowners with verified professionals for cleaning, repairs, and maintenance.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <a href="tel:+60380805249" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
-                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
+              <a href="tel:+60380805249" className="flex items-center gap-3 text-gray-600 hover:text-teal transition-colors group">
+                <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
                   <Phone size={14} className="text-teal group-hover:text-white" />
                 </div>
                 <span className="text-sm">+03-8080 5249</span>
               </a>
-              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
-                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
+              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-3 text-gray-600 hover:text-teal transition-colors group">
+                <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center group-hover:bg-teal transition-colors">
                   <Mail size={14} className="text-teal group-hover:text-white" />
                 </div>
                 <span className="text-sm break-all">for_services@iprofixer.com.my</span>
               </a>
-              <div className="flex items-center gap-3 text-gray-300">
-                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-3 text-gray-600">
+                <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
                   <MapPin size={14} className="text-teal" />
                 </div>
                 <span className="text-sm">Ara Damansara, Petaling Jaya</span>
@@ -114,12 +114,12 @@ export default function Footer() {
           {/* Links Columns */}
           <div className="lg:col-span-5 grid grid-cols-3 gap-6">
             <div>
-              <h4 className="text-sm font-semibold mb-4 text-white">Services</h4>
+              <h4 className="text-sm font-semibold mb-4 text-gray-900">Services</h4>
               <ul className="space-y-2.5">
                 {SERVICES.map((s) => (
                   <li key={s.name}>
-                    <Link to={s.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
-                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    <Link to={s.to} className="text-gray-600 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-teal" />
                       {s.name}
                     </Link>
                   </li>
@@ -128,12 +128,12 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold mb-4 text-white">Company</h4>
+              <h4 className="text-sm font-semibold mb-4 text-gray-900">Company</h4>
               <ul className="space-y-2.5">
                 {COMPANY.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
-                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    <Link to={l.to} className="text-gray-600 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-teal" />
                       {l.label}
                     </Link>
                   </li>
@@ -142,12 +142,12 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold mb-4 text-white">Support</h4>
+              <h4 className="text-sm font-semibold mb-4 text-gray-900">Support</h4>
               <ul className="space-y-2.5">
                 {SUPPORT.map((l) => (
                   <li key={l.label}>
-                    <Link to={l.to} className="text-gray-400 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
-                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    <Link to={l.to} className="text-gray-600 hover:text-teal text-sm transition-colors flex items-center gap-1 group">
+                      <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-teal" />
                       {l.label}
                     </Link>
                   </li>
@@ -158,25 +158,25 @@ export default function Footer() {
 
           {/* Newsletter Column */}
           <div className="lg:col-span-3">
-            <h4 className="text-sm font-semibold mb-4 text-white">Stay Updated</h4>
-            <p className="text-gray-400 text-sm mb-4">
+            <h4 className="text-sm font-semibold mb-4 text-gray-900">Stay Updated</h4>
+            <p className="text-gray-600 text-sm mb-4">
               Get home maintenance tips and exclusive offers.
             </p>
             
             {subscribed ? (
-              <div className="bg-teal/20 border border-teal/30 rounded-lg p-4 text-center">
+              <div className="bg-teal/10 border border-teal/20 rounded-lg p-4 text-center">
                 <p className="text-teal text-sm font-medium">Thanks for subscribing!</p>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-3">
                 <div className="relative">
-                  <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-teal transition-colors"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-teal transition-colors"
                     required
                   />
                 </div>
@@ -203,11 +203,11 @@ export default function Footer() {
         </div>
 
         {/* Social & Payment Bar */}
-        <div className="mt-10 pt-8 border-t border-white/10">
+        <div className="mt-10 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Social Icons */}
             <div className="flex items-center gap-4">
-              <span className="text-gray-500 text-sm">Follow us:</span>
+              <span className="text-gray-600 text-sm">Follow us:</span>
               <div className="flex gap-2">
                 {SOCIAL_LINKS.map((social) => (
                   <a
@@ -216,7 +216,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className={`w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-gray-400 hover:text-white ${social.color} transition-all duration-200`}
+                    className="w-9 h-9 bg-white border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:text-white hover:bg-teal hover:border-teal transition-all duration-200"
                   >
                     <social.icon size={16} />
                   </a>
@@ -226,27 +226,35 @@ export default function Footer() {
 
             {/* Payment Methods */}
             <div className="flex items-center gap-3">
-              <span className="text-gray-500 text-sm">We accept:</span>
-              <div className="flex gap-2">
-                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">Cash</div>
-                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">DuitNow</div>
-                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">TnG</div>
-                <div className="px-3 py-1.5 bg-white/10 rounded text-xs text-gray-300">GrabPay</div>
+              <span className="text-gray-600 text-sm">We accept:</span>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600 text-white rounded text-xs font-medium">
+                  <span className="font-bold">RM</span> Cash
+                </div>
+                <div className="px-3 py-1.5 bg-red-600 text-white rounded text-xs font-bold">
+                  DuitNow
+                </div>
+                <div className="px-3 py-1.5 bg-blue-600 text-white rounded text-xs font-bold">
+                  Touch'n Go
+                </div>
+                <div className="px-3 py-1.5 bg-[#00B14F] text-white rounded text-xs font-bold">
+                  GrabPay
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Copyright Bar */}
-        <div className="mt-8 pt-6 border-t border-white/10">
+        <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-sm">
               © {new Date().getFullYear()} iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm">
-              <Link to="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="text-gray-500 hover:text-white transition-colors">Terms of Service</Link>
-              <Link to="/cookie-policy" className="text-gray-500 hover:text-white transition-colors">Cookies</Link>
+              <Link to="/privacy" className="text-gray-600 hover:text-teal transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="text-gray-600 hover:text-teal transition-colors">Terms of Service</Link>
+              <Link to="/cookie-policy" className="text-gray-600 hover:text-teal transition-colors">Cookies</Link>
             </div>
           </div>
         </div>
