@@ -193,7 +193,7 @@ function Sidebar() {
     <aside className="w-64 bg-white border-r border-gray-200 min-h-screen sticky top-0">
       <div className="p-6">
         <Link to="/" className="flex items-center gap-2 mb-8">
-          <img src="/logo.png" alt="iPROFIXER" className="h-8 w-auto" />
+          <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
           <span className="text-xs font-medium text-gray-500">Pro</span>
         </Link>
         

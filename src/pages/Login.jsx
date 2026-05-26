@@ -79,7 +79,7 @@ export default function Login() {
             {/* Header */}
             <div className="bg-gray-50 px-8 py-6 border-b border-gray-100">
               <div className="flex justify-center mb-4">
-                <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
+                <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" />
               </div>
               <h2 className="text-xl font-bold text-center text-gray-900">Sign In</h2>
               <p className="text-center text-gray-500 text-sm mt-1">

@@ -179,7 +179,7 @@ export default function ProSignup() {
           {/* Header */}
           <div className="bg-orange-50 px-8 py-6 border-b border-orange-100">
             <div className="flex justify-center mb-4">
-              <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
+              <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" />
             </div>
             <h1 className="text-2xl font-bold text-center text-gray-900">Join as a Professional</h1>
             <p className="text-center text-gray-500 text-sm mt-1">

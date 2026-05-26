@@ -30,13 +30,13 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-border transition-all duration-300 ${
         scrolled ? 'shadow-[0_4px_20px_rgba(0,0,0,0.10)]' : ''
       }`}
-      style={{ height: '68px', backdropFilter: 'blur(8px)' }}
+      style={{ height: '80px', backdropFilter: 'blur(8px)' }}
     >
       <div className="max-w-content mx-auto px-4 sm:px-6 flex items-center justify-between h-full">
 
         {/* Logo */}
         <Link to="/" className="flex-shrink-0" aria-label="iPROFIXER home">
-          <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
+          <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" />
         </Link>
 
         {/* Desktop nav */}
@@ -104,7 +104,7 @@ export default function Navbar() {
 
       {/* Mobile slide-down menu */}
       <div
-        className={`lg:hidden absolute top-[68px] left-0 right-0 bg-white border-b border-border shadow-lg transition-all duration-300 overflow-hidden ${
+        className={`lg:hidden absolute top-[80px] left-0 right-0 bg-white border-b border-border shadow-lg transition-all duration-300 overflow-hidden ${
           mobileOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >

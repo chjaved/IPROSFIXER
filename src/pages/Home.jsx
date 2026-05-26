@@ -259,7 +259,7 @@ export default function Home() {
     <>
       
       <section
-        className="hero-circle-bg relative overflow-hidden pt-[68px]"
+        className="hero-circle-bg relative overflow-hidden pt-[80px]"
         style={{ background: 'linear-gradient(135deg, #04342C 0%, #0B6B52 55%, #1D9E75 100%)' }}
         aria-label="iPROFIXER home services Malaysia hero"
       >
