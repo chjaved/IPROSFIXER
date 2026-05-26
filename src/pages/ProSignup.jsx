@@ -12,18 +12,36 @@ const PRO_BENEFITS = [
 ]
 
 const SERVICE_CATEGORIES = [
-  'Deep Cleaning',
-  'Regular Maid',
-  'Laundry & Ironing',
-  'Post-Reno Cleaning',
-  'Sofa & Carpet Cleaning',
-  'Mattress Cleaning',
-  'AC Repair',
-  'Appliance Repair',
-  'Electrical',
-  'Caregiver',
-  'Bridal Make-Up',
-  'Others'
+  // Housekeeping & Maid Services
+  { group: 'Housekeeping', items: [
+    'Part-Time Maid / Cleaner',
+    'Full-Time Maid',
+    'Live-In Maid',
+    'Laundry & Ironing Service',
+    'Household Helper',
+  ]},
+  // Deep & Specialist Cleaning
+  { group: 'Deep Cleaning', items: [
+    'Deep Home Cleaning',
+    'Post-Renovation Cleaning',
+    'Post-Event / Party Cleanup',
+    'Move-In / Move-Out Cleaning',
+  ]},
+  // Surface & Material Cleaning
+  { group: 'Specialist Cleaning', items: [
+    'Sofa & Upholstery Cleaning',
+    'Carpet & Rug Cleaning',
+    'Mattress Cleaning',
+    'Curtain Cleaning',
+    'Marble / Parquet Polishing',
+  ]},
+  // Care & Helper Services
+  { group: 'Care Helpers', items: [
+    'Newborn / Confinement Helper',
+    'Post-Natal Care Assistant',
+    'Elderly Care Helper',
+    'Childcare / Nanny',
+  ]}
 ]
 
 const LOCATIONS = [
@@ -181,9 +199,9 @@ export default function ProSignup() {
             <div className="flex justify-center mb-4">
               <img src="/logo.png" alt="iPROFIXER" className="h-14 w-auto" />
             </div>
-            <h1 className="text-2xl font-bold text-center text-gray-900">Join as a Professional</h1>
+            <h1 className="text-2xl font-bold text-center text-gray-900">Join as a Cleaner</h1>
             <p className="text-center text-gray-500 text-sm mt-1">
-              Start earning with your skills
+              Maids, deep cleaners, helpers & caregivers welcome
             </p>
           </div>
 
@@ -268,8 +286,12 @@ export default function ProSignup() {
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white"
                   >
                     <option value="">Select your service</option>
-                    {SERVICE_CATEGORIES.map(cat => (
-                      <option key={cat} value={cat}>{cat}</option>
+                    {SERVICE_CATEGORIES.map(group => (
+                      <optgroup key={group.group} label={group.group}>
+                        {group.items.map(item => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </optgroup>
                     ))}
                   </select>
                 </div>

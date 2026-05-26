@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom'
 import { Banknote, Calendar, MapPin, GraduationCap, ShieldCheck, Smartphone, MessageCircle, ArrowRight, Star } from 'lucide-react'
 
 const PERKS = [
-  { Icon: Banknote,      title: 'Earn More, Keep More',       desc: 'Set your own rates. iPROFIXER takes a small platform fee — you keep the majority. Top pros earn RM4,000–RM6,000/month.', img: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=600&q=80' },
-  { Icon: Calendar,      title: '100% Flexible Schedule',     desc: 'Work full-time or part-time. Accept jobs when you want, turn them down when you do not. Total control.', img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80' },
-  { Icon: MapPin,        title: 'Jobs Near You',              desc: 'Our smart matching sends you job requests close to your home — minimise travel time and fuel costs.', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
-  { Icon: GraduationCap, title: 'Free Training & Upskilling',  desc: 'Access free skills workshops, safety training and certification support. Grow your expertise, grow your rates.', img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80' },
-  { Icon: ShieldCheck,   title: 'Insurance Coverage',         desc: 'All active professionals are covered by personal accident insurance while on the job. Work with peace of mind.', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80' },
-  { Icon: Smartphone,    title: 'Easy-to-Use App',            desc: 'Manage all bookings, earnings, reviews and schedule from one simple app. No paperwork, no fuss.', img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80' },
+  { Icon: Banknote,      title: 'Earn More, Keep More',       desc: 'Set your own rates. iPROFIXER takes a small platform fee — you keep the majority. Top cleaners earn RM3,000–RM5,000/month.', img: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=600&q=80' },
+  { Icon: Calendar,      title: '100% Flexible Schedule',     desc: 'Work full-time or part-time. Accept cleaning jobs when you want, turn them down when you do not. Perfect for stay-home parents.', img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&q=80' },
+  { Icon: MapPin,        title: 'Jobs Near You',              desc: 'Our smart matching sends you cleaning requests close to your home — minimise travel time and fuel costs. Work in your neighbourhood.', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+  { Icon: GraduationCap, title: 'Free Training & Upskilling',  desc: 'Access free cleaning workshops, learn professional techniques, eco-friendly products, and equipment handling. Grow your skills.', img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80' },
+  { Icon: ShieldCheck,   title: 'Insurance Coverage',         desc: 'All active cleaners are covered by personal accident insurance while on the job. Work with peace of mind in any home.', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80' },
+  { Icon: Smartphone,    title: 'Easy-to-Use App',            desc: 'Manage all cleaning bookings, earnings, reviews and schedule from one simple app. No paperwork, no fuss — even for beginners.', img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80' },
 ]
 
 const STEPS = [
@@ -18,9 +18,12 @@ const STEPS = [
 ]
 
 const TESTIMONIALS = [
-  { img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=200&q=80', name: 'Rajan Selvam',  role: 'Electrician — Subang Jaya',  text: 'Before iPROFIXER I was struggling to find clients. Now I get 3-5 jobs a day. My income doubled in 3 months. Terbaik!' },
-  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', name: 'Hairul Bahari', role: 'House Cleaner — Cheras',      text: 'The app is easy to use. I accept jobs during school hours and am back before my kids come home. Perfect.' },
-  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80', name: 'Kamarul Azri',  role: 'AC Technician — PJ',          text: 'I was earning RM1,800/month on my own. Now on iPROFIXER I consistently earn above RM5,000. Payment is always on time.' },
+  { img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80', name: 'Kavita Devi',   role: 'Part-Time Maid — PJ',         text: 'As a stay-home mom, I work 4 hours daily while kids are at school. I earn RM2,400/month with flexible hours. Very grateful!' },
+  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', name: 'Hairul Bahari', role: 'Deep Cleaner — Cheras',       text: 'The app is easy to use. I accept jobs during school hours and am back before my kids come home. Perfect for parents.' },
+  { img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80', name: 'Aisyah Tan',    role: 'Post-Natal Helper — KL',     text: 'I help new mothers with confinement care. The platform helps me find regular clients. Income is stable and growing.' },
+  { img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=200&q=80', name: 'Muthu Rajan',  role: 'Post-Reno Cleaner — Subang',  text: 'Specialising in post-renovation cleaning. I get 4-5 big jobs weekly. Earn more than my previous office job!' },
+  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80', name: 'Farid Ahmad',  role: 'Carpet Cleaner — Shah Alam',  text: 'Started with just basic equipment. Now I have regular clients and earn steady income every month. Highly recommend!' },
+  { img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80', name: 'Lisa Wong',    role: 'Full-Time Maid — Mont Kiara', text: 'Found a long-term placement through iPROFIXER. The family treats me well and I have stable income plus benefits.' },
 ]
 
 export default function ForProfessionals() {
@@ -38,12 +41,12 @@ export default function ForProfessionals() {
                 Be Your Own Boss.<br />Earn <span className="text-gold">More Income.</span>
               </h1>
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                Join 500+ professionals already growing their business on iPROFIXER. Set your own hours, work near home, and get paid fast.
+                Join 500+ cleaners and maids already earning on iPROFIXER. Set your own hours, work near home, and get paid fast.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
-                  { num: '500+', label: 'Active Pros' },
-                  { num: 'RM6K', label: 'Top Monthly Earn' },
+                  { num: '500+', label: 'Active Cleaners & Maids' },
+                  { num: 'RM5K', label: 'Top Monthly Earn' },
                   { num: '48hrs', label: 'Approval Time' },
                   { num: 'Free', label: 'Training & Support' },
                 ].map(s => (
