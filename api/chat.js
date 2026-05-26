@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   if (!process.env.OPENAI_API_KEY) {
     console.error('OPENAI_API_KEY not configured')
     return res.status(200).json({ 
-      reply: 'Hi! I\'m iPROFIXER Assistant. I can help you book home services like cleaning, AC repair, electrical work, and more. What service do you need today?'
+      reply: 'Hi! I\'m iPROFIXER Assistant. I can help you book home services like cleaning, AC repair, electrical work, and more. Download our app for instant booking: https://play.google.com/store/apps/details?id=com.iprofixer.app'
     })
   }
 
@@ -32,9 +32,9 @@ SERVICES: Electricians (RM80-200), AC Repair (RM80-250), Appliance Repair (RM100
 
 AREAS: KL, PJ, Shah Alam, Subang, Cheras, Klang, Cyberjaya, Putrajaya, Ampang, Bangsar, Mont Kiara, Damansara.
 
-BOOKING: WhatsApp +60162104127, website, or app. Pay after job - Cash, DuitNow, TnG, GrabPay.
+BOOKING: Download iPROFIXER app for instant booking - Google Play: https://play.google.com/store/apps/details?id=com.iprofixer.app or App Store: https://apps.apple.com/app/iprofixer/id1234567890. Pay after job - Cash, DuitNow, TnG, GrabPay.
 
-Be friendly, concise (2-3 sentences). Always mention WhatsApp +60162104127 for bookings.`
+Be friendly, concise (2-3 sentences). Guide users to download the mobile app for fastest booking. If they need help, mention phone +60380805249 or email for_services@iprofixer.com.my.`
 
   try {
     const { OpenAI } = await import('openai')
@@ -51,14 +51,14 @@ Be friendly, concise (2-3 sentences). Always mention WhatsApp +60162104127 for b
     })
 
     const reply = completion.choices[0]?.message?.content || 
-      'I can help you book cleaning, AC repair, electrical services and more. WhatsApp us at +60162104127 for quick booking!'
+      'I can help you book cleaning, AC repair, electrical services and more. Download our app for instant booking: https://play.google.com/store/apps/details?id=com.iprofixer.app'
 
     return res.status(200).json({ reply })
 
   } catch (error) {
     console.error('OpenAI error:', error.message)
     return res.status(200).json({
-      reply: 'I can help you with home services - cleaning, AC repair, electrical work, and more. For immediate booking, WhatsApp us at +60162104127!'
+      reply: 'I can help you with home services - cleaning, AC repair, electrical work, and more. Download our app for instant booking: https://play.google.com/store/apps/details?id=com.iprofixer.app'
     })
   }
 }
