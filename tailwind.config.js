@@ -4,6 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        brand:       '#0B6B52',
+        'brand-dark':'#084D3C',
+        gold:        '#F47B20',
+        'gold-dark': '#D9690F',
         teal:        '#0B6B52',
         'teal-dark': '#084D3C',
         'teal-deep': '#04342C',
