@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, LayoutDashboard, User } from 'lucide-react'
+import { Menu, X, LayoutDashboard, User, LogOut, LogIn, UserPlus } from 'lucide-react'
+import { useAuth } from '../contexts/AuthContext.jsx'
 
 const NAV = [
   { to: '/',                label: 'Home' },
@@ -14,6 +15,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { pathname } = useLocation()
+  const { isAuthenticated, user, logout, isConsumer, isProfessional } = useAuth()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100)
@@ -55,16 +57,38 @@ export default function Navbar() {
 
         {/* Desktop CTAs */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/dashboard"
-            className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-teal transition-colors">
-            <LayoutDashboard size={18} />
-            My Dashboard
-          </Link>
-          <Link to="/pro-dashboard"
-            className="flex items-center gap-2 text-sm font-medium text-orange hover:text-orange-dark transition-colors">
-            <User size={18} />
-            Pro Dashboard
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link to={isProfessional ? '/pro-dashboard' : '/dashboard'}
+                className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-teal transition-colors">
+                <LayoutDashboard size={18} />
+                {isProfessional ? 'Pro Dashboard' : 'My Dashboard'}
+              </Link>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <User size={16} />
+                <span>Hi, {user?.name?.split(' ')[0] || 'User'}</span>
+              </div>
+              <button
+                onClick={logout}
+                className="flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 transition-colors">
+                <LogOut size={18} />
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login"
+                className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-teal transition-colors">
+                <LogIn size={18} />
+                Login
+              </Link>
+              <Link to="/signup"
+                className="bg-orange hover:bg-orange-dark text-white font-bold text-sm px-5 py-2.5 rounded-card transition-all duration-200 shadow-md flex items-center gap-2">
+                <UserPlus size={18} />
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger */}
@@ -97,17 +121,41 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          <div className="pt-4 space-y-2">
-            <Link to="/dashboard"
-              className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-teal border-b border-gray-100">
-              <LayoutDashboard size={18} />
-              My Dashboard
-            </Link>
-            <Link to="/pro-dashboard"
-              className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-orange">
-              <User size={18} />
-              Pro Dashboard
-            </Link>
+          <div className="pt-4 space-y-2 border-t border-gray-200">
+            {isAuthenticated ? (
+              <>
+                <Link to={isProfessional ? '/pro-dashboard' : '/dashboard'}
+                  className={`flex items-center gap-2 py-3 px-3 text-sm font-medium border-b border-gray-100 ${
+                    isProfessional ? 'text-orange' : 'text-teal'
+                  }`}>
+                  <LayoutDashboard size={18} />
+                  {isProfessional ? 'Pro Dashboard' : 'My Dashboard'}
+                </Link>
+                <div className="flex items-center gap-2 py-3 px-3 text-sm text-gray-600">
+                  <User size={18} />
+                  <span>Hi, {user?.name?.split(' ')[0] || 'User'}</span>
+                </div>
+                <button
+                  onClick={logout}
+                  className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-red-600 w-full">
+                  <LogOut size={18} />
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login"
+                  className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-gray-600 border-b border-gray-100">
+                  <LogIn size={18} />
+                  Login
+                </Link>
+                <Link to="/signup"
+                  className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-orange">
+                  <UserPlus size={18} />
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
