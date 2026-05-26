@@ -7,19 +7,19 @@ const CUSTOMER_STEPS = [
     n: '01', title: 'Book in Minutes',
     desc: 'Select your service, area and preferred time. Use our website, WhatsApp or app — whichever is easiest for you.',
     items: ['50+ services available','Cover all Klang Valley areas','Same-day bookings available','Fixed price quoted upfront'],
-    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=700&q=80',
   },
   {
     n: '02', title: 'Get Matched Instantly',
     desc: 'We match you with the best-rated available professional near you. You receive their name, photo, rating and ETA.',
     items: ['Verified professional profile sent','Real-time ETA tracking','Direct WhatsApp contact','No surprise costs'],
-    img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1512428559087-560fa0db0152?w=700&q=80',
   },
   {
     n: '03', title: 'Professional Does the Job',
     desc: 'Your vetted professional arrives on time, assesses the issue and gets to work. Any extra costs are communicated before proceeding.',
     items: ['On-time arrival guaranteed','Full assessment first','Clean, professional work','Minimal disruption to your home'],
-    img: 'https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80',
   },
   {
     n: '04', title: 'Pay & Rate',
@@ -33,17 +33,17 @@ const PRO_STEPS = [
   {
     n: '01', title: 'Apply Online',
     desc: 'Fill in your name, phone, service type and area. Upload your IC and any trade certificates. Takes less than 5 minutes.',
-    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=700&q=80',
   },
   {
     n: '02', title: 'Get Verified',
     desc: 'Our team reviews your application within 48 hours. Background check, identity verification and optional skills assessment.',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=700&q=80',
   },
   {
     n: '03', title: 'Start Getting Jobs',
     desc: 'Download the app, set your availability and areas. Job requests start coming in immediately — accept or decline any booking.',
-    img: 'https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80',
   },
   {
     n: '04', title: 'Earn More Every Week',
