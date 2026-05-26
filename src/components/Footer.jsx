@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle, Shield, Award, Clock } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
 
 const SOCIAL_LINKS = [
   { icon: Facebook, href: 'https://facebook.com/iprofixer', label: 'Facebook' },
@@ -7,12 +7,6 @@ const SOCIAL_LINKS = [
   { icon: Linkedin, href: 'https://linkedin.com/company/iprofixer', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://twitter.com/iprofixer', label: 'Twitter' },
   { icon: Youtube, href: 'https://youtube.com/iprofixer', label: 'YouTube' },
-]
-
-const FEATURES = [
-  { icon: Shield, text: 'Verified Professionals' },
-  { icon: Award, text: 'Quality Guaranteed' },
-  { icon: Clock, text: 'On-Time Service' },
 ]
 
 const SERVICES = [
@@ -50,7 +44,7 @@ export default function Footer() {
       {/* Main Footer Content - Full Width */}
       <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-10">
         
-        {/* Top Section - Logo & Social */}
+        {/* Top Section - Logo, Newsletter & Social */}
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 mb-12 pb-10 border-b border-gray-200">
           {/* Logo Section - 3x bigger */}
           <div className="text-center lg:text-left">
@@ -60,6 +54,25 @@ export default function Footer() {
             <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
               Malaysia's trusted home services platform. Connecting you with verified professionals for all your home needs.
             </p>
+          </div>
+
+          {/* Newsletter - Fills the space */}
+          <div className="w-full max-w-md lg:max-w-sm">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-3">Subscribe to Our Newsletter</h4>
+            <p className="text-gray-500 text-sm mb-4">Get home maintenance tips & exclusive offers delivered to your inbox</p>
+            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+              />
+              <button
+                type="submit"
+                className="bg-teal hover:bg-teal-dark text-white font-semibold text-sm px-5 py-3 rounded-lg transition-colors whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
 
           {/* Social Media Icons */}
@@ -82,20 +95,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Features Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 p-6 bg-white rounded-xl border border-gray-200">
-          {FEATURES.map((feature) => (
-            <div key={feature.text} className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-teal-light rounded-full flex items-center justify-center">
-                <feature.icon size={20} className="text-teal" />
-              </div>
-              <span className="font-medium text-gray-800">{feature.text}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           
           {/* Services */}
           <div className="col-span-2 md:col-span-1">
@@ -134,7 +135,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="col-span-2 md:col-span-1">
+          <div>
             <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Contact</h4>
             <div className="space-y-3">
               <a href="tel:+60380805249" className="flex items-center gap-2 text-gray-500 hover:text-teal text-sm transition-colors">
@@ -160,24 +161,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Newsletter</h4>
-            <p className="text-gray-500 text-sm mb-3">Get tips & exclusive offers</p>
-            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Your email"
-                className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
-              />
-              <button
-                type="submit"
-                className="bg-teal hover:bg-teal-dark text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
         </div>
 
         {/* Bottom bar */}
