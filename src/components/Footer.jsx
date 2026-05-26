@@ -227,19 +227,11 @@ export default function Footer() {
             {/* Payment Methods */}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 text-sm">We accept:</span>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600 text-white rounded text-xs font-medium">
-                  <span className="font-bold">RM</span> Cash
-                </div>
-                <div className="px-3 py-1.5 bg-red-600 text-white rounded text-xs font-bold">
-                  DuitNow
-                </div>
-                <div className="px-3 py-1.5 bg-blue-600 text-white rounded text-xs font-bold">
-                  Touch'n Go
-                </div>
-                <div className="px-3 py-1.5 bg-[#00B14F] text-white rounded text-xs font-bold">
-                  GrabPay
-                </div>
+              <div className="flex items-center gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa" className="h-5 w-auto object-contain" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="Mastercard" className="h-8 w-auto object-contain" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" className="h-6 w-auto object-contain" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png" alt="Apple Pay" className="h-5 w-auto object-contain" />
               </div>
             </div>
           </div>
