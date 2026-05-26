@@ -1,7 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowLeft, CheckCircle } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowLeft, CheckCircle, Sparkles, Calendar, Shield } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext.jsx'
+import Navbar from '../components/Navbar.jsx'
+import Footer from '../components/Footer.jsx'
+
+const BENEFITS = [
+  { icon: Sparkles, title: 'Quality Service', desc: 'Verified professionals only' },
+  { icon: Calendar, title: 'Easy Booking', desc: 'Book in just 2 minutes' },
+  { icon: Shield, title: 'Secure Payment', desc: 'Pay after job completion' },
+]
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -62,32 +70,65 @@ export default function Signup() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#04342C] via-[#0B6B52] to-[#1D9E75] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-md w-full">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle className="text-green-600" size={32} />
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <Navbar />
+        <div className="flex-1 bg-gradient-to-br from-[#04342C] via-[#0B6B52] to-[#1D9E75] flex items-center justify-center p-4 pt-24">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-md w-full">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="text-green-600" size={32} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to iPROFIXER!</h2>
+            <p className="text-gray-600">Your account has been created successfully. Redirecting to your dashboard...</p>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to iPROFIXER!</h2>
-          <p className="text-gray-600">Your account has been created successfully. Redirecting to your dashboard...</p>
         </div>
+        <Footer />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#04342C] via-[#0B6B52] to-[#1D9E75] flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Back button */}
-        <Link 
-          to="/" 
-          className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
-        >
-          <ArrowLeft size={20} />
-          Back to Home
-        </Link>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navbar />
 
-        {/* Signup Card */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-[#04342C] via-[#0B6B52] to-[#1D9E75] pt-24 pb-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Create Your <span className="text-[#7FFFD4]">iPROFIXER</span> Account
+            </h1>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Join thousands of happy customers booking home services
+            </p>
+          </div>
+
+          {/* Benefits */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            {BENEFITS.map((benefit) => (
+              <div key={benefit.title} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <benefit.icon className="w-8 h-8 text-[#7FFFD4] mx-auto mb-2" />
+                <h3 className="text-white font-medium text-sm">{benefit.title}</h3>
+                <p className="text-white/70 text-xs mt-1">{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Signup Form Section */}
+      <div className="flex-1 flex items-start justify-center px-4 pb-12 -mt-8">
+        <div className="w-full max-w-md">
+          {/* Back button */}
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-4 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            Back to Home
+          </Link>
+
+          {/* Signup Card */}
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
           {/* Header */}
           <div className="bg-gray-50 px-8 py-6 border-b border-gray-100">
             <div className="flex justify-center mb-4">
@@ -271,14 +312,17 @@ export default function Signup() {
               Sign in
             </Link>
           </div>
-        </div>
+          </div>
 
-        {/* Footer */}
-        <p className="text-center text-white/60 text-sm mt-6">
-          Want to join as a professional?{' '}
-          <Link to="/pro-signup" className="text-white hover:underline font-medium">Apply here</Link>
-        </p>
+          {/* Footer text */}
+          <p className="text-center text-gray-500 text-sm mt-6">
+            Want to join as a professional?{' '}
+            <Link to="/pro-signup" className="text-teal hover:underline font-medium">Apply here</Link>
+          </p>
+        </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
