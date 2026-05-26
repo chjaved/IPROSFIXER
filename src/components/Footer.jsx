@@ -228,10 +228,32 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <span className="text-gray-600 text-sm">We accept:</span>
               <div className="flex items-center gap-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa" className="h-5 w-auto object-contain" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="Mastercard" className="h-8 w-auto object-contain" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" alt="PayPal" className="h-6 w-auto object-contain" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png" alt="Apple Pay" className="h-5 w-auto object-contain" />
+                {/* Visa */}
+                <svg className="h-5 w-auto" viewBox="0 0 48 16" fill="none">
+                  <path d="M17.5 2L15 14h3.5L21 2h-3.5zM12.5 2L8 9 7.5 7C6.5 4 4 2 4 2H0l6 12h3l4.5-12h-1zM42 2h-3c-1 0-2 .5-2.5 1.5L32 14h3.5l.5-2h4l.5 2H44L42 2zm-4 6l1-3 1.5 3H38z" fill="#1A1F71"/>
+                  <path d="M26 2c-1.5 0-2.5.5-3 1l-5 9h3.5l1-2.5h4l.5 2.5H31L28 2h-2zm-.5 3.5l1 4h-3l2-4z" fill="#1A1F71"/>
+                </svg>
+                {/* Mastercard */}
+                <div className="flex items-center h-8">
+                  <div className="w-6 h-6 rounded-full bg-[#EB001B] -mr-3"></div>
+                  <div className="w-6 h-6 rounded-full bg-[#F79E1B]"></div>
+                </div>
+                {/* PayPal */}
+                <svg className="h-5 w-auto" viewBox="0 0 80 20" fill="none">
+                  <path d="M8 3H3.5L1 17h3l.5-3H6c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5H4.5l.5-3H7c1.5 0 2 1 1.5 3z" fill="#003087"/>
+                  <path d="M23 3h-4.5L16 17h3l.5-3h2c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5h-3l.5-3h2c1.5 0 2 1 1.5 3z" fill="#0070E0"/>
+                  <path d="M36 7c-2.5-.5-3-.5-3-1.5 0-1 1-1.5 2-1.5 1.5 0 2.5.5 3 1l2-2c-1-1-2.5-1.5-4.5-1.5-3.5 0-6 2-6 5 0 2.5 2 3.5 4.5 4 2.5.5 3 .5 3 1.5 0 1-1 1.5-2.5 1.5-1.5 0-3-.5-4-1.5l-2 2c1.5 1.5 3.5 2 5.5 2 4 0 6.5-1.5 6.5-5 0-2.5-2-3.5-4-4z" fill="#003087"/>
+                  <path d="M52 3h-5L44 17h3l.5-3h2c3 0 5.5-2 6-5 .5-2.5-1-6-4-6zm-.5 7.5h-3l.5-3h2c1.5 0 2 1 1.5 3z" fill="#0070E0"/>
+                  <path d="M65 3L62 17h3l3-14h-3zM75 3h-5l-1 7c0 2 1 3 2.5 3 1 0 2-.5 2.5-1l-.5 2.5c-.5.5-1.5.5-2.5.5-2.5 0-4.5-1.5-4-5l1.5-7h-3L65 3h8z" fill="#003087"/>
+                </svg>
+                {/* Apple Pay */}
+                <svg className="h-5 w-auto" viewBox="0 0 40 16" fill="none">
+                  <path d="M8.5 3.5c.5-1 1.5-1.5 2.5-1.5.5 0 1 .5 1 1.5 0 2-2 3-3 4.5-.5 1-.5 2-.5 2.5h3v-1h-2c.5-2 2.5-3 2.5-5.5 0-2-1-3-2.5-3-1 0-2 .5-2.5 1.5h-.5v-1.5h-3v1h2v7h1v-5.5z" fill="#000"/>
+                  <path d="M16 8c0-2.5 2-4.5 4-4.5s4 2 4 4.5-2 4.5-4 4.5-4-2-4-4.5zm7 0c0-2-1.5-3.5-3-3.5s-3 1.5-3 3.5 1.5 3.5 3 3.5 3-1.5 3-3.5z" fill="#000"/>
+                  <path d="M26 4h1v1h-1V4zm0 2h1v6.5h-1V6z" fill="#000"/>
+                  <path d="M30 6h-1v-1h3v6.5h-1V7c0-1-.5-1-1-1h-1V6z" fill="#000"/>
+                  <path d="M34 8.5c0-1.5.5-2.5 2-2.5h1v1h-1c-1 0-1.5.5-1.5 1.5v3.5h-1v-4z" fill="#000"/>
+                </svg>
               </div>
             </div>
           </div>
