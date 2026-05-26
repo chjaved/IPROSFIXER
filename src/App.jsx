@@ -18,6 +18,7 @@ import ConsumerDashboard from './pages/ConsumerDashboard.jsx'
 import ProfessionalDashboard from './pages/ProfessionalDashboard.jsx'
 
 // Consumer Dashboard Pages
+import ConsumerDashboardOverview from './pages/dashboard/consumer/DashboardOverview.jsx'
 import ConsumerProfile from './pages/dashboard/consumer/Profile.jsx'
 import ConsumerBookings from './pages/dashboard/consumer/Bookings.jsx'
 import ConsumerRefunds from './pages/dashboard/consumer/Refunds.jsx'
@@ -25,6 +26,7 @@ import ConsumerServices from './pages/dashboard/consumer/Services.jsx'
 import ConsumerAppointments from './pages/dashboard/consumer/Appointments.jsx'
 
 // Professional Dashboard Pages
+import ProDashboardOverview from './pages/dashboard/professional/DashboardOverview.jsx'
 import ProProfile from './pages/dashboard/professional/Profile.jsx'
 import ProJobs from './pages/dashboard/professional/Jobs.jsx'
 import ProEarnings from './pages/dashboard/professional/Earnings.jsx'
@@ -64,7 +66,7 @@ export default function App() {
             </ProtectedRoute>
           } 
         >
-          <Route index element={<div className="max-w-6xl"><h1 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Overview</h1><p className="text-gray-500">Welcome back to iPROFIXER</p></div>} />
+          <Route index element={<ConsumerDashboardOverview />} />
           <Route path="profile" element={<ConsumerProfile />} />
           <Route path="bookings" element={<ConsumerBookings />} />
           <Route path="refunds" element={<ConsumerRefunds />} />
@@ -81,7 +83,7 @@ export default function App() {
             </ProtectedRoute>
           } 
         >
-          <Route index element={<div className="max-w-6xl"><h1 className="text-2xl font-bold text-gray-900 mb-2">Professional Dashboard</h1><p className="text-gray-500">Manage your jobs and earnings</p></div>} />
+          <Route index element={<ProDashboardOverview />} />
           <Route path="profile" element={<ProProfile />} />
           <Route path="jobs" element={<ProJobs />} />
           <Route path="earnings" element={<ProEarnings />} />
