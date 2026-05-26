@@ -7,25 +7,25 @@ const CUSTOMER_STEPS = [
     n: '01', title: 'Book in Minutes',
     desc: 'Select your service, area and preferred time. Use our website, WhatsApp or app — whichever is easiest for you.',
     items: ['50+ services available','Cover all Klang Valley areas','Same-day bookings available','Fixed price quoted upfront'],
-    img: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80',
   },
   {
     n: '02', title: 'Get Matched Instantly',
     desc: 'We match you with the best-rated available professional near you. You receive their name, photo, rating and ETA.',
     items: ['Verified professional profile sent','Real-time ETA tracking','Direct WhatsApp contact','No surprise costs'],
-    img: 'https://images.unsplash.com/photo-1512428559087-560fa0db0152?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80',
   },
   {
     n: '03', title: 'Professional Does the Job',
     desc: 'Your vetted professional arrives on time, assesses the issue and gets to work. Any extra costs are communicated before proceeding.',
     items: ['On-time arrival guaranteed','Full assessment first','Clean, professional work','Minimal disruption to your home'],
-    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80',
   },
   {
     n: '04', title: 'Pay & Rate',
     desc: 'Pay after the job is done — cash, DuitNow, TnG or GrabPay. Rate your professional and get a digital receipt instantly.',
     items: ['Pay only after completion','Cash, DuitNow, TnG, GrabPay','Digital receipt on WhatsApp','30-day repair warranty'],
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=700&q=80',
   },
 ]
 
