@@ -33,9 +33,8 @@ export default function Navbar() {
       <div className="max-w-content mx-auto px-4 sm:px-6 flex items-center justify-between h-full">
 
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0 flex items-center gap-0" aria-label="iPROFIXER home">
-          <span className="font-head font-extrabold text-xl text-teal tracking-tight">iPRO</span>
-          <span className="font-head font-extrabold text-xl text-orange tracking-tight">FIXER</span>
+        <Link to="/" className="flex-shrink-0" aria-label="iPROFIXER home">
+          <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
         </Link>
 
         {/* Desktop nav */}
