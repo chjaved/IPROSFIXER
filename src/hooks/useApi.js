@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useAuth } from '../contexts/AuthContext.jsx'
 
 const API_BASE = '/api'
 
@@ -7,14 +6,9 @@ export function useApi() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError]   = useState(null)
-  const { token } = useAuth()
 
   const getAuthHeaders = () => {
-    const headers = { 'Content-Type': 'application/json' }
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`
-    }
-    return headers
+    return { 'Content-Type': 'application/json' }
   }
 
   const get = async (endpoint, params = {}) => {
