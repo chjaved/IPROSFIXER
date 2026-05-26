@@ -13,13 +13,13 @@ const CUSTOMER_STEPS = [
     n: '02', title: 'Get Matched Instantly',
     desc: 'We match you with the best-rated available professional near you. You receive their name, photo, rating and ETA.',
     items: ['Verified professional profile sent','Real-time ETA tracking','Direct WhatsApp contact','No surprise costs'],
-    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80',
   },
   {
     n: '03', title: 'Professional Does the Job',
     desc: 'Your vetted professional arrives on time, assesses the issue and gets to work. Any extra costs are communicated before proceeding.',
     items: ['On-time arrival guaranteed','Full assessment first','Clean, professional work','Minimal disruption to your home'],
-    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80',
   },
   {
     n: '04', title: 'Pay & Rate',
@@ -43,7 +43,7 @@ const PRO_STEPS = [
   {
     n: '03', title: 'Start Getting Jobs',
     desc: 'Download the app, set your availability and areas. Job requests start coming in immediately — accept or decline any booking.',
-    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&q=80',
   },
   {
     n: '04', title: 'Earn More Every Week',
