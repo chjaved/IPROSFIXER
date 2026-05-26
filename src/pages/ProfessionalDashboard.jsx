@@ -7,6 +7,8 @@ import {
   Star, 
   Calendar
 } from 'lucide-react'
+import Navbar from '../components/Navbar.jsx'
+import Footer from '../components/Footer.jsx'
 
 const SIDEBAR_ITEMS = [
   { to: '/pro-dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -52,12 +54,18 @@ function Sidebar() {
 
 export default function ProfessionalDashboard() {
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
       
-      <main className="flex-1 p-8">
-        <Outlet />
-      </main>
+      <div className="flex flex-1 pt-[68px]">
+        <Sidebar />
+        
+        <main className="flex-1 p-8">
+          <Outlet />
+        </main>
+      </div>
+      
+      <Footer />
     </div>
   )
 }
