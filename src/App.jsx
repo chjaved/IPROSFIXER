@@ -10,10 +10,13 @@ import Contact from './pages/Contact.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import Terms from './pages/Terms.jsx'
 import CookiePolicy from './pages/CookiePolicy.jsx'
+import ConsumerDashboard from './pages/ConsumerDashboard.jsx'
+import ProfessionalDashboard from './pages/ProfessionalDashboard.jsx'
 
 export default function App() {
   return (
     <Routes>
+      {/* Main website routes with Layout */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="services" element={<Services />} />
@@ -26,6 +29,10 @@ export default function App() {
         <Route path="terms" element={<Terms />} />
         <Route path="cookie-policy" element={<CookiePolicy />} />
       </Route>
+
+      {/* Dashboard routes - separate layout */}
+      <Route path="/dashboard/*" element={<ConsumerDashboard />} />
+      <Route path="/pro-dashboard/*" element={<ProfessionalDashboard />} />
     </Routes>
   )
 }

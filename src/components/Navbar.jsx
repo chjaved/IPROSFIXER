@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, LayoutDashboard, User } from 'lucide-react'
 
 const NAV = [
   { to: '/',                label: 'Home' },
@@ -55,9 +55,15 @@ export default function Navbar() {
 
         {/* Desktop CTAs */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link to="/#hero-form"
-            className="bg-orange hover:bg-orange-dark text-white font-bold text-sm px-5 py-2.5 rounded-card transition-all duration-200 shadow-md">
-            Book a Service &rarr;
+          <Link to="/dashboard"
+            className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-teal transition-colors">
+            <LayoutDashboard size={18} />
+            My Dashboard
+          </Link>
+          <Link to="/pro-dashboard"
+            className="flex items-center gap-2 text-sm font-medium text-orange hover:text-orange-dark transition-colors">
+            <User size={18} />
+            Pro Dashboard
           </Link>
         </div>
 
@@ -91,10 +97,16 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          <div className="pt-4">
-            <Link to="/#hero-form"
-              className="block w-full bg-orange text-white font-bold py-3 rounded-card text-sm text-center">
-              Book a Service
+          <div className="pt-4 space-y-2">
+            <Link to="/dashboard"
+              className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-teal border-b border-gray-100">
+              <LayoutDashboard size={18} />
+              My Dashboard
+            </Link>
+            <Link to="/pro-dashboard"
+              className="flex items-center gap-2 py-3 px-3 text-sm font-medium text-orange">
+              <User size={18} />
+              Pro Dashboard
             </Link>
           </div>
         </div>
