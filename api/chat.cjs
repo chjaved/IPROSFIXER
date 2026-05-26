@@ -65,7 +65,7 @@ CONVERSATION STYLE:
 - Use bullet points for lists
 - Always end with a helpful next step`
 
-module.exports = async (req, res) => {
+module.exports = async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
