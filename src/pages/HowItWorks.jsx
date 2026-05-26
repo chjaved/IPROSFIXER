@@ -13,7 +13,7 @@ const CUSTOMER_STEPS = [
     n: '02', title: 'Get Matched Instantly',
     desc: 'We match you with the best-rated available professional near you. You receive their name, photo, rating and ETA.',
     items: ['Verified professional profile sent','Real-time ETA tracking','Direct WhatsApp contact','No surprise costs'],
-    img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80',
+    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=700&q=80',
   },
   {
     n: '03', title: 'Professional Does the Job',
