@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useApi } from '../hooks/useApi.js'
-import { Banknote, Calendar, MapPin, GraduationCap, ShieldCheck, Smartphone, MessageCircle, ArrowRight, Star, CheckCircle } from 'lucide-react'
+import { Banknote, Calendar, MapPin, GraduationCap, ShieldCheck, Smartphone, MessageCircle, ArrowRight, Star } from 'lucide-react'
 
 const PERKS = [
   { Icon: Banknote,      title: 'Earn More, Keep More',       desc: 'Set your own rates. iPROFIXER takes a small platform fee — you keep the majority. Top pros earn RM4,000–RM6,000/month.', img: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=600&q=80' },
@@ -25,74 +23,21 @@ const TESTIMONIALS = [
   { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80', name: 'Kamarul Azri',  role: 'AC Technician — PJ',          text: 'I was earning RM1,800/month on my own. Now on iPROFIXER I consistently earn above RM5,000. Payment is always on time.' },
 ]
 
-function ApplyForm() {
-  const { post, loading, success, error } = useApi()
-  const [form, setForm] = useState({ name: '', phone: '', serviceType: '', experience: '', area: '' })
-  const handle = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
-  const submit = async e => { e.preventDefault(); await post('join', form) }
-
-  return (
-    <div className="bg-white rounded-lg2 border border-gray-200 p-8">
-      {success ? (
-        <div className="bg-green-50 border border-green-200 text-green-800 rounded-card p-5 text-sm font-medium">
-          ✅ {success}
-        </div>
-      ) : (
-        <form onSubmit={submit} className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="form-label">Full Name *</label>
-              <input name="name" value={form.name} onChange={handle} placeholder="Your full name" required className="form-input" />
-            </div>
-            <div>
-              <label className="form-label">Phone Number *</label>
-              <input name="phone" value={form.phone} onChange={handle} placeholder="+60 1X-XXXX XXXX" required className="form-input" />
-            </div>
-          </div>
-          <div>
-            <label className="form-label">Service Type *</label>
-            <select name="serviceType" value={form.serviceType} onChange={handle} required className="form-input">
-              <option value="">— What do you offer? —</option>
-              {['Electrician','AC Technician','Appliance Repair','Caregiver','Cleaner','Laundry','House Maid','Plumber','Painter','Other'].map(s => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="form-label">Years of Experience</label>
-              <input name="experience" value={form.experience} onChange={handle} placeholder="e.g. 3 years" className="form-input" />
-            </div>
-            <div>
-              <label className="form-label">Your Area</label>
-              <input name="area" value={form.area} onChange={handle} placeholder="e.g. Subang Jaya" className="form-input" />
-            </div>
-          </div>
-          {error && <p className="text-red-600 text-xs bg-red-50 border border-red-200 rounded p-2">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full justify-center py-3.5 font-bold">
-            {loading ? 'Sending…' : 'Submit Application →'}
-          </button>
-        </form>
-      )}
-    </div>
-  )
-}
-
 export default function ForProfessionals() {
   return (
     <>
       {/* Hero split */}
-      <div className="bg-brand pt-20 pb-0">
+      <div className="bg-teal-light pt-20 pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-16">
-          <div className="grid lg:grid-cols-2 gap-14 items-start">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div>
-              <span className="inline-block text-xs font-bold uppercase tracking-widest bg-gold/20 text-gold px-4 py-1.5 rounded-full mb-5">
+              <span className="inline-block text-xs font-bold uppercase tracking-widest bg-teal/20 text-teal px-4 py-1.5 rounded-full mb-5">
                 Join Our Team
               </span>
-              <h1 className="font-head font-extrabold text-4xl sm:text-5xl text-white leading-tight mb-5">
+              <h1 className="font-head font-extrabold text-4xl sm:text-5xl text-gray-900 leading-tight mb-5">
                 Be Your Own Boss.<br />Earn <span className="text-gold">More Income.</span>
               </h1>
-              <p className="text-white/70 text-lg mb-8 leading-relaxed">
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                 Join 500+ professionals already growing their business on iPROFIXER. Set your own hours, work near home, and get paid fast.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -102,9 +47,9 @@ export default function ForProfessionals() {
                   { num: '48hrs', label: 'Approval Time' },
                   { num: 'Free', label: 'Training & Support' },
                 ].map(s => (
-                  <div key={s.label} className="bg-white/10 rounded-card p-4 text-center">
-                    <div className="font-head font-extrabold text-gold text-xl">{s.num}</div>
-                    <div className="text-white/60 text-xs mt-1">{s.label}</div>
+                  <div key={s.label} className="bg-white rounded-card p-4 text-center shadow-sm">
+                    <div className="font-head font-extrabold text-teal text-xl">{s.num}</div>
+                    <div className="text-gray-500 text-xs mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -115,17 +60,28 @@ export default function ForProfessionals() {
                   { Icon: MapPin, text: 'Work Near Home' },
                   { Icon: GraduationCap, text: 'Free Training' },
                 ].map(({ Icon, text }) => (
-                  <span key={text} className="flex items-center gap-1.5 bg-white/10 text-white/70 text-xs px-3 py-1.5 rounded-full">
-                    <Icon size={12} /> {text}
+                  <span key={text} className="flex items-center gap-1.5 bg-white text-gray-600 text-xs px-3 py-1.5 rounded-full shadow-sm">
+                    <Icon size={12} className="text-teal" /> {text}
                   </span>
                 ))}
               </div>
             </div>
-            <div>
-              <h2 className="font-head font-black text-white text-xl uppercase tracking-wide mb-5 flex items-center gap-2">
-                <Star size={18} className="text-gold" /> Quick Apply — Takes 2 Minutes
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <h2 className="font-head font-black text-gray-900 text-2xl uppercase tracking-wide mb-3 flex items-center gap-2">
+                <Star size={20} className="text-gold" /> Ready to Join?
               </h2>
-              <ApplyForm />
+              <p className="text-gray-600 mb-6">Create your professional account and start earning today. It only takes 2 minutes to get started.</p>
+              <Link to="/pro-signup"
+                className="inline-flex items-center justify-center gap-2 w-full bg-gold hover:bg-gold-dark text-white font-head font-bold text-lg uppercase tracking-wide px-8 py-4 rounded-xl transition-all shadow-lg">
+                Register as Professional <ArrowRight size={20} />
+              </Link>
+              <div className="mt-4 text-center">
+                <span className="text-gray-400 text-sm">or</span>
+              </div>
+              <a href="https://wa.me/60162104127?text=Hi%20iPROFIXER!%20I'd%20like%20to%20join%20as%20a%20professional." target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 w-full mt-4 bg-wa hover:bg-wa-dark text-white font-head font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-xl transition-all">
+                <MessageCircle size={18} /> Apply via WhatsApp
+              </a>
             </div>
           </div>
         </div>
