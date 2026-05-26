@@ -6,7 +6,7 @@
     { "source": "/api/booking", "destination": "/api/booking.cjs" },
     { "source": "/api/contact", "destination": "/api/contact.cjs" },
     { "source": "/api/join",    "destination": "/api/join.cjs"    },
-    { "source": "/api/chat",    "destination": "/api/chat.cjs"    },
+    { "source": "/api/chat",    "destination": "/api/chat.js"     },
     { "source": "/api/(.*)",    "destination": "/api/$1"          },
     { "source": "/(.*)",        "destination": "/index.html"      }
   ]
