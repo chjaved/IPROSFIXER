@@ -17,8 +17,14 @@ const SERVICE_CATEGORIES = [
     'Part-Time Maid / Cleaner',
     'Full-Time Maid',
     'Live-In Maid',
-    'Laundry & Ironing Service',
     'Household Helper',
+  ]},
+  // Laundry Services
+  { group: 'Laundry Services', items: [
+    'Wash & Fold Service',
+    'Ironing & Pressing',
+    'Dry Cleaning',
+    'Laundry Pickup & Delivery',
   ]},
   // Deep & Specialist Cleaning
   { group: 'Deep Cleaning', items: [

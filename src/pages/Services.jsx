@@ -66,6 +66,15 @@ const CATEGORIES = [
       { img: IMG.subscription, name: 'Mattress & Upholstery',    desc: 'Steam and UV cleaning for mattresses, curtains and upholstered furniture to eliminate dust mites.', feats: ['UV sanitisation','Dust mite elimination','Allergen-friendly'], wa: 'Mattress cleaning' },
     ],
   },
+  {
+    id: 'laundry', tag: 'Laundry', title: 'Laundry & Ironing',
+    tagImg: 'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=1200&q=80',
+    cards: [
+      { img: IMG.laundry,      name: 'Wash & Fold Service',      desc: 'Professional washing, drying and folding for everyday clothes, bedsheets and towels. Fresh and clean delivery.', feats: ['Free pickup & delivery','48-hour turnaround','Eco-friendly detergent'], wa: 'Wash and fold service' },
+      { img: IMG.ironing,     name: 'Ironing & Pressing',        desc: 'Crisp, wrinkle-free ironing for office wear, traditional attire and delicate fabrics. Ready-to-wear finish.', feats: ['Steam pressing available','Garment protection','Same-day service'], wa: 'Ironing service' },
+      { img: IMG.subscription, name: 'Weekly Laundry Plan',      desc: 'Regular laundry subscription with scheduled weekly pickups. Perfect for busy families and professionals.', feats: ['Fixed monthly rate','Priority scheduling','Loyalty rewards'], wa: 'Weekly laundry plan' },
+    ],
+  },
 ]
 
 function ServiceCard({ card }) {
