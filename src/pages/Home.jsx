@@ -95,60 +95,52 @@ function FaqItem({ q, a, isOpen, onToggle }) {
 
 const SERVICES = [
   {
-    gradient: 'from-yellow-400 to-orange-500',
-    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>),
-    name: 'Electricians',
-    desc: 'Wiring faults, trips, new points - our licensed electricians fix it right the first time.',
-    img: 'https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=400&q=80',
-    imgAlt: 'Asian electrician fixing home wiring in Malaysia',
-  },
-  {
-    gradient: 'from-sky-400 to-blue-600',
-    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/><path d="M4.93 19.07A10 10 0 0 1 2 12"/></svg>),
-    name: 'AC Repair & Service',
-    desc: 'Too hot? AC not cooling? We service all brands - Samsung, Daikin, Panasonic and more.',
-    img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
-    imgAlt: 'AC technician servicing air conditioner in Petaling Jaya',
-  },
-  {
-    gradient: 'from-violet-500 to-purple-700',
-    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>),
-    name: 'Appliance Repair',
-    desc: 'Washing machine, fridge, oven or dryer giving you trouble? We diagnose and fix on the spot.',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
-    imgAlt: 'Appliance repair technician fixing washing machine',
-  },
-  {
     gradient: 'from-[#0B6B52] to-emerald-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
-    name: 'Cleaning Services',
-    desc: 'Home deep clean, regular maid service, post-reno cleanup - you choose, we handle the rest.',
+    name: 'Deep Cleaning',
+    desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Move-in ready.',
     img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
-    imgAlt: 'Asian cleaner providing home cleaning service in Kuala Lumpur',
+    imgAlt: 'Professional deep cleaning service in Kuala Lumpur',
   },
   {
-    gradient: 'from-rose-400 to-pink-600',
+    gradient: 'from-emerald-400 to-green-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>),
-    name: 'Caregiver',
-    desc: 'Reliable, trained caregivers for your elderly parents or family members. Hourly or full-day.',
-    img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=80',
-    imgAlt: 'Asian caregiver helping elderly person at home in Malaysia',
+    name: 'Regular Maid',
+    desc: 'Weekly or bi-weekly maid service. Same trusted cleaner every visit. Flexible 4-8 hour sessions.',
+    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
+    imgAlt: 'Trusted part-time maid service in Selangor',
   },
   {
     gradient: 'from-amber-400 to-yellow-500',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>),
-    name: 'Laundry',
-    desc: 'Wash, dry and fold - or full ironing service. We collect from your door and return the same day.',
+    name: 'Laundry & Ironing',
+    desc: 'Wash, dry, fold and iron. Door-to-door collection and delivery. Same-day service available.',
     img: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80',
-    imgAlt: 'Laundry and ironing service in Selangor',
+    imgAlt: 'Professional laundry and ironing service',
   },
   {
-    gradient: 'from-emerald-400 to-green-600',
-    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
-    name: 'House Maid',
-    desc: 'Need a trustworthy part-time maid? Weekly, bi-weekly or one-off. Always the same person.',
+    gradient: 'from-sky-400 to-blue-600',
+    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 6h18M3 12h18M3 18h18"/></svg>),
+    name: 'Post-Reno Cleaning',
+    desc: 'Construction dust, paint splatters, cement residue removal. Industrial-grade cleaning after renovation.',
     img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
-    imgAlt: 'Asian house maid providing cleaning service in Klang Valley',
+    imgAlt: 'Post-renovation cleaning service in Malaysia',
+  },
+  {
+    gradient: 'from-rose-400 to-pink-600',
+    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>),
+    name: 'Sofa & Carpet',
+    desc: 'Deep extraction cleaning for fabric sofas, carpet shampooing and deodorising. Quick-dry technology.',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
+    imgAlt: 'Sofa and carpet cleaning service',
+  },
+  {
+    gradient: 'from-violet-500 to-purple-700',
+    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>),
+    name: 'Mattress Cleaning',
+    desc: 'UV sanitisation and dust mite elimination. Perfect for allergies. Mattress looks like new.',
+    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
+    imgAlt: 'Mattress cleaning and sanitisation service',
   },
 ]
 
@@ -175,7 +167,7 @@ const TESTIMONIALS = [
     name: 'James Lim',
     loc: 'Bangsar South',
     img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face',
-    text: 'The electrician came within 2 hours of booking. Fixed my circuit trip issue in 45 minutes and explained what caused it. No upselling, just honest work.',
+    text: 'Sofa cleaning service was excellent. My 5-year-old sofa looks brand new again. The stains are completely gone and it smells fresh.',
   },
   {
     name: 'Lily Heng',
@@ -187,7 +179,7 @@ const TESTIMONIALS = [
     name: 'Azman Mokhtar',
     loc: 'Shah Alam',
     img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face',
-    text: 'AC was not cooling properly for weeks. Booked through iPROFIXER, the technician came next morning. Turns out just needed a gas top-up. RM80 fix. Fair price.',
+    text: 'Mattress cleaning service was thorough. The UV sanitisation really worked - my allergies have improved so much. Highly recommend!',
   },
 ]
 
@@ -226,11 +218,11 @@ const CITIES = ['Kuala Lumpur','Petaling Jaya','Shah Alam','Subang Jaya','Cheras
 
 const FAQS = [
   { q: 'Is iPROFIXER a home services company or a marketplace?', a: "Both, kind of. We have our own team of vetted professionals AND we partner with trusted local service providers. Either way, every person who comes to your home has been background checked and insured by us." },
-  { q: 'How quickly can someone come to my home?', a: "For most services, we can match you with someone the same day. For AC repair and electricians, usually within 2-4 hours. Book before 12pm and there's a good chance your pro arrives today." },
+  { q: 'How quickly can a cleaner come to my home?', a: "For most cleaning services, we can match you with a cleaner the same day. Book before 12pm and there's a good chance your cleaner arrives today." },
   { q: 'How much does it cost?', a: "Prices depend on the service and your location. You'll get a fixed quote before anyone comes to your house - no hidden charges. What we quote is what you pay." },
   { q: 'Do I pay before or after the job?', a: "After. We only collect payment once the job is done and you're satisfied. You can pay cash, DuitNow, Touch 'n Go or GrabPay." },
   { q: "What if I'm not happy with the service?", a: "Tell us within 24 hours and we'll send a replacement at no extra cost. If it still doesn't meet your expectations, you get a full refund. That's our guarantee." },
-  { q: "I'm a cleaner or electrician. Can I join?", a: "Yes - and it's free. Go to the Professionals section, fill in your details and our team will WhatsApp you within 1 business day to explain how it works." },
+  { q: "I'm a cleaner. Can I join?", a: "Yes - and it's free. Go to the Professionals section, fill in your details and our team will WhatsApp you within 1 business day to explain how it works." },
 ]
 
 const StarIcon = () => (
@@ -280,11 +272,11 @@ export default function Home() {
               Vetted Pros &middot; KL, PJ &amp; Selangor
             </div>
             <h1 className="fade-up fade-up-1 font-head font-extrabold text-4xl sm:text-5xl lg:text-[52px] leading-tight text-white mb-5">
-              The Easiest Way to Book{' '}
-              <span className="text-[#7FFFD4]">Home Services in Malaysia</span>
+              Professional{' '}
+              <span className="text-[#7FFFD4]">Cleaning Services</span> in Malaysia
             </h1>
             <p className="fade-up fade-up-2 text-white/80 text-[17px] leading-relaxed mb-6 max-w-lg">
-              Electricians, cleaners, AC repair, caregivers and more - all in one place. Real pros. Fixed prices. Book in under 2 minutes.
+              Deep cleaning, regular maids, post-renovation cleanup, sofa & carpet cleaning. Vetted cleaners. Fixed prices. Book in under 2 minutes.
             </p>
             <div className="fade-up fade-up-3 flex flex-wrap gap-2 mb-8">
               <span className="trust-chip">&#10003; Background Checked</span>
@@ -292,12 +284,12 @@ export default function Home() {
               <span className="trust-chip">&#10003; Pay After the Job</span>
             </div>
             <div className="fade-up fade-up-4 flex flex-wrap gap-3 mb-8">
-              <a href="https://wa.me/60162104127?text=Hi%2C%20I%20need%20help%20booking%20a%20home%20service."
+              <a href="https://wa.me/60162104127?text=Hi%2C%20I%20need%20help%20booking%20a%20cleaning%20service."
                 target="_blank" rel="noopener noreferrer"
                 className="btn-orange text-base px-7 py-3.5 shadow-lg shadow-orange/30">
-                Book a Service Now &#8594;
+                Book a Cleaner Now &#8594;
               </a>
-              <a href="https://wa.me/60162104127?text=Hi%2C%20I%20need%20help%20booking%20a%20home%20service."
+              <a href="https://wa.me/60162104127?text=Hi%2C%20I%20need%20help%20booking%20a%20cleaning%20service."
                 target="_blank" rel="noopener noreferrer"
                 className="btn-wa text-base px-6 py-3.5">
                 {WA_SVG} Chat on WhatsApp
