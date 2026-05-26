@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { 
   LayoutDashboard, 
   User, 
@@ -52,6 +53,12 @@ function Sidebar() {
 }
 
 export default function ConsumerDashboard() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [pathname])
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
