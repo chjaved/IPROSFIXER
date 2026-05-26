@@ -1,6 +1,6 @@
 import PageHero from '../components/PageHero.jsx'
 import { Link } from 'react-router-dom'
-import { CheckCircle, ArrowRight, Smartphone } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 
 /* ─── All Unsplash images — copyright-free ──────────────────────────────────── */
 const IMG = {
@@ -24,6 +24,10 @@ const IMG = {
   deepClean:    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
   renoClean:    'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
   sofa:         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
+  /* Kitchen */
+  kitchen:      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
+  /* Bathroom */
+  bathroom:     'https://images.unsplash.com/photo-1584622050111-993a426fbf0a?w=600&q=80',
   /* Laundry */
   laundry:      'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=600&q=80',
   ironing:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
@@ -40,8 +44,8 @@ const CATEGORIES = [
     tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
       { img: IMG.deepClean, name: 'Full Home Deep Clean',      desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Ideal for move-in/move-out.', feats: ['Eco-friendly products','3–8 hour packages','Satisfaction guaranteed'], wa: 'Full home deep clean' },
-      { img: IMG.renoClean, name: 'Kitchen Deep Clean',        desc: 'Grease removal, cabinet wipe-down, appliance exterior clean and full floor scrub.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
-      { img: IMG.sofa,      name: 'Bathroom Deep Clean',       desc: 'Tile scrubbing, limescale removal, toilet sanitising and mirror polishing.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
+      { img: IMG.kitchen, name: 'Kitchen Deep Clean',        desc: 'Grease removal, cabinet wipe-down, appliance exterior clean and full floor scrub.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
+      { img: IMG.bathroom,  name: 'Bathroom Deep Clean',       desc: 'Tile scrubbing, limescale removal, toilet sanitising and mirror polishing.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
     ],
   },
   {
@@ -92,10 +96,9 @@ function ServiceCard({ card }) {
         <a
           href="https://play.google.com/store/apps/details?id=com.iprofixer.app"
           target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full bg-gold hover:bg-gold-dark text-brand font-head font-bold text-sm uppercase tracking-wide py-3 rounded-xl transition-all duration-200 overflow-hidden relative"
+          className="flex items-center justify-center gap-2 w-full bg-gold hover:bg-gold-dark text-white font-head font-bold text-sm uppercase tracking-wide py-3 rounded-xl transition-all duration-200"
         >
-          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=48&h=48&fit=crop" alt="" aria-hidden="true" className="w-5 h-5 rounded object-cover opacity-80" />
-          <Smartphone size={16} /> Book in App
+          Book in App
         </a>
       </div>
     </div>
