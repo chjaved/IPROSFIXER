@@ -17,31 +17,30 @@ const COMPANY = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#04342C' }} className="text-white">
+    <footer className="bg-gray-50 text-gray-800 border-t border-gray-200">
       <div className="max-w-content mx-auto px-4 sm:px-6 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
-          {/* Col 1 — Brand */}
+          {/* Col 1 — Brand with Logo */}
           <div>
-            <Link to="/" className="flex items-center gap-0 mb-4" aria-label="iPROFIXER home">
-              <span className="font-head font-extrabold text-xl text-teal-mid">iPRO</span>
-              <span className="font-head font-extrabold text-xl text-orange">FIXER</span>
+            <Link to="/" className="flex items-center gap-2 mb-4" aria-label="iPROFIXER home">
+              <img src="/logo.png" alt="iPROFIXER" className="h-10 w-auto" />
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed mb-4 max-w-xs">
+            <p className="text-gray-500 text-sm leading-relaxed mb-4 max-w-xs">
               Malaysia's trusted home services platform. Electricians, cleaners, AC repair, caregivers and more — serving KL, PJ and all of Klang Valley.
             </p>
-            <p className="text-white/40 text-xs">
+            <p className="text-gray-400 text-xs">
               Mon–Sat: 8am–9pm &nbsp;·&nbsp; Sun: 9am–6pm
             </p>
           </div>
 
           {/* Col 2 — Services */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-5">Services</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-5">Services</h4>
             <ul className="space-y-3">
               {SERVICES.map(s => (
                 <li key={s}>
-                  <Link to="/services" className="text-white/55 hover:text-white text-sm transition-colors duration-200">{s}</Link>
+                  <Link to="/services" className="text-gray-600 hover:text-teal text-sm transition-colors duration-200">{s}</Link>
                 </li>
               ))}
             </ul>
@@ -49,11 +48,11 @@ export default function Footer() {
 
           {/* Col 3 — Company */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-5">Company</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-5">Company</h4>
             <ul className="space-y-3">
               {COMPANY.map(l => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-white/55 hover:text-white text-sm transition-colors duration-200">{l.label}</Link>
+                  <Link to={l.to} className="text-gray-600 hover:text-teal text-sm transition-colors duration-200">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -61,19 +60,19 @@ export default function Footer() {
 
           {/* Col 4 — Contact */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-5">Contact</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-5">Contact</h4>
             <div className="space-y-3 text-sm">
-              <div className="flex gap-2 text-white/50">
-                <span className="flex-shrink-0">📍</span>
+              <div className="flex gap-2 text-gray-500">
+                <span className="flex-shrink-0 text-gray-400">📍</span>
                 <span>Ara Damansara, Petaling Jaya, Selangor</span>
               </div>
               <div className="flex gap-2">
-                <span className="flex-shrink-0">📞</span>
-                <a href="tel:+60380805249" className="text-white/55 hover:text-white transition-colors">+03-8080 5249</a>
+                <span className="flex-shrink-0 text-gray-400">📞</span>
+                <a href="tel:+60380805249" className="text-gray-600 hover:text-teal transition-colors">+03-8080 5249</a>
               </div>
               <div className="flex gap-2">
-                <span className="flex-shrink-0">✉️</span>
-                <a href="mailto:for_services@iprofixer.com.my" className="text-white/55 hover:text-white transition-colors break-all">
+                <span className="flex-shrink-0 text-gray-400">✉️</span>
+                <a href="mailto:for_services@iprofixer.com.my" className="text-gray-600 hover:text-teal transition-colors break-all">
                   for_services@iprofixer.com.my
                 </a>
               </div>
@@ -90,13 +89,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/30 text-xs text-center sm:text-left">
+        <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-gray-400 text-xs text-center sm:text-left">
             &copy; {new Date().getFullYear()} iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs">
-            <Link to="/privacy" className="text-white/35 hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="text-white/35 hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/privacy" className="text-gray-500 hover:text-teal transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-gray-500 hover:text-teal transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
