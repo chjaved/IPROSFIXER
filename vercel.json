@@ -6,6 +6,7 @@
     { "source": "/api/booking", "destination": "/api/booking.cjs" },
     { "source": "/api/contact", "destination": "/api/contact.cjs" },
     { "source": "/api/join",    "destination": "/api/join.cjs"    },
+    { "source": "/api/chat",    "destination": "/api/chat.cjs"    },
     { "source": "/(.*)",        "destination": "/index.html"      }
   ]
 }
