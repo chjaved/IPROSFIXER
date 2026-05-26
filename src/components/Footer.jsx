@@ -42,33 +42,32 @@ export default function Footer() {
   return (
     <footer className="bg-gray-50 text-gray-800 border-t border-gray-200">
       {/* Main Footer Content - Full Width */}
-      <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 pt-16 pb-10">
+      <div className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 pt-10 pb-6">
         
         {/* Top Section - Logo, Newsletter & Social */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8 mb-12 pb-10 border-b border-gray-200">
-          {/* Logo Section - 3x bigger */}
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6 mb-8 pb-6 border-b border-gray-200">
+          {/* Logo Section */}
           <div className="text-center lg:text-left">
-            <Link to="/" className="inline-block mb-4" aria-label="iPROFIXER home">
-              <img src="/logo.png" alt="iPROFIXER" className="h-24 sm:h-28 w-auto" />
+            <Link to="/" className="inline-block mb-2" aria-label="iPROFIXER home">
+              <img src="/logo.png" alt="iPROFIXER" className="h-16 sm:h-20 w-auto" />
             </Link>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
-              Malaysia's trusted home services platform. Connecting you with verified professionals for all your home needs.
+            <p className="text-gray-500 text-xs leading-relaxed max-w-xs">
+              Malaysia's trusted home services platform.
             </p>
           </div>
 
-          {/* Newsletter - Fills the space */}
-          <div className="w-full max-w-md lg:max-w-sm">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-3">Subscribe to Our Newsletter</h4>
-            <p className="text-gray-500 text-sm mb-4">Get home maintenance tips & exclusive offers delivered to your inbox</p>
+          {/* Newsletter */}
+          <div className="w-full max-w-sm">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-2">Newsletter</h4>
             <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                placeholder="Your email"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
               />
               <button
                 type="submit"
-                className="bg-teal hover:bg-teal-dark text-white font-semibold text-sm px-5 py-3 rounded-lg transition-colors whitespace-nowrap"
+                className="bg-teal hover:bg-teal-dark text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -76,9 +75,9 @@ export default function Footer() {
           </div>
 
           {/* Social Media Icons */}
-          <div className="flex flex-col items-center lg:items-end gap-4">
-            <p className="text-sm font-medium text-gray-600">Follow Us</p>
-            <div className="flex gap-3">
+          <div className="flex flex-col items-center lg:items-end gap-2">
+            <p className="text-xs font-medium text-gray-600">Follow Us</p>
+            <div className="flex gap-2">
               {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.label}
@@ -86,9 +85,9 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-teal hover:text-white hover:border-teal transition-all duration-200"
+                  className="w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:bg-teal hover:text-white hover:border-teal transition-all duration-200"
                 >
-                  <social.icon size={18} />
+                  <social.icon size={14} />
                 </a>
               ))}
             </div>
@@ -96,15 +95,15 @@ export default function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
           
           {/* Services */}
           <div className="col-span-2 md:col-span-1">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Services</h4>
-            <ul className="space-y-2.5">
-              {SERVICES.slice(0, 6).map((s) => (
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Services</h4>
+            <ul className="space-y-1.5">
+              {SERVICES.slice(0, 5).map((s) => (
                 <li key={s.name}>
-                  <Link to={s.to} className="text-gray-500 hover:text-teal text-sm transition-colors duration-200">{s.name}</Link>
+                  <Link to={s.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{s.name}</Link>
                 </li>
               ))}
             </ul>
@@ -112,11 +111,11 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Company</h4>
-            <ul className="space-y-2.5">
-              {COMPANY.map((l) => (
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Company</h4>
+            <ul className="space-y-1.5">
+              {COMPANY.slice(0, 4).map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-gray-500 hover:text-teal text-sm transition-colors duration-200">{l.label}</Link>
+                  <Link to={l.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -124,11 +123,11 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Support</h4>
-            <ul className="space-y-2.5">
-              {SUPPORT.map((l) => (
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Support</h4>
+            <ul className="space-y-1.5">
+              {SUPPORT.slice(0, 4).map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-gray-500 hover:text-teal text-sm transition-colors duration-200">{l.label}</Link>
+                  <Link to={l.to} className="text-gray-500 hover:text-teal text-xs transition-colors duration-200">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -136,27 +135,23 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-5">Contact</h4>
-            <div className="space-y-3">
-              <a href="tel:+60380805249" className="flex items-center gap-2 text-gray-500 hover:text-teal text-sm transition-colors">
-                <Phone size={16} className="text-gray-400" />
+            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Contact</h4>
+            <div className="space-y-1.5">
+              <a href="tel:+60380805249" className="flex items-center gap-1.5 text-gray-500 hover:text-teal text-xs transition-colors">
+                <Phone size={12} className="text-gray-400" />
                 +03-8080 5249
               </a>
-              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-2 text-gray-500 hover:text-teal text-sm transition-colors break-all">
-                <Mail size={16} className="text-gray-400 flex-shrink-0" />
-                <span className="break-all">for_services@iprofixer.com.my</span>
+              <a href="mailto:for_services@iprofixer.com.my" className="flex items-center gap-1.5 text-gray-500 hover:text-teal text-xs transition-colors">
+                <Mail size={12} className="text-gray-400" />
+                <span className="break-all">Email Us</span>
               </a>
-              <div className="flex items-start gap-2 text-gray-500 text-sm">
-                <MapPin size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
-                <span>Ara Damansara, Petaling Jaya, Selangor</span>
-              </div>
               <a
                 href="https://wa.me/60162104127"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-wa hover:bg-wa-dark text-white font-bold text-sm px-4 py-2.5 rounded-card transition-all duration-200 mt-2"
+                className="inline-flex items-center gap-1 bg-wa hover:bg-wa-dark text-white font-bold text-xs px-3 py-1.5 rounded-card transition-all duration-200 mt-1"
               >
-                <MessageCircle size={16} /> WhatsApp Chat
+                <MessageCircle size={12} /> WhatsApp
               </a>
             </div>
           </div>
@@ -164,18 +159,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
-            &copy; {new Date().getFullYear()} iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+        <div className="border-t border-gray-200 pt-4 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="text-gray-400 text-xs text-center md:text-left">
+            &copy; {new Date().getFullYear()} iPROFIXER — All rights reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-            <Link to="/privacy" className="text-gray-500 hover:text-teal transition-colors">Privacy Policy</Link>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+            <Link to="/privacy" className="text-gray-500 hover:text-teal transition-colors">Privacy</Link>
             <span className="text-gray-300">|</span>
-            <Link to="/terms" className="text-gray-500 hover:text-teal transition-colors">Terms of Service</Link>
+            <Link to="/terms" className="text-gray-500 hover:text-teal transition-colors">Terms</Link>
             <span className="text-gray-300">|</span>
             <Link to="/cookie-policy" className="text-gray-500 hover:text-teal transition-colors">Cookies</Link>
-            <span className="text-gray-300">|</span>
-            <span className="text-gray-500">Mon–Sat: 8am–9pm · Sun: 9am–6pm</span>
           </div>
         </div>
       </div>
