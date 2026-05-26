@@ -99,8 +99,8 @@ const SERVICES = [
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>),
     name: 'Electricians',
     desc: 'Wiring faults, trips, new points - our licensed electricians fix it right the first time.',
-    img: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&q=80',
-    imgAlt: 'Electrician fixing home wiring in Malaysia',
+    img: 'https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=400&q=80',
+    imgAlt: 'Asian electrician fixing home wiring in Malaysia',
   },
   {
     gradient: 'from-sky-400 to-blue-600',
@@ -123,16 +123,16 @@ const SERVICES = [
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
     name: 'Cleaning Services',
     desc: 'Home deep clean, regular maid service, post-reno cleanup - you choose, we handle the rest.',
-    img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&q=80',
-    imgAlt: 'Home cleaning service in Kuala Lumpur',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
+    imgAlt: 'Asian cleaner providing home cleaning service in Kuala Lumpur',
   },
   {
     gradient: 'from-rose-400 to-pink-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>),
     name: 'Caregiver',
     desc: 'Reliable, trained caregivers for your elderly parents or family members. Hourly or full-day.',
-    img: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&q=80',
-    imgAlt: 'Professional caregiver helping elderly person at home',
+    img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=80',
+    imgAlt: 'Asian caregiver helping elderly person at home in Malaysia',
   },
   {
     gradient: 'from-amber-400 to-yellow-500',
@@ -147,8 +147,8 @@ const SERVICES = [
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
     name: 'House Maid',
     desc: 'Need a trustworthy part-time maid? Weekly, bi-weekly or one-off. Always the same person.',
-    img: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80',
-    imgAlt: 'Part-time house maid service in Klang Valley',
+    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
+    imgAlt: 'Asian house maid providing cleaning service in Klang Valley',
   },
 ]
 
@@ -156,13 +156,13 @@ const TESTIMONIALS = [
   {
     name: 'Ahmad Hafizi',
     loc: 'Petaling Jaya',
-    img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face',
+    img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=100&q=80&fit=crop&crop=face',
     text: 'Booked a deep clean after moving into my new place. The team came on time, knew exactly what they were doing and the house smelled amazing after. Will definitely book again.',
   },
   {
     name: 'Raj Kumar',
     loc: 'Cheras',
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face',
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&fit=crop&crop=face',
     text: 'Post-reno cleaning after my renovation. The cement dust, paint splatters - all gone. I was honestly shocked at how good the result was.',
   },
   {
@@ -174,7 +174,7 @@ const TESTIMONIALS = [
   {
     name: 'James Lim',
     loc: 'Bangsar South',
-    img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80&fit=crop&crop=face',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face',
     text: 'The electrician came within 2 hours of booking. Fixed my circuit trip issue in 45 minutes and explained what caused it. No upselling, just honest work.',
   },
   {
@@ -186,7 +186,7 @@ const TESTIMONIALS = [
   {
     name: 'Azman Mokhtar',
     loc: 'Shah Alam',
-    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&fit=crop&crop=face',
+    img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face',
     text: 'AC was not cooling properly for weeks. Booked through iPROFIXER, the technician came next morning. Turns out just needed a gas top-up. RM80 fix. Fair price.',
   },
 ]
@@ -210,8 +210,8 @@ const HIW_STEPS = [
     n: '3',
     title: 'They show up and do the job',
     desc: 'Vetted, insured, on time. You can track them live.',
-    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
-    imgAlt: 'iPROFIXER technician arriving at home in Klang Valley',
+    img: 'https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=400&q=80',
+    imgAlt: 'Southeast Asian technician arriving at home in Klang Valley',
   },
   {
     n: '4',
@@ -245,7 +245,7 @@ const CheckIcon = () => (
 )
 
 const AVATAR_STACK = [
-  { src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
+  { src: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
   { src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
   { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
   { src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80&fit=crop&crop=face', alt: 'Malaysian homeowner' },
@@ -337,8 +337,8 @@ export default function Home() {
           <div className="fade-up fade-up-2 lg:justify-self-end w-full max-w-md lg:ml-auto">
             <div className="relative rounded-[20px] overflow-hidden shadow-2xl" style={{ height: '460px' }}>
               <img
-                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
-                alt="iPROFIXER professional handyman at work in a Malaysian home"
+                src="https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=800&q=80"
+                alt="Southeast Asian professional handyman at work in a Malaysian home"
                 className="w-full h-full object-cover object-center"
                 style={{ objectFit: 'cover' }}
               />
@@ -511,8 +511,8 @@ export default function Home() {
               {/* Pro photo */}
               <div className="relative w-full h-48 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
-                  alt="Confident Southeast Asian professional handyman ready for work"
+                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
+                  alt="Confident Southeast Asian professional ready for work"
                   className="w-full h-full object-cover object-top"
                   style={{ objectFit: 'cover' }}
                   loading="lazy"

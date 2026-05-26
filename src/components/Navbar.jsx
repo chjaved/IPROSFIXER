@@ -56,10 +56,6 @@ export default function Navbar() {
 
         {/* Desktop CTAs */}
         <div className="hidden lg:flex items-center gap-3">
-          <a href="#login"
-            className="border-2 border-teal text-teal text-sm font-bold px-4 py-2 rounded-card hover:bg-teal hover:text-white transition-all duration-200">
-            Login
-          </a>
           <Link to="/#hero-form"
             className="bg-orange hover:bg-orange-dark text-white font-bold text-sm px-5 py-2.5 rounded-card transition-all duration-200 shadow-md">
             Book a Service &rarr;
@@ -96,13 +92,9 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          <div className="flex gap-3 pt-4">
-            <a href="#login"
-              className="flex-1 border-2 border-teal text-teal font-bold py-3 rounded-card text-sm text-center">
-              Login
-            </a>
+          <div className="pt-4">
             <Link to="/#hero-form"
-              className="flex-1 bg-orange text-white font-bold py-3 rounded-card text-sm text-center">
+              className="block w-full bg-orange text-white font-bold py-3 rounded-card text-sm text-center">
               Book a Service
             </Link>
           </div>

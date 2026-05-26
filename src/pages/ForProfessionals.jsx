@@ -20,8 +20,8 @@ const STEPS = [
 ]
 
 const TESTIMONIALS = [
-  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', name: 'Rajan Selvam',  role: 'Electrician — Subang Jaya',  text: 'Before iPROFIXER I was struggling to find clients. Now I get 3-5 jobs a day. My income doubled in 3 months. Terbaik!' },
-  { img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80', name: 'Hairul Bahari', role: 'House Cleaner — Cheras',      text: 'The app is easy to use. I accept jobs during school hours and am back before my kids come home. Perfect.' },
+  { img: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=200&q=80', name: 'Rajan Selvam',  role: 'Electrician — Subang Jaya',  text: 'Before iPROFIXER I was struggling to find clients. Now I get 3-5 jobs a day. My income doubled in 3 months. Terbaik!' },
+  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', name: 'Hairul Bahari', role: 'House Cleaner — Cheras',      text: 'The app is easy to use. I accept jobs during school hours and am back before my kids come home. Perfect.' },
   { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80', name: 'Kamarul Azri',  role: 'AC Technician — PJ',          text: 'I was earning RM1,800/month on my own. Now on iPROFIXER I consistently earn above RM5,000. Payment is always on time.' },
 ]
 
@@ -215,7 +215,7 @@ export default function ForProfessionals() {
 
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80" alt="Team" className="w-full h-full object-cover" />
+          <img src="https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=1400&q=80" alt="Southeast Asian professional team" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gold/90" />
         </div>
         <div className="relative max-w-2xl mx-auto text-center px-4">

@@ -22,15 +22,15 @@ const IMG = {
   special:      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80',
   /* Cleaning */
   deepClean:    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
-  renoClean:    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',
+  renoClean:    'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
   sofa:         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
   /* Laundry */
   laundry:      'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=600&q=80',
   ironing:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
   subscription: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=600&q=80',
   /* Maid */
-  parttime:     'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&q=80',
-  livein:       'https://images.unsplash.com/photo-1556909172-8c2f041fca1e?w=600&q=80',
+  parttime:     'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
+  livein:       'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
   postEvent:    'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&q=80',
 }
 
@@ -46,7 +46,7 @@ const CATEGORIES = [
   },
   {
     id: 'regular-maid', tag: 'Housekeeping', title: 'Regular Maid Service',
-    tagImg: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=1200&q=80',
+    tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
       { img: IMG.parttime,  name: 'Part-Time Maid',           desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings for your home.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Part-time maid booking' },
       { img: IMG.livein,    name: 'Weekly Cleaning Plan',     desc: 'A dedicated cleaner on a fixed weekly schedule — same person, same standard every time.', feats: ['Same cleaner every visit','Fixed monthly pricing','Manage via app'], wa: 'Weekly cleaning plan' },
@@ -55,7 +55,7 @@ const CATEGORIES = [
   },
   {
     id: 'specialised', tag: 'Specialised', title: 'Specialised Cleaning',
-    tagImg: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
+    tagImg: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1200&q=80',
     cards: [
       { img: IMG.renoClean,    name: 'Post-Renovation Cleaning', desc: 'Industrial-grade clean to remove cement dust, paint splatters, debris and construction residue.', feats: ['Tile & glass polishing','Dust extraction equipment','Same-day available'], wa: 'Post-reno cleaning' },
       { img: IMG.sofa,         name: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment, carpet shampooing and deodorising.', feats: ['Dry & wet extraction','Quick-dry technology','Deodorising treatment'], wa: 'Sofa & carpet cleaning' },
@@ -147,7 +147,7 @@ export default function Services() {
       {/* CTA */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80" alt="Team" className="w-full h-full object-cover" />
+          <img src="https://images.unsplash.com/photo-1621905252507-b35492db74fd?w=1400&q=80" alt="Southeast Asian professional team" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-brand/90" />
         </div>
         <div className="relative max-w-2xl mx-auto text-center px-4">
