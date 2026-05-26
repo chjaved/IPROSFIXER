@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle, ArrowUp, CreditCard, Shield, Award, Clock, ChevronRight } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin, MessageCircle, ArrowUp, Shield, Award, Clock, ChevronRight } from 'lucide-react'
+import { FaCcVisa, FaCcMastercard, FaCcPaypal, FaApple } from 'react-icons/fa'
 import { useState } from 'react'
 
 const SOCIAL_LINKS = [
@@ -227,34 +228,14 @@ export default function Footer() {
             {/* Payment Methods */}
             <div className="flex items-center gap-3">
               <span className="text-gray-600 text-sm">We accept:</span>
-              <div className="flex items-center gap-3">
-                {/* Visa */}
-                <svg className="h-8 w-12" viewBox="0 0 100 32" fill="none">
-                  <path d="M40 0L35 32h10l5-32H40zM25 0L15 16l-1.5-4C11 6 6 0 6 0H0l12 24h8l12-24h-7zM85 0h-8c-2.5 0-5 1-6.5 4L60 32h10l2-6h12l1 6h9L85 0zm-10 16l3-8 3 8H75z" fill="#1A1F71"/>
-                  <path d="M52 0c-4 0-6.5 1-8 3l-12 21h10l2-6h10l1 6h9L60 0h-8zm-1.5 8l3 10h-8l5-10z" fill="#1A1F71"/>
-                </svg>
-                {/* Mastercard */}
-                <svg className="h-8 w-12" viewBox="0 0 48 32" fill="none">
-                  <circle cx="16" cy="16" r="14" fill="#EB001B"/>
-                  <circle cx="32" cy="16" r="14" fill="#F79E1B"/>
-                  <path d="M24 6c3.5 3 6 8 6 14s-2.5 11-6 14c3.5-3 6-8 6-14s-2.5-11-6-14z" fill="#FF5F00"/>
-                </svg>
-                {/* PayPal */}
-                <svg className="h-8 w-20" viewBox="0 0 100 26" fill="none">
-                  <path d="M12 3H5L2 26h6l1.5-4h4c6 0 11-3 12-7.5C26 9 24 3 18 3h-6zm-1 13.5H7l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#003087"/>
-                  <path d="M34 3h-7L24 26h6l1.5-4h4c6 0 11-3 12-7.5 1-4.5-1-10.5-7-11.5h-6.5zm-1 13.5H29l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#0070E0"/>
-                  <path d="M56 9c-5-1-6-1-6-3 0-2 2-3 4-3 3 0 5 1 6 2l3-4c-2-2-5-3-9-3-7 0-12 4-12 10 0 5 4 7 9 8 5 1 6 1 6 3 0 2-2 3-5 3s-6-1-8-3l-3 4c3 3 7 4 11 4 8 0 13-3 13-10 0-5-4-7-9-8z" fill="#003087"/>
-                  <path d="M78 3h-7L68 26h6l1.5-4h4c6 0 11-3 12-7.5 1-4.5-1-10.5-7-11.5h-6.5zm-1 13.5H73l1-6h4c3 0 4.5 1.5 4 4.5-.5 1.5-2 1.5-5 1.5z" fill="#0070E0"/>
-                  <path d="M98 3L94 26h6l6-23h-8z" fill="#003087"/>
-                </svg>
-                {/* Apple Pay */}
-                <svg className="h-6 w-16" viewBox="0 0 60 20" fill="none">
-                  <path d="M12 4c1-2 3-3 5-3 1 0 2 1 2 3 0 4-4 6-6 9-1 2-1 4-1 5h6v-2h-4c1-4 6-6 6-11 0-4-2-6-5-6-2 0-4 1-5 3h-1V0H6v2h3v12h3V4z" fill="#000"/>
-                  <path d="M24 10c0-5 4-9 8-9s8 4 8 9-4 9-8 9-8-4-8-9zm14 0c0-4-3-7-6-7s-6 3-6 7 3 7 6 7 6-3 6-7z" fill="#000"/>
-                  <path d="M40 5h2v2h-2V5zm0 4h2v10h-2V9z" fill="#000"/>
-                  <path d="M46 9h-2V7h6v10h-2v-5c0-2-1-3-3-3h-1v1z" fill="#000"/>
-                  <path d="M52 11.5c0-3 1-5 4-5h2v2h-2c-2 0-3 1-3 3v5h-2v-5h1z" fill="#000"/>
-                </svg>
+              <div className="flex items-center gap-2">
+                <FaCcVisa className="text-4xl text-[#1A1F71]" />
+                <FaCcMastercard className="text-4xl" />
+                <FaCcPaypal className="text-4xl text-[#003087]" />
+                <div className="flex items-center gap-1 text-xl">
+                  <FaApple className="text-black" />
+                  <span className="text-sm font-semibold text-black">Pay</span>
+                </div>
               </div>
             </div>
           </div>
