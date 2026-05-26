@@ -36,7 +36,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="flex-shrink-0 -ml-2" aria-label="iPROFIXER home">
-          <img src="/logo.png" alt="iPROFIXER" className="h-16 w-auto" />
+          <img src="/logo.png" alt="iPROFIXER" className="h-32 w-auto" />
         </Link>
 
         {/* Desktop nav */}
