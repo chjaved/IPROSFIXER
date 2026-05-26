@@ -485,17 +485,32 @@ export default function Home() {
       <section id="for-pros" className="py-20 bg-bg-soft" aria-label="iPROFIXER for homeowners and professionals">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-6">
-            {/* For Homeowners */}
-            <div ref={r9} className="reveal platform-card relative overflow-hidden">
-              <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full w-fit">FOR HOMEOWNERS</span>
-              <h3 className="font-head font-bold text-2xl text-text">Find someone you can actually trust</h3>
-              <p className="text-muted text-sm leading-relaxed">We check every professional before they join. Background check, IC verification, skills test and insurance.</p>
-              <ul className="space-y-2">
-                {['Fixed upfront pricing - no surprises','Same-day bookings available','Live tracking when your pro is on the way',"Free replacement if you're not satisfied"].map(b => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
-                ))}
-              </ul>
-              <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer" className="btn-orange w-fit">Book Your First Service &#8594;</a>
+            {/* For Homeowners - with real photo */}
+            <div ref={r9} className="reveal relative overflow-hidden rounded-xl2 border border-border bg-white">
+              {/* Homeowner photo */}
+              <div className="relative w-full h-48 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+                  alt="Happy homeowner relaxing in clean Malaysian home"
+                  className="w-full h-full object-cover object-center"
+                  style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent" />
+                <div className="absolute bottom-3 left-4">
+                  <span className="text-xs font-bold uppercase tracking-widest text-teal bg-teal-light px-3 py-1 rounded-full">FOR HOMEOWNERS</span>
+                </div>
+              </div>
+              <div className="p-8 pt-4 flex flex-col gap-4">
+                <h3 className="font-head font-bold text-2xl text-text">Find someone you can actually trust</h3>
+                <p className="text-muted text-sm leading-relaxed">We check every professional before they join. Background check, IC verification, skills test and insurance.</p>
+                <ul className="space-y-2">
+                  {['Fixed upfront pricing - no surprises','Same-day bookings available','Live tracking when your pro is on the way',"Free replacement if you're not satisfied"].map(b => (
+                    <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
+                  ))}
+                </ul>
+                <a href="https://wa.me/60162104127" target="_blank" rel="noopener noreferrer" className="btn-orange w-fit">Book Your First Service &#8594;</a>
+              </div>
             </div>
 
             {/* For Professionals - with real photo */}
