@@ -39,27 +39,33 @@ async function getMyProfile(req, res, sql) {
   const user = rows[0]
   if (!user) return res.status(404).json({ success: false, message: 'User not found' })
 
+  const base = { ...user, role: user.type }
+
   if (user.type === 'professional') {
     const pp = await sql`SELECT * FROM professional_profiles WHERE user_id = ${userId}`
-    return res.json({ success: true, user: { ...user, ...( pp[0] || {}) } })
+    return res.json({ success: true, user: { ...base, professional_profile: pp[0] || {} } })
   }
-  return res.json({ success: true, user })
+  return res.json({ success: true, user: base })
 }
 
 async function updateMyProfile(req, res, sql) {
   const userId = req.user.id
-  const { name, phone, service_category, coverage_area } = req.body || {}
+  const { name, phone, whatsapp, address, city, postcode, service_category, coverage_area, bio, experience_years } = req.body || {}
 
-  if (name)  await sql`UPDATE users SET name = ${name}, updated_at = NOW() WHERE id = ${userId}`
-  if (phone) await sql`UPDATE users SET phone = ${phone}, updated_at = NOW() WHERE id = ${userId}`
+  if (name)     await sql`UPDATE users SET name = ${name}, updated_at = NOW() WHERE id = ${userId}`
+  if (phone)    await sql`UPDATE users SET phone = ${phone}, updated_at = NOW() WHERE id = ${userId}`
+  if (whatsapp) await sql`UPDATE users SET whatsapp = ${whatsapp}, updated_at = NOW() WHERE id = ${userId}`
 
   if (req.user.type === 'professional') {
     if (service_category) await sql`UPDATE professional_profiles SET service_category = ${service_category}, updated_at = NOW() WHERE user_id = ${userId}`
     if (coverage_area)    await sql`UPDATE professional_profiles SET coverage_area = ${coverage_area}, updated_at = NOW() WHERE user_id = ${userId}`
+    if (bio != null)      await sql`UPDATE professional_profiles SET bio = ${bio}, updated_at = NOW() WHERE user_id = ${userId}`
+    if (experience_years != null) await sql`UPDATE professional_profiles SET experience_years = ${experience_years}, updated_at = NOW() WHERE user_id = ${userId}`
   }
 
   const rows = await sql`SELECT id, email, name, phone, whatsapp, type FROM users WHERE id = ${userId}`
-  return res.json({ success: true, message: 'Profile updated successfully', user: rows[0] })
+  const u = rows[0]
+  return res.json({ success: true, message: 'Profile updated successfully', user: { ...u, role: u.type } })
 }
 
 async function getDashboardStats(req, res, sql) {

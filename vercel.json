@@ -4,6 +4,7 @@
   "framework": "vite",
   "rewrites": [
     { "source": "/api/auth/:path*",         "destination": "/api/auth.cjs" },
+    { "source": "/api/users",              "destination": "/api/users.cjs" },
     { "source": "/api/users/:path*",        "destination": "/api/users.cjs" },
     { "source": "/api/services/:path*",     "destination": "/api/services.cjs" },
     { "source": "/api/services",            "destination": "/api/services.cjs" },

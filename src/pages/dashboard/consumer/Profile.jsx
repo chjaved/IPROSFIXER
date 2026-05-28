@@ -1,34 +1,73 @@
-import { useState } from 'react'
-import { User, Mail, Phone, MapPin, Camera, Save } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { User, Mail, Phone, MapPin, Camera, Save, Loader2 } from 'lucide-react'
 import { useAuth } from '../../../contexts/AuthContext.jsx'
+import api from '../../../lib/api.js'
 
 export default function Profile() {
-  const { user } = useAuth()
+  const { user, updateUser } = useAuth()
   const [formData, setFormData] = useState({
-    name: user?.name || 'John Doe',
-    email: user?.email || 'john@example.com',
-    phone: user?.phone || '+60 12-345-6789',
-    address: '123 Jalan Ampang, Kuala Lumpur',
-    city: 'Kuala Lumpur',
-    postcode: '50450',
-    emergencyContact: '+60 13-987-6543',
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    whatsapp: user?.whatsapp || '',
+    address: '',
+    city: '',
+    postcode: '',
   })
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    api.get('/users/me').then(data => {
+      const u = data.user || data.data?.user || {}
+      setFormData(prev => ({
+        ...prev,
+        name:     u.name     || prev.name,
+        email:    u.email    || prev.email,
+        phone:    u.phone    || prev.phone,
+        whatsapp: u.whatsapp || prev.whatsapp,
+        address:  u.address  || '',
+        city:     u.city     || '',
+        postcode: u.postcode || '',
+      }))
+    }).catch(console.error).finally(() => setLoading(false))
+  }, [])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setSaved(false)
+    setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setSaving(true)
-    setTimeout(() => {
-      setSaving(false)
+    setError('')
+    try {
+      const data = await api.put('/users/me', {
+        name:     formData.name,
+        phone:    formData.phone,
+        whatsapp: formData.whatsapp,
+        address:  formData.address,
+        city:     formData.city,
+        postcode: formData.postcode,
+      })
+      updateUser(data.user || data.data?.user || {})
       setSaved(true)
-    }, 1000)
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setSaving(false)
+    }
   }
+
+  if (loading) return (
+    <div className="flex items-center justify-center h-64">
+      <Loader2 className="animate-spin text-teal" size={32} />
+    </div>
+  )
 
   return (
     <div className="max-w-4xl">
@@ -111,13 +150,13 @@ export default function Profile() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label>
               <div className="relative">
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="tel"
-                  name="emergencyContact"
-                  value={formData.emergencyContact}
+                  name="whatsapp"
+                  value={formData.whatsapp}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal"
                 />
@@ -162,18 +201,14 @@ export default function Profile() {
             </div>
           </div>
 
+          {error && <p className="text-red-600 text-sm">{error}</p>}
           <div className="flex items-center gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={saving}
-              className="flex items-center gap-2 bg-teal text-white px-6 py-2 rounded-lg hover:bg-teal-dark transition-colors disabled:opacity-50"
-            >
-              <Save size={18} />
+            <button type="submit" disabled={saving}
+              className="flex items-center gap-2 bg-teal text-white px-6 py-2 rounded-lg hover:bg-teal-dark transition-colors disabled:opacity-50">
+              {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
-            {saved && (
-              <span className="text-green-600 text-sm">Profile updated successfully!</span>
-            )}
+            {saved && <span className="text-green-600 text-sm">Profile updated successfully!</span>}
           </div>
         </form>
       </div>

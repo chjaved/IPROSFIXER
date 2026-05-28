@@ -15,7 +15,6 @@ const FEATURES = [
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [userType, setUserType] = useState('consumer')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -24,8 +23,7 @@ export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
   
-  // Get the redirect path from location state, or default based on user type
-  const from = location.state?.from?.pathname || (userType === 'professional' ? '/pro-dashboard' : '/dashboard')
+  const from = location.state?.from?.pathname || null
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,8 +31,9 @@ export default function Login() {
     setLoading(true)
 
     try {
-      await login(email, password, userType)
-      navigate(from, { replace: true })
+      const user = await login(email, password)
+      const dest = from || (user.role === 'professional' ? '/pro-dashboard' : '/dashboard')
+      navigate(dest, { replace: true })
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
     } finally {

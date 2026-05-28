@@ -35,7 +35,7 @@ module.exports = async function handler(req, res) {
 }
 
 function safeUser(u) {
-  return { id: u.id, email: u.email, name: u.name, phone: u.phone || '', type: u.type }
+  return { id: u.id, email: u.email, name: u.name, phone: u.phone || '', role: u.role || u.type || 'consumer' }
 }
 
 async function handleRegister(req, res) {
@@ -60,7 +60,7 @@ async function handleRegister(req, res) {
     success: true,
     message: 'Account created successfully',
     token,
-    user: { id: userId, email, name, phone: phone || '', type: 'consumer' }
+    user: { id: userId, email, name, phone: phone || '', type: 'consumer', role: 'consumer' }
   })
 }
 
@@ -89,7 +89,7 @@ async function handleRegisterPro(req, res) {
     success: true,
     message: 'Professional account created successfully',
     token,
-    user: { id: userId, email, name, phone: phone || '', type: 'professional' }
+    user: { id: userId, email, name, phone: phone || '', type: 'professional', role: 'professional' }
   })
 }
 

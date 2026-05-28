@@ -84,7 +84,7 @@ export default function ProSignup() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   
-  const { signup } = useAuth()
+  const { signupPro } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -115,19 +115,15 @@ export default function ProSignup() {
     setLoading(true)
 
     try {
-      await signup(
-        formData.name, 
-        formData.email, 
-        formData.password, 
-        formData.phone, 
-        'professional',
-        {
-          serviceCategory: formData.serviceCategory,
-          location: formData.location,
-          experience: formData.experience,
-          hasTransport: formData.hasTransport
-        }
-      )
+      await signupPro({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        service_category: formData.serviceCategory,
+        coverage_area: formData.location,
+        years_of_experience: formData.experience,
+      })
       setSuccess(true)
       setTimeout(() => {
         navigate('/pro-dashboard', { replace: true })

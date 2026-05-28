@@ -1,37 +1,83 @@
-import { useState } from 'react'
-import { User, Mail, Phone, MapPin, Camera, Save, Briefcase, Star, Award, FileText } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { User, Mail, Phone, MapPin, Camera, Save, Briefcase, Star, Award, FileText, Loader2 } from 'lucide-react'
 import { useAuth } from '../../../contexts/AuthContext.jsx'
+import api from '../../../lib/api.js'
 
 export default function ProProfile() {
-  const { user } = useAuth()
+  const { user, updateUser } = useAuth()
   const [formData, setFormData] = useState({
-    name: user?.name || 'Ahmad Hafizi',
-    email: user?.email || 'ahmad@example.com',
-    phone: user?.phone || '+60 12-345-6789',
-    serviceCategory: user?.serviceCategory || 'Deep Cleaning',
-    experience: user?.experience || '3-5',
-    bio: 'Professional cleaner with 5+ years experience. Specializing in post-renovation and deep cleaning services.',
-    location: 'Petaling Jaya',
-    hasTransport: true,
-    idNumber: '890512-14-5678',
-    bankAccount: '**** 4567',
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    whatsapp: user?.whatsapp || '',
+    serviceCategory: '',
+    experience: '',
+    bio: '',
+    location: '',
   })
+  const [proStats, setProStats] = useState({ totalJobs: 0, totalReviews: 0, rating: 0 })
+  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    api.get('/users/me').then(data => {
+      const u = data.user || data.data?.user || {}
+      const p = u.professional_profile || {}
+      setFormData(prev => ({
+        ...prev,
+        name:            u.name            || prev.name,
+        email:           u.email           || prev.email,
+        phone:           u.phone           || prev.phone,
+        whatsapp:        u.whatsapp        || prev.whatsapp,
+        serviceCategory: p.service_category || '',
+        experience:      p.experience_years  != null ? String(p.experience_years) : '',
+        bio:             p.bio              || '',
+        location:        p.coverage_area   || '',
+      }))
+      setProStats({
+        totalJobs:    p.total_jobs    || 0,
+        rating:       p.rating        || 0,
+        totalReviews: p.total_reviews  || 0,
+      })
+    }).catch(console.error).finally(() => setLoading(false))
+  }, [])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setSaved(false)
+    setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setSaving(true)
-    setTimeout(() => {
-      setSaving(false)
+    setError('')
+    try {
+      const data = await api.put('/users/me', {
+        name:             formData.name,
+        phone:            formData.phone,
+        whatsapp:         formData.whatsapp,
+        service_category: formData.serviceCategory,
+        experience_years: formData.experience,
+        bio:              formData.bio,
+        coverage_area:    formData.location,
+      })
+      updateUser(data.user || data.data?.user || {})
       setSaved(true)
-    }, 1000)
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setSaving(false)
+    }
   }
+
+  if (loading) return (
+    <div className="flex items-center justify-center h-64">
+      <Loader2 className="animate-spin text-orange" size={32} />
+    </div>
+  )
 
   return (
     <div className="max-w-4xl">
@@ -73,16 +119,16 @@ export default function ProProfile() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 py-4 border-t border-gray-100">
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">156</p>
+              <p className="text-2xl font-bold text-gray-900">{proStats.totalJobs}</p>
               <p className="text-sm text-gray-500">Jobs Completed</p>
             </div>
             <div className="text-center border-x border-gray-100">
-              <p className="text-2xl font-bold text-gray-900">128</p>
+              <p className="text-2xl font-bold text-gray-900">{proStats.totalReviews}</p>
               <p className="text-sm text-gray-500">Reviews</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">3</p>
-              <p className="text-sm text-gray-500">Years Active</p>
+              <p className="text-2xl font-bold text-gray-900">{proStats.rating || '—'}</p>
+              <p className="text-sm text-gray-500">Avg Rating</p>
             </div>
           </div>
         </div>
@@ -197,18 +243,14 @@ export default function ProProfile() {
             </div>
           </div>
 
+          {error && <p className="text-red-600 text-sm">{error}</p>}
           <div className="flex items-center gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={saving}
-              className="flex items-center gap-2 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark transition-colors disabled:opacity-50"
-            >
-              <Save size={18} />
+            <button type="submit" disabled={saving}
+              className="flex items-center gap-2 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark transition-colors disabled:opacity-50">
+              {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
-            {saved && (
-              <span className="text-green-600 text-sm">Profile updated successfully!</span>
-            )}
+            {saved && <span className="text-green-600 text-sm">Profile updated successfully!</span>}
           </div>
         </form>
       </div>

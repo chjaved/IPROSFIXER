@@ -61,7 +61,7 @@ export default function App() {
         <Route 
           path="/dashboard" 
           element={
-            <ProtectedRoute allowedTypes={['consumer']}>
+            <ProtectedRoute allowedTypes={['consumer', 'customer']}>
               <ConsumerDashboard />
             </ProtectedRoute>
           } 
