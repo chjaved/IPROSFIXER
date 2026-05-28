@@ -7,13 +7,19 @@ async function ensureTables() {
 }
 
 module.exports = async function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
   try {
-    await ensureTables()
+    try {
+      await ensureTables()
+    } catch (dbErr) {
+      console.error('DB init error:', dbErr)
+      return res.status(500).json({ success: false, message: 'Database connection failed: ' + dbErr.message })
+    }
     const { pathname } = new URL(req.url, `http://${req.headers.host}`)
     const action = pathname.replace('/api/auth', '').replace(/^\//, '') || req.query.action || ''
 

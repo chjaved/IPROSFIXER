@@ -6,6 +6,7 @@ async function ensureTables() {
 }
 
 module.exports = async function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -13,7 +14,12 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ success: false, message: 'Method not allowed' })
 
   try {
-    await ensureTables()
+    try {
+      await ensureTables()
+    } catch (dbErr) {
+      console.error('DB init error:', dbErr)
+      return res.status(500).json({ success: false, message: 'Database connection failed: ' + dbErr.message })
+    }
     const sql = getDb()
     const { pathname } = new URL(req.url, `http://${req.headers.host}`)
     const path = pathname.replace('/api/services', '')
