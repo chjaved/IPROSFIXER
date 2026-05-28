@@ -2,22 +2,19 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "routes": [
-    { "src": "/api/auth/(.*)",         "dest": "/api/auth.cjs" },
-    { "src": "/api/auth",              "dest": "/api/auth.cjs" },
-    { "src": "/api/users/(.*)",        "dest": "/api/users.cjs" },
-    { "src": "/api/users",             "dest": "/api/users.cjs" },
-    { "src": "/api/services/(.*)",     "dest": "/api/services.cjs" },
-    { "src": "/api/services",          "dest": "/api/services.cjs" },
-    { "src": "/api/bookings/(.*)",     "dest": "/api/bookings.cjs" },
-    { "src": "/api/bookings",          "dest": "/api/bookings.cjs" },
-    { "src": "/api/transactions/(.*)", "dest": "/api/transactions.cjs" },
-    { "src": "/api/transactions",      "dest": "/api/transactions.cjs" },
-    { "src": "/api/reviews/(.*)",      "dest": "/api/reviews.cjs" },
-    { "src": "/api/reviews",           "dest": "/api/reviews.cjs" },
-    { "src": "/api/contact",           "dest": "/api/contact.cjs" },
-    { "src": "/api/join",              "dest": "/api/join.cjs" },
-    { "src": "/api/chat",              "dest": "/api/chat.js" },
-    { "src": "/(.*)",                  "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/auth/:path*",         "destination": "/api/auth.cjs" },
+    { "source": "/api/users/:path*",        "destination": "/api/users.cjs" },
+    { "source": "/api/services/:path*",     "destination": "/api/services.cjs" },
+    { "source": "/api/services",            "destination": "/api/services.cjs" },
+    { "source": "/api/bookings/:path*",     "destination": "/api/bookings.cjs" },
+    { "source": "/api/bookings",            "destination": "/api/bookings.cjs" },
+    { "source": "/api/transactions/:path*", "destination": "/api/transactions.cjs" },
+    { "source": "/api/transactions",        "destination": "/api/transactions.cjs" },
+    { "source": "/api/reviews/:path*",      "destination": "/api/reviews.cjs" },
+    { "source": "/api/reviews",             "destination": "/api/reviews.cjs" },
+    { "source": "/api/contact",             "destination": "/api/contact.cjs" },
+    { "source": "/api/join",                "destination": "/api/join.cjs" },
+    { "source": "/api/chat",                "destination": "/api/chat.js" }
   ]
 }
