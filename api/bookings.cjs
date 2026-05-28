@@ -1,378 +1,140 @@
-const { getDb, generateId } = require('./_db.cjs')
-const { authMiddleware, requireRole } = require('./_auth.cjs')
+const { getDb, initTables, generateId } = require('./_db.cjs')
+const { authMiddleware } = require('./_auth.cjs')
+
+let tablesReady = false
+async function ensureTables() {
+  if (!tablesReady) { await initTables(); tablesReady = true }
+}
 
 module.exports = async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end()
-  }
-
-  // Apply auth middleware
-  const next = () => handleRequest(req, res)
-  authMiddleware(req, res, next)
-}
-
-async function handleRequest(req, res) {
-  const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-  const path = pathname.replace('/api/bookings', '')
+  if (req.method === 'OPTIONS') return res.status(200).end()
 
   try {
-    const db = getDb()
+    await ensureTables()
+    const ok = await authMiddleware(req, res)
+    if (!ok) return
 
-    // GET /api/bookings - List user's bookings
-    if (req.method === 'GET' && (path === '' || path === '/')) {
-      return await listBookings(req, res, db)
-    }
+    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
+    const path = pathname.replace('/api/bookings', '')
+    const sql = getDb()
 
-    // POST /api/bookings - Create new booking
-    if (req.method === 'POST' && (path === '' || path === '/')) {
-      return await createBooking(req, res, db)
-    }
+    if (req.method === 'GET'  && (path === '' || path === '/'))   return await listBookings(req, res, sql)
+    if (req.method === 'POST' && (path === '' || path === '/'))   return await createBooking(req, res, sql)
+    if (req.method === 'GET'  && path.match(/^\/[\w-]+$/))       return await getBookingDetail(req, res, sql, path.slice(1))
+    if (req.method === 'PUT'  && path.match(/^\/[\w-]+$/))       return await updateBooking(req, res, sql, path.slice(1))
 
-    // GET /api/bookings/:id - Get booking details
-    if (req.method === 'GET' && path.match(/^\/[\w-]+$/)) {
-      const id = path.replace('/', '')
-      return await getBookingDetails(req, res, db, id)
-    }
-
-    // PUT /api/bookings/:id - Update booking (status, etc.)
-    if (req.method === 'PUT' && path.match(/^\/[\w-]+$/)) {
-      const id = path.replace('/', '')
-      return await updateBooking(req, res, db, id)
-    }
-
-    // GET /api/bookings/available-slots - Get available time slots
-    if (req.method === 'GET' && path === '/available-slots') {
-      return await getAvailableSlots(req, res, db)
-    }
-
-    return res.status(404).json({ success: false, message: 'Endpoint not found' })
+    return res.status(404).json({ success: false, message: 'Not found' })
   } catch (err) {
-    console.error('Bookings API error:', err)
-    return res.status(500).json({ success: false, message: 'Server error' })
+    console.error('Bookings error:', err)
+    return res.status(500).json({ success: false, message: err.message || 'Server error' })
   }
 }
 
-// Generate booking number
-function generateBookingNumber() {
-  const prefix = 'BK'
-  const timestamp = Date.now().toString(36).toUpperCase()
-  const random = Math.random().toString(36).substring(2, 5).toUpperCase()
-  return `${prefix}${timestamp}${random}`
+function genBookingRef() {
+  const yr = new Date().getFullYear()
+  const rand = Math.floor(1000 + Math.random() * 9000)
+  return `IPF-${yr}-${rand}`
 }
 
-// List bookings
-async function listBookings(req, res, db) {
+async function listBookings(req, res, sql) {
   const userId = req.user.id
   const userType = req.user.type
-  const { status, limit = 20, offset = 0 } = req.query || {}
+  const { status } = req.query || {}
 
-  let query, countQuery, params
-
+  let bookings
   if (userType === 'consumer') {
-    query = `
-      SELECT b.*, s.name as service_name, s.image_url as service_image,
-        u.name as professional_name, u.phone as professional_phone
-      FROM bookings b
-      LEFT JOIN services s ON b.service_id = s.id
-      LEFT JOIN users u ON b.professional_id = u.id
-      WHERE b.consumer_id = ?
-    `
-    countQuery = 'SELECT COUNT(*) as total FROM bookings WHERE consumer_id = ?'
-    params = [userId]
+    bookings = status
+      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} AND b.status=${status} ORDER BY b.created_at DESC`
+      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} ORDER BY b.created_at DESC`
   } else {
-    query = `
-      SELECT b.*, s.name as service_name, s.image_url as service_image,
-        u.name as customer_name, u.phone as customer_phone
-      FROM bookings b
-      LEFT JOIN services s ON b.service_id = s.id
-      LEFT JOIN users u ON b.consumer_id = u.id
-      WHERE b.professional_id = ? OR b.professional_id IS NULL
-    `
-    countQuery = 'SELECT COUNT(*) as total FROM bookings WHERE professional_id = ? OR professional_id IS NULL'
-    params = [userId]
+    bookings = status
+      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE (b.professional_id=${userId} OR b.professional_id IS NULL) AND b.status=${status} ORDER BY b.created_at DESC`
+      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE b.professional_id=${userId} OR b.professional_id IS NULL ORDER BY b.created_at DESC`
   }
 
-  if (status) {
-    query += ' AND b.status = ?'
-    countQuery += ' AND status = ?'
-    params.push(status)
-  }
+  // Normalise: Flutter BookingModel reads service_name, area, total_amount
+  const normalised = bookings.map(b => ({
+    ...b,
+    service_name: b.service_name || b.service || '',
+    area: b.area || b.address || '',
+    total_amount: b.price || b.total_amount || 0,
+  }))
 
-  query += ' ORDER BY b.scheduled_date DESC, b.scheduled_time DESC'
-  query += ' LIMIT ? OFFSET ?'
-
-  const bookings = db.prepare(query).all(...params, parseInt(limit), parseInt(offset))
-  const count = db.prepare(countQuery).get(...params.slice(0, -2))
-
-  return res.json({
-    success: true,
-    data: {
-      bookings,
-      pagination: {
-        total: count.total,
-        limit: parseInt(limit),
-        offset: parseInt(offset)
-      }
-    }
-  })
+  return res.json({ success: true, bookings: normalised, data: normalised })
 }
 
-// Create booking
-async function createBooking(req, res, db) {
+async function createBooking(req, res, sql) {
   const userId = req.user.id
-  const { serviceId, scheduledDate, scheduledTime, address, notes, preferredProfessionalId } = req.body || {}
+  // Accept both Flutter field names (service_id, area) and legacy (serviceId, address)
+  const body = req.body || {}
+  const serviceId     = body.service_id     || body.serviceId
+  const scheduledDate = body.scheduled_date || body.scheduledDate
+  const scheduledTime = body.scheduled_time || body.scheduledTime
+  const area          = body.area           || body.address || ''
+  const { notes, whatsapp } = body
 
-  // Validation
-  if (!serviceId || !scheduledDate || !scheduledTime || !address) {
-    return res.status(400).json({
-      success: false,
-      message: 'Service, date, time, and address are required'
-    })
-  }
+  if (!serviceId || !scheduledDate || !scheduledTime || !area)
+    return res.status(400).json({ success: false, message: 'service_id, scheduled_date, scheduled_time, and area are required' })
 
-  // Get service details for pricing
-  const service = db.prepare('SELECT * FROM services WHERE id = ? AND is_active = TRUE').get(serviceId)
-  
-  if (!service) {
-    return res.status(404).json({ success: false, message: 'Service not found' })
-  }
+  const svcRows = await sql`SELECT * FROM services WHERE id=${serviceId} AND is_active=TRUE`
+  if (!svcRows.length) return res.status(404).json({ success: false, message: 'Service not found' })
+  const service = svcRows[0]
 
-  // Find available professional if none specified
-  let professionalId = preferredProfessionalId
-  
-  if (!professionalId) {
-    // Find professional who offers this service and works in the area
-    const availablePro = db.prepare(`
-      SELECT u.id
-      FROM users u
-      JOIN professional_profiles pp ON u.id = pp.user_id
-      WHERE u.type = 'professional'
-      AND u.status = 'active'
-      AND pp.service_types LIKE ?
-      ORDER BY pp.rating DESC, RANDOM()
-      LIMIT 1
-    `).get(`%${service.name}%`)
+  const bookingId  = generateId()
+  const bookingRef = genBookingRef()
 
-    if (availablePro) {
-      professionalId = availablePro.id
-    }
-  }
+  await sql`
+    INSERT INTO bookings (id, booking_number, consumer_id, service_id, service_name, status, scheduled_date, scheduled_time, address, area, price, notes, whatsapp)
+    VALUES (${bookingId}, ${bookingRef}, ${userId}, ${serviceId}, ${service.name}, 'pending', ${scheduledDate}, ${scheduledTime}, ${area}, ${area}, ${service.base_price}, ${notes||null}, ${whatsapp||null})
+  `
+  await sql`UPDATE consumer_profiles SET total_bookings=total_bookings+1 WHERE user_id=${userId}`
 
-  // Create booking
-  const bookingId = generateId()
-  const bookingNumber = generateBookingNumber()
+  const booking = { id: bookingId, booking_number: bookingRef, service_id: serviceId, service_name: service.name,
+    area, scheduled_date: scheduledDate, scheduled_time: scheduledTime, status: 'pending',
+    total_amount: service.base_price, price: service.base_price, created_at: new Date().toISOString() }
 
-  db.prepare(`
-    INSERT INTO bookings (id, booking_number, consumer_id, professional_id, service_id, status, scheduled_date, scheduled_time, address, price, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    bookingId,
-    bookingNumber,
-    userId,
-    professionalId,
-    serviceId,
-    professionalId ? 'confirmed' : 'pending',
-    scheduledDate,
-    scheduledTime,
-    address,
-    service.base_price,
-    notes || null
-  )
-
-  // Update consumer stats
-  db.prepare(`
-    UPDATE consumer_profiles 
-    SET total_bookings = total_bookings + 1
-    WHERE user_id = ?
-  `).run(userId)
-
-  return res.status(201).json({
-    success: true,
-    message: 'Booking created successfully',
-    data: {
-      bookingId,
-      bookingNumber,
-      status: professionalId ? 'confirmed' : 'pending',
-      price: service.base_price
-    }
-  })
+  return res.status(201).json({ success: true, message: 'Booking created', booking, data: booking })
 }
 
-// Get booking details
-async function getBookingDetails(req, res, db, id) {
+async function getBookingDetail(req, res, sql, id) {
+  const userId = req.user.id
+  const rows = await sql`
+    SELECT b.*, s.name as service_name, s.icon, u.name as professional_name
+    FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id
+    WHERE b.id=${id} AND (b.consumer_id=${userId} OR b.professional_id=${userId})
+  `
+  if (!rows.length) return res.status(404).json({ success: false, message: 'Booking not found' })
+  const b = rows[0]
+  return res.json({ success: true, data: { ...b, area: b.area||b.address||'', total_amount: b.price||0 } })
+}
+
+async function updateBooking(req, res, sql, id) {
   const userId = req.user.id
   const userType = req.user.type
+  const { status, cancellation_reason } = req.body || {}
 
-  let query
-  if (userType === 'consumer') {
-    query = `
-      SELECT b.*, s.name as service_name, s.image_url as service_image,
-        u.name as professional_name, u.phone as professional_phone
-      FROM bookings b
-      LEFT JOIN services s ON b.service_id = s.id
-      LEFT JOIN users u ON b.professional_id = u.id
-      WHERE b.id = ? AND b.consumer_id = ?
-    `
-  } else {
-    query = `
-      SELECT b.*, s.name as service_name, s.image_url as service_image,
-        u.name as customer_name, u.phone as customer_phone
-      FROM bookings b
-      LEFT JOIN services s ON b.service_id = s.id
-      LEFT JOIN users u ON b.consumer_id = u.id
-      WHERE b.id = ? AND (b.professional_id = ? OR b.professional_id IS NULL)
-    `
+  const rows = await sql`SELECT * FROM bookings WHERE id=${id}`
+  if (!rows.length) return res.status(404).json({ success: false, message: 'Booking not found' })
+  const booking = rows[0]
+
+  if (status) await sql`UPDATE bookings SET status=${status}, updated_at=NOW() WHERE id=${id}`
+  if (cancellation_reason) await sql`UPDATE bookings SET cancellation_reason=${cancellation_reason} WHERE id=${id}`
+
+  // Professional accepting: claim the job
+  if (userType === 'professional' && status === 'accepted' && !booking.professional_id) {
+    await sql`UPDATE bookings SET professional_id=${userId} WHERE id=${id}`
   }
 
-  const booking = db.prepare(query).get(id, userId)
-
-  if (!booking) {
-    return res.status(404).json({ success: false, message: 'Booking not found' })
-  }
-
-  // Get transactions
-  const transactions = db.prepare(`
-    SELECT * FROM transactions 
-    WHERE booking_id = ? 
-    ORDER BY created_at DESC
-  `).all(id)
-
-  // Get review if exists
-  const review = db.prepare(`
-    SELECT * FROM reviews 
-    WHERE booking_id = ?
-  `).get(id)
-
-  return res.json({
-    success: true,
-    data: {
-      booking,
-      transactions,
-      review
-    }
-  })
-}
-
-// Update booking
-async function updateBooking(req, res, db, id) {
-  const userId = req.user.id
-  const userType = req.user.type
-  const { status, cancellationReason } = req.body || {}
-
-  // Check if booking exists and belongs to user
-  let bookingQuery
-  if (userType === 'consumer') {
-    bookingQuery = 'SELECT * FROM bookings WHERE id = ? AND consumer_id = ?'
-  } else {
-    bookingQuery = 'SELECT * FROM bookings WHERE id = ? AND (professional_id = ? OR professional_id IS NULL)'
-  }
-
-  const booking = db.prepare(bookingQuery).get(id, userId)
-
-  if (!booking) {
-    return res.status(404).json({ success: false, message: 'Booking not found' })
-  }
-
-  // Validate status transitions
-  const validTransitions = {
-    'pending': ['confirmed', 'cancelled'],
-    'confirmed': ['in_progress', 'cancelled'],
-    'in_progress': ['completed', 'cancelled'],
-    'completed': [],
-    'cancelled': []
-  }
-
-  if (status && !validTransitions[booking.status].includes(status)) {
-    return res.status(400).json({
-      success: false,
-      message: `Cannot transition from ${booking.status} to ${status}`
-    })
-  }
-
-  // Build update query
-  const updates = {}
-  if (status) updates.status = status
-  if (cancellationReason) updates.cancellation_reason = cancellationReason
-
-  if (userType === 'professional' && status === 'confirmed' && !booking.professional_id) {
-    // Professional accepting a pending job
-    updates.professional_id = userId
-  }
-
-  if (Object.keys(updates).length === 0) {
-    return res.status(400).json({ success: false, message: 'No updates provided' })
-  }
-
-  const setClause = Object.keys(updates).map(k => `${k} = ?`).join(', ')
-  const values = [...Object.values(updates), id]
-
-  db.prepare(`UPDATE bookings SET ${setClause}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`).run(...values)
-
-  // Handle side effects
+  // Completed: create transaction + update stats
   if (status === 'completed') {
-    // Update professional stats
-    if (booking.professional_id || (userType === 'professional' && updates.professional_id)) {
-      const proId = booking.professional_id || userId
-      db.prepare(`
-        UPDATE professional_profiles 
-        SET total_jobs = total_jobs + 1
-        WHERE user_id = ?
-      `).run(proId)
-    }
-
-    // Update consumer stats
-    db.prepare(`
-      UPDATE consumer_profiles 
-      SET total_spent = total_spent + ?
-      WHERE user_id = ?
-    `).run(booking.price, booking.consumer_id)
+    const proId = booking.professional_id || userId
+    await sql`INSERT INTO transactions (id, booking_id, payer_id, payee_id, amount, type, status) VALUES (${generateId()}, ${id}, ${booking.consumer_id}, ${proId}, ${booking.price}, 'payment', 'completed')`
+    await sql`UPDATE professional_profiles SET total_jobs=total_jobs+1 WHERE user_id=${proId}`
+    await sql`UPDATE consumer_profiles SET total_spent=total_spent+${booking.price} WHERE user_id=${booking.consumer_id}`
   }
 
-  return res.json({
-    success: true,
-    message: 'Booking updated successfully'
-  })
-}
-
-// Get available time slots
-async function getAvailableSlots(req, res, db) {
-  const { date, professionalId } = req.query || {}
-
-  if (!date) {
-    return res.status(400).json({ success: false, message: 'Date is required' })
-  }
-
-  // Generate time slots (9 AM to 6 PM, hourly)
-  const slots = []
-  const startHour = 9
-  const endHour = 18
-
-  for (let hour = startHour; hour < endHour; hour++) {
-    const time = `${hour.toString().padStart(2, '0')}:00`
-    
-    // Check if slot is booked
-    const isBooked = db.prepare(`
-      SELECT COUNT(*) as count 
-      FROM bookings 
-      WHERE professional_id = ? 
-      AND scheduled_date = ? 
-      AND scheduled_time = ?
-      AND status NOT IN ('cancelled', 'completed')
-    `).get(professionalId || 'any', date, time)
-
-    slots.push({
-      time,
-      available: !isBooked || isBooked.count === 0
-    })
-  }
-
-  return res.json({
-    success: true,
-    data: { date, slots }
-  })
+  return res.json({ success: true, message: 'Booking updated' })
 }

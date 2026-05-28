@@ -1,204 +1,80 @@
-const { getDb, generateId } = require('./_db.cjs')
-const { authMiddleware, requireRole } = require('./_auth.cjs')
+const { getDb, initTables, generateId } = require('./_db.cjs')
+const { authMiddleware } = require('./_auth.cjs')
+
+let tablesReady = false
+async function ensureTables() {
+  if (!tablesReady) { await initTables(); tablesReady = true }
+}
 
 module.exports = async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end()
-  }
-
-  // Apply auth middleware
-  const next = () => handleRequest(req, res)
-  authMiddleware(req, res, next)
-}
-
-async function handleRequest(req, res) {
-  const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-  const path = pathname.replace('/api/reviews', '')
+  if (req.method === 'OPTIONS') return res.status(200).end()
 
   try {
-    const db = getDb()
+    await ensureTables()
+    const ok = await authMiddleware(req, res)
+    if (!ok) return
 
-    // GET /api/reviews - List reviews (for current user or professional)
-    if (req.method === 'GET' && (path === '' || path === '/')) {
-      return await listReviews(req, res, db)
-    }
+    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
+    const path = pathname.replace('/api/reviews', '')
+    const sql = getDb()
 
-    // POST /api/reviews - Create review
-    if (req.method === 'POST' && (path === '' || path === '/')) {
-      return await createReview(req, res, db)
-    }
+    if (req.method === 'GET'  && (path === '' || path === '/')) return await listReviews(req, res, sql)
+    if (req.method === 'POST' && (path === '' || path === '/')) return await createReview(req, res, sql)
 
-    return res.status(404).json({ success: false, message: 'Endpoint not found' })
+    return res.status(404).json({ success: false, message: 'Not found' })
   } catch (err) {
-    console.error('Reviews API error:', err)
-    return res.status(500).json({ success: false, message: 'Server error' })
+    console.error('Reviews error:', err)
+    return res.status(500).json({ success: false, message: err.message || 'Server error' })
   }
 }
 
-// List reviews
-async function listReviews(req, res, db) {
+async function listReviews(req, res, sql) {
   const userId = req.user.id
   const userType = req.user.type
-  const { professionalId, limit = 20, offset = 0 } = req.query || {}
+  const { professional_id } = req.query || {}
 
-  let query, countQuery, params
+  let reviews, avgRating = null
 
-  if (professionalId) {
-    // Get reviews for a specific professional
-    query = `
-      SELECT r.*, u.name as reviewer_name, b.booking_number
-      FROM reviews r
-      JOIN users u ON r.consumer_id = u.id
-      JOIN bookings b ON r.booking_id = b.id
-      WHERE r.professional_id = ? AND r.is_public = TRUE
-    `
-    countQuery = 'SELECT COUNT(*) as total FROM reviews WHERE professional_id = ? AND is_public = TRUE'
-    params = [professionalId]
+  if (professional_id) {
+    reviews = await sql`SELECT r.*, u.name as reviewer_name FROM reviews r JOIN users u ON r.consumer_id=u.id WHERE r.professional_id=${professional_id} AND r.is_public=TRUE ORDER BY r.created_at DESC`
+    const avg = await sql`SELECT AVG(rating) as avg FROM reviews WHERE professional_id=${professional_id} AND is_public=TRUE`
+    avgRating = avg[0]?.avg ? Math.round(parseFloat(avg[0].avg)*10)/10 : 0
   } else if (userType === 'professional') {
-    // Get reviews for logged-in professional
-    query = `
-      SELECT r.*, u.name as reviewer_name, b.booking_number
-      FROM reviews r
-      JOIN users u ON r.consumer_id = u.id
-      JOIN bookings b ON r.booking_id = b.id
-      WHERE r.professional_id = ?
-    `
-    countQuery = 'SELECT COUNT(*) as total FROM reviews WHERE professional_id = ?'
-    params = [userId]
+    reviews = await sql`SELECT r.*, u.name as reviewer_name FROM reviews r JOIN users u ON r.consumer_id=u.id WHERE r.professional_id=${userId} ORDER BY r.created_at DESC`
+    const avg = await sql`SELECT AVG(rating) as avg FROM reviews WHERE professional_id=${userId}`
+    avgRating = avg[0]?.avg ? Math.round(parseFloat(avg[0].avg)*10)/10 : 0
   } else {
-    // Get reviews written by logged-in consumer
-    query = `
-      SELECT r.*, u.name as professional_name, b.booking_number
-      FROM reviews r
-      JOIN users u ON r.professional_id = u.id
-      JOIN bookings b ON r.booking_id = b.id
-      WHERE r.consumer_id = ?
-    `
-    countQuery = 'SELECT COUNT(*) as total FROM reviews WHERE consumer_id = ?'
-    params = [userId]
+    reviews = await sql`SELECT r.*, u.name as professional_name FROM reviews r JOIN users u ON r.professional_id=u.id WHERE r.consumer_id=${userId} ORDER BY r.created_at DESC`
   }
 
-  query += ' ORDER BY r.created_at DESC'
-  query += ' LIMIT ? OFFSET ?'
-
-  const reviews = db.prepare(query).all(...params, parseInt(limit), parseInt(offset))
-  const count = db.prepare(countQuery).get(...params)
-
-  // Calculate average rating
-  let avgRating = null
-  if (professionalId || userType === 'professional') {
-    const avgQuery = professionalId 
-      ? 'SELECT AVG(rating) as avg FROM reviews WHERE professional_id = ? AND is_public = TRUE'
-      : 'SELECT AVG(rating) as avg FROM reviews WHERE professional_id = ?'
-    const avgResult = db.prepare(avgQuery).get(professionalId || userId)
-    avgRating = avgResult.avg ? Math.round(avgResult.avg * 10) / 10 : 0
-  }
-
-  return res.json({
-    success: true,
-    data: {
-      reviews,
-      averageRating: avgRating,
-      pagination: {
-        total: count.total,
-        limit: parseInt(limit),
-        offset: parseInt(offset)
-      }
-    }
-  })
+  return res.json({ success: true, data: { reviews, averageRating: avgRating } })
 }
 
-// Create review
-async function createReview(req, res, db) {
+async function createReview(req, res, sql) {
   const userId = req.user.id
-  const { bookingId, rating, comment, isPublic = true } = req.body || {}
+  const { booking_id, rating, comment } = req.body || {}
 
-  // Validation
-  if (!bookingId || !rating) {
-    return res.status(400).json({
-      success: false,
-      message: 'Booking ID and rating are required'
-    })
-  }
+  if (!booking_id || !rating) return res.status(400).json({ success: false, message: 'booking_id and rating are required' })
+  if (rating < 1 || rating > 5) return res.status(400).json({ success: false, message: 'Rating must be 1–5' })
 
-  if (rating < 1 || rating > 5) {
-    return res.status(400).json({
-      success: false,
-      message: 'Rating must be between 1 and 5'
-    })
-  }
+  const bookings = await sql`SELECT * FROM bookings WHERE id=${booking_id} AND consumer_id=${userId} AND status='completed'`
+  if (!bookings.length) return res.status(404).json({ success: false, message: 'Completed booking not found' })
+  const booking = bookings[0]
+  if (!booking.professional_id) return res.status(400).json({ success: false, message: 'No professional assigned' })
 
-  // Check if booking exists and belongs to user
-  const booking = db.prepare(`
-    SELECT * FROM bookings 
-    WHERE id = ? AND consumer_id = ? AND status = 'completed'
-  `).get(bookingId, userId)
+  const existing = await sql`SELECT id FROM reviews WHERE booking_id=${booking_id}`
+  if (existing.length) return res.status(409).json({ success: false, message: 'Already reviewed' })
 
-  if (!booking) {
-    return res.status(404).json({
-      success: false,
-      message: 'Booking not found or not completed'
-    })
-  }
-
-  // Check if already reviewed
-  const existing = db.prepare('SELECT id FROM reviews WHERE booking_id = ?').get(bookingId)
-  if (existing) {
-    return res.status(409).json({
-      success: false,
-      message: 'Booking already reviewed'
-    })
-  }
-
-  // Check if booking had a professional assigned
-  if (!booking.professional_id) {
-    return res.status(400).json({
-      success: false,
-      message: 'Cannot review - no professional was assigned to this booking'
-    })
-  }
-
-  // Create review
   const reviewId = generateId()
+  await sql`INSERT INTO reviews (id, booking_id, consumer_id, professional_id, rating, comment) VALUES (${reviewId}, ${booking_id}, ${userId}, ${booking.professional_id}, ${rating}, ${comment||null})`
 
-  db.prepare(`
-    INSERT INTO reviews (id, booking_id, consumer_id, professional_id, rating, comment, is_public)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    reviewId,
-    bookingId,
-    userId,
-    booking.professional_id,
-    rating,
-    comment || null,
-    isPublic
-  )
+  // Update pro average rating
+  const avg = await sql`SELECT AVG(rating) as avg FROM reviews WHERE professional_id=${booking.professional_id}`
+  const newRating = avg[0]?.avg ? Math.round(parseFloat(avg[0].avg)*10)/10 : rating
+  await sql`UPDATE professional_profiles SET rating=${newRating} WHERE user_id=${booking.professional_id}`
 
-  // Update professional's average rating
-  const avgResult = db.prepare(`
-    SELECT AVG(rating) as avg, COUNT(*) as count 
-    FROM reviews 
-    WHERE professional_id = ?
-  `).get(booking.professional_id)
-
-  db.prepare(`
-    UPDATE professional_profiles 
-    SET rating = ?, total_jobs = ?
-    WHERE user_id = ?
-  `).run(
-    Math.round(avgResult.avg * 10) / 10,
-    avgResult.count,
-    booking.professional_id
-  )
-
-  return res.status(201).json({
-    success: true,
-    message: 'Review created successfully',
-    data: { reviewId }
-  })
+  return res.status(201).json({ success: true, message: 'Review submitted', data: { reviewId } })
 }

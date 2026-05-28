@@ -1,243 +1,117 @@
-const { getDb, generateId } = require('./_db.cjs')
-const { hashPassword, verifyPassword, generateToken } = require('./_auth.cjs')
+const { getDb, initTables, generateId } = require('./_db.cjs')
+const { hashPassword, verifyPassword, generateToken, authMiddleware } = require('./_auth.cjs')
+
+let tablesReady = false
+async function ensureTables() {
+  if (!tablesReady) { await initTables(); tablesReady = true }
+}
 
 module.exports = async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end()
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, message: 'Method not allowed' })
-  }
-
-  const { action } = req.query
+  if (req.method === 'OPTIONS') return res.status(200).end()
 
   try {
-    const db = getDb()
+    await ensureTables()
+    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
+    const action = pathname.replace('/api/auth', '').replace(/^\//, '') || req.query.action || ''
 
-    switch (action) {
-      case 'register':
-        return await handleRegister(req, res, db)
-      
-      case 'login':
-        return await handleLogin(req, res, db)
-      
-      case 'register-pro':
-        return await handleRegisterPro(req, res, db)
-      
-      default:
-        return res.status(400).json({ success: false, message: 'Invalid action' })
+    if (req.method === 'POST') {
+      if (action === 'register')     return await handleRegister(req, res)
+      if (action === 'register-pro') return await handleRegisterPro(req, res)
+      if (action === 'login')        return await handleLogin(req, res)
     }
+    if (req.method === 'GET' && action === 'verify') {
+      const ok = await authMiddleware(req, res)
+      if (!ok) return
+      return res.json({ success: true, user: safeUser(req.user) })
+    }
+    return res.status(404).json({ success: false, message: 'Not found' })
   } catch (err) {
     console.error('Auth error:', err)
-    return res.status(500).json({ success: false, message: 'Server error' })
+    return res.status(500).json({ success: false, message: err.message || 'Server error' })
   }
 }
 
-// Consumer registration
-async function handleRegister(req, res, db) {
+function safeUser(u) {
+  return { id: u.id, email: u.email, name: u.name, phone: u.phone || '', type: u.type }
+}
+
+async function handleRegister(req, res) {
   const { email, password, name, phone } = req.body || {}
+  if (!email || !password || !name)
+    return res.status(400).json({ success: false, message: 'Email, password, and name are required' })
+  if (password.length < 6)
+    return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' })
 
-  // Validation
-  if (!email || !password || !name) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Email, password, and name are required' 
-    })
-  }
+  const sql = getDb()
+  const existing = await sql`SELECT id FROM users WHERE email = ${email}`
+  if (existing.length > 0)
+    return res.status(409).json({ success: false, message: 'Email already registered' })
 
-  if (password.length < 6) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Password must be at least 6 characters' 
-    })
-  }
-
-  // Check if email exists
-  const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email)
-  if (existing) {
-    return res.status(409).json({ 
-      success: false, 
-      message: 'Email already registered' 
-    })
-  }
-
-  // Create user
   const userId = generateId()
   const passwordHash = await hashPassword(password)
+  await sql`INSERT INTO users (id, email, password_hash, name, phone, type) VALUES (${userId}, ${email}, ${passwordHash}, ${name}, ${phone || null}, 'consumer')`
+  await sql`INSERT INTO consumer_profiles (id, user_id) VALUES (${generateId()}, ${userId})`
 
-  db.prepare(`
-    INSERT INTO users (id, email, password_hash, name, phone, type)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(userId, email, passwordHash, name, phone || null, 'consumer')
-
-  // Create consumer profile
-  const profileId = generateId()
-  db.prepare(`
-    INSERT INTO consumer_profiles (id, user_id)
-    VALUES (?, ?)
-  `).run(profileId, userId)
-
-  // Generate token
-  const token = generateToken({
-    id: userId,
-    email,
-    name,
-    type: 'consumer'
-  })
-
+  const token = generateToken({ id: userId, email, name, type: 'consumer' })
   return res.status(201).json({
     success: true,
     message: 'Account created successfully',
-    data: {
-      user: {
-        id: userId,
-        email,
-        name,
-        type: 'consumer'
-      },
-      token
-    }
+    token,
+    user: { id: userId, email, name, phone: phone || '', type: 'consumer' }
   })
 }
 
-// Professional registration
-async function handleRegisterPro(req, res, db) {
-  const { email, password, name, phone, serviceTypes, areas, experienceYears } = req.body || {}
+async function handleRegisterPro(req, res) {
+  const { email, password, name, phone, whatsapp, service_category, coverage_area, years_of_experience } = req.body || {}
+  if (!email || !password || !name)
+    return res.status(400).json({ success: false, message: 'Email, password, and name are required' })
+  if (password.length < 6)
+    return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' })
 
-  // Validation
-  if (!email || !password || !name) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Email, password, and name are required' 
-    })
-  }
+  const sql = getDb()
+  const existing = await sql`SELECT id FROM users WHERE email = ${email}`
+  if (existing.length > 0)
+    return res.status(409).json({ success: false, message: 'Email already registered' })
 
-  if (password.length < 6) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Password must be at least 6 characters' 
-    })
-  }
-
-  // Check if email exists
-  const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email)
-  if (existing) {
-    return res.status(409).json({ 
-      success: false, 
-      message: 'Email already registered' 
-    })
-  }
-
-  // Create user
   const userId = generateId()
   const passwordHash = await hashPassword(password)
+  await sql`INSERT INTO users (id, email, password_hash, name, phone, whatsapp, type) VALUES (${userId}, ${email}, ${passwordHash}, ${name}, ${phone || null}, ${whatsapp || null}, 'professional')`
+  await sql`
+    INSERT INTO professional_profiles (id, user_id, service_category, coverage_area, experience_years)
+    VALUES (${generateId()}, ${userId}, ${service_category || null}, ${coverage_area || null}, ${parseInt(years_of_experience) || 0})
+  `
 
-  db.prepare(`
-    INSERT INTO users (id, email, password_hash, name, phone, type)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(userId, email, passwordHash, name, phone || null, 'professional')
-
-  // Create professional profile
-  const profileId = generateId()
-  db.prepare(`
-    INSERT INTO professional_profiles (id, user_id, service_types, areas, experience_years)
-    VALUES (?, ?, ?, ?, ?)
-  `).run(
-    profileId, 
-    userId,
-    JSON.stringify(serviceTypes || []),
-    JSON.stringify(areas || []),
-    experienceYears || 0
-  )
-
-  // Generate token
-  const token = generateToken({
-    id: userId,
-    email,
-    name,
-    type: 'professional'
-  })
-
+  const token = generateToken({ id: userId, email, name, type: 'professional' })
   return res.status(201).json({
     success: true,
     message: 'Professional account created successfully',
-    data: {
-      user: {
-        id: userId,
-        email,
-        name,
-        type: 'professional'
-      },
-      token
-    }
+    token,
+    user: { id: userId, email, name, phone: phone || '', type: 'professional' }
   })
 }
 
-// Login
-async function handleLogin(req, res, db) {
+async function handleLogin(req, res) {
   const { email, password } = req.body || {}
+  if (!email || !password)
+    return res.status(400).json({ success: false, message: 'Email and password are required' })
 
-  if (!email || !password) {
-    return res.status(400).json({ 
-      success: false, 
-      message: 'Email and password are required' 
-    })
-  }
+  const sql = getDb()
+  const rows = await sql`SELECT * FROM users WHERE email = ${email}`
+  const user = rows[0]
+  if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' })
 
-  // Find user
-  const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email)
-  
-  if (!user) {
-    return res.status(401).json({ 
-      success: false, 
-      message: 'Invalid credentials' 
-    })
-  }
-
-  // Verify password
   const isValid = await verifyPassword(password, user.password_hash)
-  
-  if (!isValid) {
-    return res.status(401).json({ 
-      success: false, 
-      message: 'Invalid credentials' 
-    })
-  }
+  if (!isValid) return res.status(401).json({ success: false, message: 'Invalid credentials' })
+  if (user.status !== 'active') return res.status(403).json({ success: false, message: 'Account is not active' })
 
-  // Check status
-  if (user.status !== 'active') {
-    return res.status(403).json({ 
-      success: false, 
-      message: 'Account is not active' 
-    })
-  }
-
-  // Generate token
-  const token = generateToken({
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    type: user.type
-  })
-
+  const token = generateToken({ id: user.id, email: user.email, name: user.name, type: user.type })
   return res.json({
     success: true,
     message: 'Login successful',
-    data: {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        phone: user.phone,
-        type: user.type
-      },
-      token
-    }
+    token,
+    user: safeUser(user)
   })
 }
