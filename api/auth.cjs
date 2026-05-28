@@ -9,7 +9,7 @@ async function ensureTables() {
 module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
@@ -20,20 +20,25 @@ module.exports = async function handler(req, res) {
       console.error('DB init error:', dbErr)
       return res.status(500).json({ success: false, message: 'Database connection failed: ' + dbErr.message })
     }
-    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-    const action = pathname.replace('/api/auth', '').replace(/^\//, '') || req.query.action || ''
 
-    if (req.method === 'POST') {
-      if (action === 'register')     return await handleRegister(req, res)
-      if (action === 'register-pro') return await handleRegisterPro(req, res)
-      if (action === 'login')        return await handleLogin(req, res)
-    }
-    if (req.method === 'GET' && action === 'verify') {
+    const url = req.url || ''
+    const action = url.includes('/register-pro') ? 'register-pro'
+      : url.includes('/register')               ? 'register'
+      : url.includes('/login')                  ? 'login'
+      : url.includes('/verify')                 ? 'verify'
+      : (req.query && req.query.action)         ? req.query.action
+      : null
+
+    if (req.method === 'POST' && action === 'register')     return await handleRegister(req, res)
+    if (req.method === 'POST' && action === 'register-pro') return await handleRegisterPro(req, res)
+    if (req.method === 'POST' && action === 'login')        return await handleLogin(req, res)
+    if (req.method === 'GET'  && action === 'verify') {
       const ok = await authMiddleware(req, res)
       if (!ok) return
       return res.json({ success: true, user: safeUser(req.user) })
     }
-    return res.status(404).json({ success: false, message: 'Not found' })
+
+    return res.status(404).json({ success: false, message: 'Route not found: ' + url })
   } catch (err) {
     console.error('Auth error:', err)
     return res.status(500).json({ success: false, message: err.message || 'Server error' })

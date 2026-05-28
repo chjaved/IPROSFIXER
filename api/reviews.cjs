@@ -9,7 +9,7 @@ async function ensureTables() {
 module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
@@ -23,12 +23,10 @@ module.exports = async function handler(req, res) {
     const ok = await authMiddleware(req, res)
     if (!ok) return
 
-    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-    const path = pathname.replace('/api/reviews', '')
     const sql = getDb()
 
-    if (req.method === 'GET'  && (path === '' || path === '/')) return await listReviews(req, res, sql)
-    if (req.method === 'POST' && (path === '' || path === '/')) return await createReview(req, res, sql)
+    if (req.method === 'GET')  return await listReviews(req, res, sql)
+    if (req.method === 'POST') return await createReview(req, res, sql)
 
     return res.status(404).json({ success: false, message: 'Not found' })
   } catch (err) {

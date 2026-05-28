@@ -9,7 +9,7 @@ async function ensureTables() {
 module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
@@ -23,14 +23,13 @@ module.exports = async function handler(req, res) {
     const ok = await authMiddleware(req, res)
     if (!ok) return
 
-    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-    const path = pathname.replace('/api/users', '')
+    const url = req.url || ''
     const sql = getDb()
 
-    if (req.method === 'GET' && path === '/me')           return await getMyProfile(req, res, sql)
-    if (req.method === 'PUT' && path === '/me')           return await updateMyProfile(req, res, sql)
-    if (req.method === 'GET' && path === '/me/dashboard') return await getDashboardStats(req, res, sql)
-    if (req.method === 'GET' && path === '/professionals') return await listProfessionals(req, res, sql)
+    if (req.method === 'GET' && url.includes('/me/dashboard'))  return await getDashboardStats(req, res, sql)
+    if (req.method === 'GET' && url.includes('/me'))            return await getMyProfile(req, res, sql)
+    if (req.method === 'PUT' && url.includes('/me'))            return await updateMyProfile(req, res, sql)
+    if (req.method === 'GET' && url.includes('/professionals')) return await listProfessionals(req, res, sql)
 
     return res.status(404).json({ success: false, message: 'Endpoint not found' })
   } catch (err) {

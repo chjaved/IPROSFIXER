@@ -9,7 +9,7 @@ async function ensureTables() {
 module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   if (req.method === 'OPTIONS') return res.status(200).end()
 
@@ -23,14 +23,16 @@ module.exports = async function handler(req, res) {
     const ok = await authMiddleware(req, res)
     if (!ok) return
 
-    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-    const path = pathname.replace('/api/bookings', '')
+    const url = req.url || ''
     const sql = getDb()
+    // Extract booking ID if present: /api/bookings/some-id
+    const idMatch = url.replace(/\?.*$/, '').match(/\/bookings\/([\w-]+)$/)
+    const bookingId = idMatch ? idMatch[1] : null
 
-    if (req.method === 'GET'  && (path === '' || path === '/'))   return await listBookings(req, res, sql)
-    if (req.method === 'POST' && (path === '' || path === '/'))   return await createBooking(req, res, sql)
-    if (req.method === 'GET'  && path.match(/^\/[\w-]+$/))       return await getBookingDetail(req, res, sql, path.slice(1))
-    if (req.method === 'PUT'  && path.match(/^\/[\w-]+$/))       return await updateBooking(req, res, sql, path.slice(1))
+    if (req.method === 'GET'  && !bookingId) return await listBookings(req, res, sql)
+    if (req.method === 'POST' && !bookingId) return await createBooking(req, res, sql)
+    if (req.method === 'GET'  && bookingId)  return await getBookingDetail(req, res, sql, bookingId)
+    if (req.method === 'PUT'  && bookingId)  return await updateBooking(req, res, sql, bookingId)
 
     return res.status(404).json({ success: false, message: 'Not found' })
   } catch (err) {

@@ -21,10 +21,12 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ success: false, message: 'Database connection failed: ' + dbErr.message })
     }
     const sql = getDb()
-    const { pathname } = new URL(req.url, `http://${req.headers.host}`)
-    const path = pathname.replace('/api/services', '')
+    const url = req.url || ''
+    // Strip query string then check if there's a slug after /services/
+    const slugMatch = url.replace(/\?.*$/, '').match(/\/services\/([\w-]+)$/)
+    const slug = slugMatch ? slugMatch[1] : null
 
-    if (path === '' || path === '/') {
+    if (!slug) {
       const { category } = req.query || {}
       const services = category
         ? await sql`SELECT * FROM services WHERE is_active=TRUE AND category=${category} ORDER BY name`
@@ -40,7 +42,6 @@ module.exports = async function handler(req, res) {
     }
 
     // GET /api/services/:slug
-    const slug = path.replace('/', '')
     const rows = await sql`SELECT * FROM services WHERE slug=${slug} AND is_active=TRUE`
     if (!rows.length) return res.status(404).json({ success: false, message: 'Service not found' })
     const svc = rows[0]
