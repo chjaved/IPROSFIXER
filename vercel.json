@@ -17,6 +17,7 @@
     { "source": "/api/contact",                "destination": "/api/contact.js" },
     { "source": "/api/join",                   "destination": "/api/join.js" },
     { "source": "/api/chat",                   "destination": "/api/chat.js" },
+    { "source": "/api/seed",                   "destination": "/api/seed.js" },
     { "source": "/:path*",                     "destination": "/index.html" }
   ]
 }
