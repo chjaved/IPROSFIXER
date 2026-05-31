@@ -96,16 +96,31 @@ export default function Earnings() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 text-sm">{txn.description || txn.type}</p>
-                    <p className="text-xs text-gray-500">{txn.created_at ? new Date(txn.created_at).toLocaleDateString() : '—'}</p>
+                    <p className="text-xs text-gray-500">
+                      {txn.created_at ? new Date(txn.created_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}
+                    </p>
                   </div>
                 </div>
-                <p className={`font-semibold ${parseFloat(txn.amount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {parseFloat(txn.amount) >= 0 ? '+' : ''}RM {Math.abs(parseFloat(txn.amount||0)).toFixed(0)}
+                <p className={`font-bold ${parseFloat(txn.amount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {parseFloat(txn.amount) >= 0 ? '+' : ''}RM {Math.abs(parseFloat(txn.amount||0)).toFixed(2)}
                 </p>
               </div>
             ))}
           </div>
         )}
+      </div>
+
+      {/* Withdrawal Note */}
+      <div className="mt-6 bg-blue-50 rounded-xl p-4 border border-blue-100">
+        <div className="flex items-start gap-3">
+          <Banknote className="text-blue-600 mt-0.5" size={20} />
+          <div>
+            <h3 className="font-medium text-blue-900">Withdraw Your Earnings</h3>
+            <p className="text-sm text-blue-700 mt-1">
+              Withdraw via DuitNow or TnG — contact support at <strong>+03-8080 5249</strong> to process your withdrawal request.
+            </p>
+          </div>
+        </div>
       </div>
         </>
       )}

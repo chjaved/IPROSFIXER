@@ -1,11 +1,6 @@
-import { useState } from 'react'
-import { RefreshCcw, AlertCircle, CheckCircle, Clock, ChevronRight, FileText } from 'lucide-react'
-
-const MOCK_REFUNDS = [
-  { id: 'REF-001', bookingId: 5, service: 'Post-Reno Clean', amount: 'RM 350', status: 'approved', date: '2024-01-12', reason: 'Service not completed as described' },
-  { id: 'REF-002', bookingId: 8, service: 'AC Service', amount: 'RM 120', status: 'pending', date: '2024-01-18', reason: 'Professional did not show up' },
-  { id: 'REF-003', bookingId: 12, service: 'Deep Cleaning', amount: 'RM 180', status: 'rejected', date: '2024-01-08', reason: 'Service was completed satisfactorily' },
-]
+import { useState, useEffect } from 'react'
+import { RefreshCcw, AlertCircle, CheckCircle, Clock, FileText, Loader2, Calendar } from 'lucide-react'
+import api from '../../../lib/api.js'
 
 const statusColors = {
   approved: 'bg-green-100 text-green-700',
@@ -19,8 +14,65 @@ const statusIcons = {
   rejected: AlertCircle,
 }
 
+function formatDateMY(dateStr) {
+  if (!dateStr) return '—'
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('en-MY', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
 export default function Refunds() {
+  const [cancelledBookings, setCancelledBookings] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [showNewRequest, setShowNewRequest] = useState(false)
+
+  useEffect(() => {
+    loadCancelledBookings()
+  }, [])
+
+  const loadCancelledBookings = () => {
+    setLoading(true)
+    setError('')
+    api.get('/bookings')
+      .then(data => {
+        const allBookings = data.data?.bookings || data.bookings || []
+        const cancelled = allBookings.filter(b => b.status === 'cancelled')
+        setCancelledBookings(cancelled)
+      })
+      .catch(e => {
+        setError('Failed to load refund data. Please try again.')
+        console.error(e)
+      })
+      .finally(() => setLoading(false))
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Refunds</h1>
+        <p className="text-gray-500 mb-6">Request and track refund status</p>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="animate-spin text-teal" size={32} />
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-4xl">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Refunds</h1>
+        <p className="text-gray-500 mb-6">Request and track refund status</p>
+        <div className="bg-red-50 rounded-xl p-8 text-center">
+          <AlertCircle size={40} className="mx-auto mb-3 text-red-500" />
+          <p className="text-red-600 mb-4">{error}</p>
+          <button onClick={loadCancelledBookings} className="bg-teal text-white px-4 py-2 rounded-lg hover:bg-teal-dark">
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="max-w-4xl">
@@ -90,42 +142,50 @@ export default function Refunds() {
         </div>
       </div>
 
-      {/* Refunds List */}
+      {/* Cancelled Bookings / Refunds List */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Refund History</h3>
+          <h3 className="font-semibold text-gray-900">Cancelled Bookings</h3>
         </div>
-        <div className="divide-y">
-          {MOCK_REFUNDS.map((refund) => {
-            const StatusIcon = statusIcons[refund.status]
-            return (
-              <div key={refund.id} className="p-6 hover:bg-gray-50 transition-colors">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${statusColors[refund.status]}`}>
-                      <StatusIcon size={20} />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-semibold text-gray-900">{refund.service}</h4>
-                        <span className="text-sm text-gray-400">{refund.id}</span>
+        {cancelledBookings.length === 0 ? (
+          <div className="p-12 text-center text-gray-400">
+            <RefreshCcw size={48} className="mx-auto mb-4 opacity-30" />
+            <p className="text-lg font-medium mb-1">No refund requests yet</p>
+            <p className="text-sm">Cancelled bookings will appear here. Contact support if you need a refund.</p>
+          </div>
+        ) : (
+          <div className="divide-y">
+            {cancelledBookings.map((booking) => {
+              const StatusIcon = statusIcons.pending // Default to pending for refunds
+              return (
+                <div key={booking.id} className="p-6 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${statusColors.pending}`}>
+                        <StatusIcon size={20} />
                       </div>
-                      <p className="text-sm text-gray-500 mt-1">{refund.reason}</p>
-                      <p className="text-xs text-gray-400 mt-1">Requested on {refund.date}</p>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-semibold text-gray-900">{booking.service_name || 'Service'}</h4>
+                          <span className="text-sm text-gray-400">Ref: {booking.booking_number || booking.id?.slice(0,8)}</span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">Cancelled on {formatDateMY(booking.updated_at || booking.created_at)}</p>
+                        <p className="text-xs text-gray-400 mt-1">Reason: {booking.cancellation_reason || 'No reason provided'}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-gray-900">{refund.amount}</p>
-                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium capitalize mt-2 ${statusColors[refund.status]}`}>
-                      <StatusIcon size={12} />
-                      {refund.status}
-                    </span>
+                    <div className="text-right">
+                      <p className="font-semibold text-gray-900">RM {parseFloat(booking.price||0).toFixed(0)}</p>
+                      <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium capitalize mt-2 ${statusColors.pending}`}>
+                        <StatusIcon size={12} />
+                        Pending Refund
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* Contact Support */}

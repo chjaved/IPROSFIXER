@@ -1,63 +1,108 @@
-import { useState } from 'react'
-import { Calendar, Clock, CheckCircle, X, Plus, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Calendar, Clock, ChevronLeft, ChevronRight, MapPin, Phone, Loader2, AlertCircle } from 'lucide-react'
+import { useAuth } from '../../../contexts/AuthContext.jsx'
+import api from '../../../lib/api.js'
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-const AVAILABILITY = {
-  monday: { available: true, start: '09:00', end: '18:00' },
-  tuesday: { available: true, start: '09:00', end: '18:00' },
-  wednesday: { available: true, start: '09:00', end: '18:00' },
-  thursday: { available: true, start: '09:00', end: '18:00' },
-  friday: { available: true, start: '09:00', end: '18:00' },
-  saturday: { available: false, start: '09:00', end: '18:00' },
-  sunday: { available: false, start: '09:00', end: '18:00' },
+function formatDateMY(dateStr) {
+  if (!dateStr) return '—'
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('en-MY', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-const SCHEDULED_JOBS = [
-  { id: 1, service: 'Deep Cleaning', date: '2024-01-22', time: '10:00 AM - 12:00 PM', customer: 'Ahmad Hafizi', location: 'Petaling Jaya' },
-  { id: 2, service: 'AC Service', date: '2024-01-23', time: '2:00 PM - 3:00 PM', customer: 'Sarah Lim', location: 'Subang Jaya' },
-  { id: 3, service: 'Post-Reno Clean', date: '2024-01-25', time: '9:00 AM - 1:00 PM', customer: 'Nurul Ain', location: 'Shah Alam' },
-]
-
-const TIME_SLOTS = [
-  '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
-]
-
 export default function Schedule() {
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 0, 1))
-  const [selectedDate, setSelectedDate] = useState(22)
-  const [availability, setAvailability] = useState(AVAILABILITY)
-  const [showBlockModal, setShowBlockModal] = useState(false)
+  const { user } = useAuth()
+  const [jobs, setJobs] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date().getDate())
 
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const firstDay = new Date(year, month, 1).getDay()
 
+  useEffect(() => {
+    loadJobs()
+  }, [])
+
+  const loadJobs = () => {
+    setLoading(true)
+    setError('')
+    api.get('/bookings')
+      .then(data => {
+        const allBookings = data.data?.bookings || data.bookings || []
+        // Filter for accepted jobs assigned to this professional
+        const acceptedJobs = allBookings.filter(b => 
+          b.status === 'accepted' && b.professional_id === user?.id
+        )
+        setJobs(acceptedJobs)
+      })
+      .catch(e => {
+        setError('Failed to load schedule. Please try again.')
+        console.error(e)
+      })
+      .finally(() => setLoading(false))
+  }
+
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1))
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1))
 
-  const toggleDay = (day) => {
-    setAvailability(prev => ({
-      ...prev,
-      [day]: { ...prev[day], available: !prev[day].available }
-    }))
-  }
-
-  const selectedJobs = SCHEDULED_JOBS.filter(job => {
-    const jobDate = new Date(job.date).getDate()
-    return jobDate === selectedDate
+  const selectedJobs = jobs.filter(job => {
+    const jobDate = new Date(job.scheduled_date).getDate()
+    const jobMonth = new Date(job.scheduled_date).getMonth()
+    return jobDate === selectedDate && jobMonth === month
   })
+
+  // Group jobs by date for timeline view
+  const jobsByDate = jobs.reduce((acc, job) => {
+    const date = job.scheduled_date
+    if (!acc[date]) acc[date] = []
+    acc[date].push(job)
+    return acc
+  }, {})
+
+  const sortedDates = Object.keys(jobsByDate).sort()
 
   const calendarDays = []
   for (let i = 0; i < firstDay; i++) calendarDays.push(null)
   for (let i = 1; i <= daysInMonth; i++) calendarDays.push(i)
 
+  if (loading) {
+    return (
+      <div className="max-w-6xl">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">My Schedule</h1>
+        <p className="text-gray-500 mb-6">Your accepted jobs timeline</p>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="animate-spin text-orange" size={32} />
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-6xl">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">My Schedule</h1>
+        <p className="text-gray-500 mb-6">Your accepted jobs timeline</p>
+        <div className="bg-red-50 rounded-xl p-8 text-center">
+          <AlertCircle size={40} className="mx-auto mb-3 text-red-500" />
+          <p className="text-red-600 mb-4">{error}</p>
+          <button onClick={loadJobs} className="bg-orange text-white px-4 py-2 rounded-lg hover:bg-orange-dark">
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="max-w-6xl">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">My Schedule</h1>
-      <p className="text-gray-500 mb-6">Manage your availability and view upcoming jobs</p>
+      <p className="text-gray-500 mb-6">Your accepted jobs timeline</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar */}
@@ -97,7 +142,10 @@ export default function Schedule() {
                 `}
               >
                 {day}
-                {SCHEDULED_JOBS.some(job => new Date(job.date).getDate() === day) && (
+                {jobs.some(job => {
+                  const jobDate = new Date(job.scheduled_date)
+                  return jobDate.getDate() === day && jobDate.getMonth() === month
+                }) && (
                   <span className={`absolute bottom-1 w-1 h-1 rounded-full ${day === selectedDate ? 'bg-white' : 'bg-orange'}`} />
                 )}
               </button>
@@ -111,119 +159,96 @@ export default function Schedule() {
               <span className="text-sm text-gray-600">Has Jobs</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="text-sm text-gray-600">Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-gray-300" />
-              <span className="text-sm text-gray-600">Blocked</span>
+              <span className="w-3 h-3 rounded-full bg-blue-500" />
+              <span className="text-sm text-gray-600">Accepted</span>
             </div>
           </div>
         </div>
 
-        {/* Side Panel */}
+        {/* Side Panel - Timeline View */}
         <div className="space-y-6">
-          {/* Availability Settings */}
+          {/* Upcoming Jobs Timeline */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Weekly Availability</h3>
-              <button 
-                onClick={() => setShowBlockModal(true)}
-                className="text-sm text-orange hover:underline"
-              >
-                Edit
-              </button>
-            </div>
-            <div className="space-y-2">
-              {Object.entries(availability).map(([day, config]) => (
-                <div key={day} className="flex items-center justify-between py-2">
-                  <span className="capitalize text-sm">{day}</span>
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    config.available ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
-                  }`}>
-                    {config.available ? `${config.start} - ${config.end}` : 'Blocked'}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <h3 className="font-semibold text-gray-900 mb-4">Upcoming Jobs</h3>
+            {jobs.length === 0 ? (
+              <div className="text-center py-8 text-gray-400">
+                <Calendar size={40} className="mx-auto mb-3 opacity-30" />
+                <p>No accepted jobs yet</p>
+                <p className="text-sm mt-1">Accepted jobs will appear here</p>
+              </div>
+            ) : (
+              <div className="space-y-4 max-h-96 overflow-y-auto">
+                {sortedDates.slice(0, 5).map(date => (
+                  <div key={date} className="border-l-4 border-orange pl-4 py-2">
+                    <p className="font-medium text-gray-900 text-sm">{formatDateMY(date)}</p>
+                    {jobsByDate[date].map(job => (
+                      <div key={job.id} className="mt-2">
+                        <p className="text-sm text-gray-700">{job.service_name || 'Service'}</p>
+                        <p className="text-xs text-gray-500">{job.scheduled_time || '—'}</p>
+                        <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                          <MapPin size={12} /> {job.area || '—'}
+                        </div>
+                        {job.customer_whatsapp && (
+                          <a href={`https://wa.me/${job.customer_whatsapp.replace(/\D/g, '')}`} 
+                            target="_blank" rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-xs text-green-600 mt-1 hover:underline">
+                            <Phone size={12} /> {job.customer_whatsapp}
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Selected Date Jobs */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 className="font-semibold text-gray-900 mb-4">
-              January {selectedDate}, 2024
+              {selectedJobs.length > 0 ? formatDateMY(selectedJobs[0].scheduled_date) : 'Selected Date'}
             </h3>
             {selectedJobs.length > 0 ? (
               <div className="space-y-3">
                 {selectedJobs.map(job => (
                   <div key={job.id} className="p-3 bg-orange-50 rounded-lg border border-orange-100">
-                    <p className="font-medium text-gray-900">{job.service}</p>
-                    <p className="text-sm text-gray-500">{job.time}</p>
-                    <p className="text-sm text-gray-600 mt-1">{job.customer}</p>
+                    <p className="font-medium text-gray-900">{job.service_name || 'Service'}</p>
+                    <p className="text-sm text-gray-500">{job.scheduled_time || '—'}</p>
+                    <div className="flex items-center gap-1 mt-1 text-sm text-gray-500">
+                      <MapPin size={14} /> {job.area || '—'}
+                    </div>
+                    {job.customer_whatsapp && (
+                      <a href={`https://wa.me/${job.customer_whatsapp.replace(/\D/g, '')}`} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-sm text-green-600 mt-2 hover:underline">
+                        <Phone size={14} /> WhatsApp Customer
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400 text-sm">No jobs scheduled</p>
+              <p className="text-gray-400 text-sm">No jobs on this date</p>
             )}
-            <button className="w-full mt-4 py-2 border border-orange text-orange rounded-lg hover:bg-orange-50 transition-colors">
-              Block This Date
-            </button>
           </div>
 
           {/* Quick Stats */}
           <div className="bg-gradient-to-br from-orange to-orange-dark rounded-xl p-6 text-white">
-            <h3 className="font-semibold mb-4">This Week</h3>
+            <h3 className="font-semibold mb-4">Your Schedule</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-2xl font-bold">5</p>
-                <p className="text-sm text-orange-100">Jobs</p>
+                <p className="text-2xl font-bold">{jobs.length}</p>
+                <p className="text-sm text-orange-100">Upcoming Jobs</p>
               </div>
               <div>
-                <p className="text-2xl font-bold">32h</p>
-                <p className="text-sm text-orange-100">Hours</p>
+                <p className="text-2xl font-bold">{sortedDates.length}</p>
+                <p className="text-sm text-orange-100">Scheduled Days</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Edit Availability Modal */}
-      {showBlockModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md mx-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Edit Availability</h3>
-              <button onClick={() => setShowBlockModal(false)} className="p-1 hover:bg-gray-100 rounded">
-                <X size={20} />
-              </button>
-            </div>
-            <div className="space-y-3">
-              {Object.entries(availability).map(([day, config]) => (
-                <div key={day} className="flex items-center justify-between py-2">
-                  <span className="capitalize font-medium">{day}</span>
-                  <button
-                    onClick={() => toggleDay(day)}
-                    className={`px-4 py-1 rounded-lg text-sm ${
-                      config.available 
-                        ? 'bg-green-100 text-green-700' 
-                        : 'bg-gray-100 text-gray-500'
-                    }`}
-                  >
-                    {config.available ? 'Available' : 'Blocked'}
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button 
-              onClick={() => setShowBlockModal(false)}
-              className="w-full mt-6 bg-orange text-white py-2 rounded-lg hover:bg-orange-dark"
-            >
-              Save Changes
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

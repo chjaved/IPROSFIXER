@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Calendar, MapPin, Clock, CheckCircle, XCircle, AlertCircle, Search, Filter, Loader2 } from 'lucide-react'
+import { Calendar, MapPin, Clock, CheckCircle, XCircle, AlertCircle, Search, Filter, Loader2, Plus, X } from 'lucide-react'
 import api from '../../../lib/api.js'
 
 const STATUS_COLORS = {
   completed: 'bg-green-100 text-green-700',
   confirmed: 'bg-blue-100 text-blue-700',
   accepted:  'bg-blue-100 text-blue-700',
-  pending:   'bg-amber-100 text-amber-700',
+  pending:   'bg-orange-100 text-orange-700',
   cancelled: 'bg-red-100 text-red-700',
 }
 const STATUS_ICONS = {
@@ -17,17 +17,41 @@ const STATUS_ICONS = {
   cancelled: XCircle,
 }
 
+const AREAS = ['Kuala Lumpur', 'Petaling Jaya', 'Shah Alam', 'Subang Jaya', 'Cheras', 'Klang', 'Cyberjaya', 'Putrajaya', 'Ampang', 'Bangsar', 'Mont Kiara', 'Damansara']
+
+function formatDateMY(dateStr) {
+  if (!dateStr) return '—'
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('en-MY', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
 export default function Bookings() {
   const [bookings, setBookings] = useState([])
+  const [services, setServices] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
   const [cancelling, setCancelling] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [newBooking, setNewBooking] = useState({
+    service_id: '',
+    area: '',
+    scheduled_date: '',
+    scheduled_time: '',
+    notes: '',
+    whatsapp: ''
+  })
+  const [error, setError] = useState('')
 
   const load = () => {
     setLoading(true)
-    api.get('/bookings').then(data => {
-      setBookings(data.data?.bookings || data.bookings || [])
+    Promise.all([
+      api.get('/bookings'),
+      api.get('/services')
+    ]).then(([bData, sData]) => {
+      setBookings(bData.data?.bookings || bData.bookings || [])
+      setServices(sData.data?.services || sData.services || [])
     }).catch(console.error).finally(() => setLoading(false))
   }
 
@@ -41,6 +65,27 @@ export default function Bookings() {
       setBookings(prev => prev.map(b => b.id === id ? { ...b, status: 'cancelled' } : b))
     } catch (e) { alert(e.message) }
     finally { setCancelling(null) }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    setSubmitting(true)
+    try {
+      const service = services.find(s => s.id === newBooking.service_id)
+      await api.post('/bookings', {
+        ...newBooking,
+        service_name: service?.name || 'Service',
+        price: service?.base_price || 0
+      })
+      setShowModal(false)
+      setNewBooking({ service_id: '', area: '', scheduled_date: '', scheduled_time: '', notes: '', whatsapp: '' })
+      load()
+    } catch (e) {
+      setError(e.message || 'Failed to create booking')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const filtered = bookings.filter(b => {
@@ -95,6 +140,10 @@ export default function Bookings() {
               <option value="completed">Completed</option>
               <option value="cancelled">Cancelled</option>
             </select>
+            <button onClick={() => setShowModal(true)}
+              className="flex items-center gap-2 bg-teal text-white px-4 py-2 rounded-lg hover:bg-teal-dark transition-colors">
+              <Plus size={18} /> New Booking
+            </button>
           </div>
         </div>
       </div>
@@ -117,8 +166,9 @@ export default function Bookings() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">{b.service_name || 'Service'}</h3>
+                        <p className="text-xs text-gray-400 mb-1">Ref: {b.booking_number || b.id?.slice(0,8) || '—'}</p>
                         <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
-                          <span className="flex items-center gap-1"><Calendar size={13} /> {b.scheduled_date || '—'}</span>
+                          <span className="flex items-center gap-1"><Calendar size={13} /> {formatDateMY(b.scheduled_date)}</span>
                           <span className="flex items-center gap-1"><Clock size={13} /> {b.scheduled_time || '—'}</span>
                           <span className="flex items-center gap-1"><MapPin size={13} /> {b.area || '—'}</span>
                         </div>
@@ -150,6 +200,74 @@ export default function Bookings() {
           </div>
         )}
       </div>
+
+      {/* New Booking Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <h3 className="text-lg font-bold text-gray-900">New Booking</h3>
+              <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
+                <X size={20} />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              {error && <p className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">{error}</p>}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Service *</label>
+                <select required value={newBooking.service_id} onChange={e => setNewBooking({...newBooking, service_id: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal">
+                  <option value="">Select a service...</option>
+                  {services.map(s => (
+                    <option key={s.id} value={s.id}>{s.name} (RM {s.base_price})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Area *</label>
+                <select required value={newBooking.area} onChange={e => setNewBooking({...newBooking, area: e.target.value})}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal">
+                  <option value="">Select area...</option>
+                  {AREAS.map(a => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <input type="date" required value={newBooking.scheduled_date} onChange={e => setNewBooking({...newBooking, scheduled_date: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Time *</label>
+                  <input type="time" required value={newBooking.scheduled_time} onChange={e => setNewBooking({...newBooking, scheduled_time: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number</label>
+                <input type="tel" value={newBooking.whatsapp} onChange={e => setNewBooking({...newBooking, whatsapp: e.target.value})}
+                  placeholder="e.g. 0123456789"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <textarea rows={3} value={newBooking.notes} onChange={e => setNewBooking({...newBooking, notes: e.target.value})}
+                  placeholder="Any special instructions..."
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal" />
+              </div>
+              <div className="flex gap-3 pt-2">
+                <button type="button" onClick={() => setShowModal(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button type="submit" disabled={submitting}
+                  className="flex-1 bg-teal text-white px-4 py-2 rounded-lg hover:bg-teal-dark disabled:opacity-50 flex items-center justify-center gap-2">
+                  {submitting && <Loader2 size={16} className="animate-spin" />}
+                  {submitting ? 'Booking...' : 'Book Now'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
