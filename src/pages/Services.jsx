@@ -4,22 +4,6 @@ import { CheckCircle } from 'lucide-react'
 
 /* ─── All Unsplash images — copyright-free ──────────────────────────────────── */
 const IMG = {
-  /* Electrician */
-  wiring:       'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80',
-  switch:       'https://images.unsplash.com/photo-1558618047-f4e60ccd50b6?w=600&q=80',
-  db:           'https://images.unsplash.com/photo-1544724107-6d5c4caaff30?w=600&q=80',
-  /* AC */
-  acClean:      'https://images.unsplash.com/photo-1631016800696-5ea8801b3c2a?w=600&q=80',
-  acGas:        'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',
-  acRepair:     'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80',
-  /* Appliances */
-  washingMach:  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-  fridge:       'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=600&q=80',
-  oven:         'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80',
-  /* Caregiver */
-  elderly:      'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=600&q=80',
-  postop:       'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80',
-  special:      'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80',
   /* Cleaning */
   deepClean:    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
   renoClean:    'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
@@ -34,45 +18,44 @@ const IMG = {
   subscription: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=600&q=80',
   /* Maid */
   parttime:     'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
-  livein:       'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80',
   postEvent:    'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80',
 }
 
 const CATEGORIES = [
   {
-    id: 'deep-clean', tag: 'Deep Cleaning', title: 'Home Deep Clean',
+    id: 'deep-clean', tag: 'Deep Cleaning', title: 'Deep Cleaning',
     tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
-      { img: IMG.deepClean, name: 'Full Home Deep Clean',      desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Ideal for move-in/move-out.', feats: ['Eco-friendly products','3–8 hour packages','Satisfaction guaranteed'], wa: 'Full home deep clean' },
-      { img: IMG.kitchen, name: 'Kitchen Deep Clean',        desc: 'Complete kitchen transformation with grease removal, cabinet wipe-down, appliance exterior clean, full floor scrub, sink degreasing and wall tile cleaning.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
-      { img: IMG.bathroom,  name: 'Bathroom Deep Clean',       desc: 'Complete bathroom sanitisation with tile scrubbing, limescale removal, toilet sanitising, mirror polishing, shower glass cleaning and drain unclogging service.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
+      { img: IMG.deepClean, name: 'Home Deep Cleaning',       desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas.', feats: ['Eco-friendly products','3–8 hour packages','Satisfaction guaranteed'], wa: 'Home deep cleaning' },
+      { img: IMG.kitchen, name: 'Kitchen Deep Clean',        desc: 'Complete kitchen transformation with grease removal, cabinet wipe-down and full sanitisation.', feats: ['Degreaser treatment','All surfaces covered','Odour elimination'], wa: 'Kitchen deep clean' },
+      { img: IMG.bathroom,  name: 'Bathroom Deep Clean',       desc: 'Complete bathroom sanitisation with tile scrubbing, limescale removal and mirror polishing.', feats: ['Anti-bacterial treatment','Grout cleaning','Streak-free mirrors'], wa: 'Bathroom deep clean' },
     ],
   },
   {
-    id: 'regular-maid', tag: 'Housekeeping', title: 'Regular Maid Service',
+    id: 'regular-maid', tag: 'Maid Service', title: 'Regular Maid Service',
     tagImg: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80',
     cards: [
-      { img: IMG.parttime,  name: 'Part-Time Maid',           desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings for your home.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Part-time maid booking' },
-      { img: IMG.livein,    name: 'Weekly Cleaning Plan',     desc: 'A dedicated cleaner on a fixed weekly schedule — same person, same standard every time.', feats: ['Same cleaner every visit','Fixed monthly pricing','Manage via app'], wa: 'Weekly cleaning plan' },
-      { img: IMG.postEvent, name: 'Post-Event Cleanup',       desc: 'After your kenduri, birthday or gathering — restore your home to pristine condition fast.', feats: ['Same-day availability','Waste disposal included','2–4 hour rapid clean'], wa: 'Post-event cleanup' },
+      { img: IMG.parttime,  name: 'Regular Maid Service',     desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings.', feats: ['Vetted & insured','Flexible scheduling','Cancel anytime'], wa: 'Regular maid service' },
+      { img: IMG.parttime,    name: 'Part-Time Maid',     desc: '4-hour or 8-hour daily cleaning and household help by vetted maids.', feats: ['Same cleaner every visit','Regular or one-time','All household chores'], wa: 'Part-time maid' },
+      { img: IMG.postEvent, name: 'Post-Event Cleanup',       desc: 'After your kenduri, birthday or gathering — restore your home fast.', feats: ['Same-day availability','Waste disposal included','2–4 hour rapid clean'], wa: 'Post-event cleanup' },
     ],
   },
   {
     id: 'specialised', tag: 'Specialised', title: 'Specialised Cleaning',
     tagImg: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1200&q=80',
     cards: [
-      { img: IMG.renoClean,    name: 'Post-Renovation Cleaning', desc: 'Industrial-grade clean to remove cement dust, paint splatters, debris and construction residue.', feats: ['Tile & glass polishing','Dust extraction equipment','Same-day available'], wa: 'Post-reno cleaning' },
-      { img: IMG.sofa,         name: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, leather treatment, carpet shampooing and deodorising.', feats: ['Dry & wet extraction','Quick-dry technology','Deodorising treatment'], wa: 'Sofa & carpet cleaning' },
-      { img: IMG.subscription, name: 'Mattress & Upholstery',    desc: 'Steam and UV cleaning for mattresses, curtains and upholstered furniture to eliminate dust mites.', feats: ['UV sanitisation','Dust mite elimination','Allergen-friendly'], wa: 'Mattress cleaning' },
+      { img: IMG.renoClean,    name: 'Post-Renovation Cleaning', desc: 'Industrial-grade clean to remove cement dust, paint splatters and construction residue.', feats: ['Tile & glass polishing','Dust extraction equipment','Same-day available'], wa: 'Post-renovation cleaning' },
+      { img: IMG.sofa,         name: 'Sofa & Carpet Cleaning',   desc: 'Deep extraction cleaning for fabric sofas, mattresses, carpets and rugs.', feats: ['Steam extraction','Stain & odour removal','Quick dry technology'], wa: 'Sofa and carpet cleaning' },
+      { img: IMG.sofa, name: 'Mattress & Upholstery',    desc: 'Steam and UV cleaning for mattresses and upholstered furniture to eliminate dust mites.', feats: ['UV sanitisation','Dust mite elimination','Allergen-friendly'], wa: 'Mattress cleaning' },
     ],
   },
   {
     id: 'laundry', tag: 'Laundry', title: 'Laundry & Ironing',
     tagImg: 'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=1200&q=80',
     cards: [
-      { img: IMG.laundry,      name: 'Wash & Fold Service',      desc: 'Professional washing, drying and folding for everyday clothes, bedsheets and towels. Fresh and clean delivery.', feats: ['Free pickup & delivery','48-hour turnaround','Eco-friendly detergent'], wa: 'Wash and fold service' },
-      { img: IMG.ironing,     name: 'Ironing & Pressing',        desc: 'Crisp, wrinkle-free ironing for office wear, traditional attire and delicate fabrics. Ready-to-wear finish.', feats: ['Steam pressing available','Garment protection','Same-day service'], wa: 'Ironing service' },
-      { img: IMG.subscription, name: 'Weekly Laundry Plan',      desc: 'Regular laundry subscription with scheduled weekly pickups. Perfect for busy families and professionals.', feats: ['Fixed monthly rate','Priority scheduling','Loyalty rewards'], wa: 'Weekly laundry plan' },
+      { img: IMG.laundry,      name: 'Wash & Fold Service',      desc: 'Professional washing, drying and folding for everyday clothes, bedsheets and towels.', feats: ['Free pickup & delivery','48-hour turnaround','Eco-friendly detergent'], wa: 'Wash and fold service' },
+      { img: IMG.ironing,     name: 'Ironing & Pressing',        desc: 'Crisp, wrinkle-free ironing for office wear, traditional attire and delicate fabrics.', feats: ['Steam pressing available','Garment protection','Same-day service'], wa: 'Ironing service' },
+      { img: IMG.laundry, name: 'Laundry & Ironing',      desc: 'Complete laundry solution with wash, dry, fold and iron. Free pickup and delivery.', feats: ['Free pickup & delivery','48-hour turnaround','Steam ironing available'], wa: 'Laundry and ironing' },
     ],
   },
 ]

@@ -12,12 +12,13 @@ const SOCIAL_LINKS = [
 ]
 
 const SERVICES = [
-  { name: 'Deep Cleaning', to: '/services' },
-  { name: 'AC Repair & Service', to: '/services' },
-  { name: 'Electrical Works', to: '/services' },
-  { name: 'Plumbing', to: '/services' },
-  { name: 'Home Maid Service', to: '/services' },
-  { name: 'Sofa & Carpet Clean', to: '/services' },
+  { name: 'Home Deep Cleaning', to: '/services' },
+  { name: 'Regular Maid Service', to: '/services' },
+  { name: 'Post-Renovation Cleaning', to: '/services' },
+  { name: 'Sofa & Carpet Cleaning', to: '/services' },
+  { name: 'Post-Event Cleanup', to: '/services' },
+  { name: 'Laundry & Ironing', to: '/services' },
+  { name: 'Part-Time Maid', to: '/services' },
 ]
 
 const COMPANY = [
@@ -86,7 +87,7 @@ export default function Footer() {
               <img src="/logo.png" alt="iPROFIXER" className="h-24 w-auto" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-sm">
-              Malaysia's most trusted home services platform. Connecting homeowners with verified professionals for cleaning, repairs, and maintenance.
+              Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
             </p>
             
             {/* Contact Info */}

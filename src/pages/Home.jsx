@@ -97,50 +97,58 @@ const SERVICES = [
   {
     gradient: 'from-[#0B6B52] to-emerald-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
-    name: 'Deep Cleaning',
-    desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Move-in ready.',
+    name: 'Home Deep Cleaning',
+    desc: 'Top-to-bottom deep clean covering kitchen, bathrooms, bedrooms and living areas. Eco-friendly products.',
     img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
     imgAlt: 'Professional deep cleaning service in Kuala Lumpur',
   },
   {
     gradient: 'from-emerald-400 to-green-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>),
-    name: 'Regular Maid',
-    desc: 'Weekly or bi-weekly maid service. Same trusted cleaner every visit. Flexible 4-8 hour sessions.',
+    name: 'Regular Maid Service',
+    desc: 'Flexible 4–8 hour cleaning sessions — weekly, bi-weekly or one-off bookings. Vetted & insured.',
     img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
-    imgAlt: 'Trusted part-time maid service in Selangor',
-  },
-  {
-    gradient: 'from-amber-400 to-yellow-500',
-    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>),
-    name: 'Laundry & Ironing',
-    desc: 'Wash, dry, fold and iron. Door-to-door collection and delivery. Same-day service available.',
-    img: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80',
-    imgAlt: 'Professional laundry and ironing service',
+    imgAlt: 'Trusted regular maid service in Selangor',
   },
   {
     gradient: 'from-sky-400 to-blue-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M3 6h18M3 12h18M3 18h18"/></svg>),
-    name: 'Post-Reno Cleaning',
-    desc: 'Construction dust, paint splatters, cement residue removal. Industrial-grade cleaning after renovation.',
+    name: 'Post-Renovation Cleaning',
+    desc: 'Industrial-grade clean to remove cement dust, paint splatters and construction residue.',
     img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
     imgAlt: 'Post-renovation cleaning service in Malaysia',
   },
   {
     gradient: 'from-rose-400 to-pink-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>),
-    name: 'Sofa & Carpet',
-    desc: 'Deep extraction cleaning for fabric sofas, carpet shampooing and deodorising. Quick-dry technology.',
+    name: 'Sofa & Carpet Cleaning',
+    desc: 'Deep extraction cleaning for fabric sofas, mattresses, carpets and rugs — stain removal included.',
     img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
     imgAlt: 'Sofa and carpet cleaning service',
   },
   {
     gradient: 'from-violet-500 to-purple-700',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>),
-    name: 'Mattress Cleaning',
-    desc: 'UV sanitisation and dust mite elimination. Perfect for allergies. Mattress looks like new.',
-    img: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80',
-    imgAlt: 'Mattress cleaning and sanitisation service',
+    name: 'Post-Event Cleanup',
+    desc: 'After your kenduri, birthday or gathering — restore your home fast. Waste disposal included.',
+    img: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&q=80',
+    imgAlt: 'Post-event cleanup service in Malaysia',
+  },
+  {
+    gradient: 'from-amber-400 to-yellow-500',
+    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M16 4v16"/></svg>),
+    name: 'Laundry & Ironing',
+    desc: 'Wash, dry and fold — free pickup and same-day delivery to your door. 48-hour turnaround.',
+    img: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80',
+    imgAlt: 'Professional laundry and ironing service',
+  },
+  {
+    gradient: 'from-orange-400 to-red-500',
+    icon: (<svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>),
+    name: 'Part-Time Maid',
+    desc: '4-hour or 8-hour daily cleaning and household help by vetted maids. Regular or one-time.',
+    img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80',
+    imgAlt: 'Part-time maid service in Klang Valley',
   },
 ]
 
@@ -272,11 +280,11 @@ export default function Home() {
               Vetted Pros &middot; KL, PJ &amp; Selangor
             </div>
             <h1 className="fade-up fade-up-1 font-head font-extrabold text-4xl sm:text-5xl lg:text-[52px] leading-tight text-white mb-5">
-              Professional{' '}
-              <span className="text-[#7FFFD4]">Cleaning Services</span> in Malaysia
+              Malaysia's Most Trusted{' '}
+              <span className="text-[#7FFFD4]">Cleaning Service</span> Platform
             </h1>
             <p className="fade-up fade-up-2 text-white/80 text-[17px] leading-relaxed mb-6 max-w-lg">
-              Deep cleaning, regular maids, post-renovation cleanup, sofa & carpet cleaning. Vetted cleaners. Fixed prices. Book in under 2 minutes.
+              Book vetted cleaning professionals for your home — deep cleaning, regular maid service, post-reno cleanup and more. Serving KL, PJ and all Klang Valley.
             </p>
             <div className="fade-up fade-up-3 flex flex-wrap gap-2 mb-8">
               <span className="trust-chip">&#10003; Background Checked</span>
@@ -383,9 +391,9 @@ export default function Home() {
       <section style={{ background: '#04342C' }} className="py-12" aria-label="iPROFIXER statistics">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x divide-white/10">
-            <StatCounter target={9641} suffix="+"  label="Jobs completed so far" />
-            <StatCounter target={98}   suffix="%"  label="Customers come back again" />
-            <StatCounter target={50}   suffix="+"  label="Service types available" />
+            <StatCounter target={9641} suffix="+"  label="Cleaning jobs completed" />
+            <StatCounter target={98}   suffix="%"  label="Customer satisfaction" />
+            <StatCounter target={500}   suffix="+"  label="Vetted cleaning professionals" />
             <StatCounter target={12}   suffix=""   label="Cities in Klang Valley" />
           </div>
         </div>
@@ -396,8 +404,8 @@ export default function Home() {
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div ref={r1} className="reveal text-center mb-12">
             <span className="section-label">What We Cover</span>
-            <h2 className="font-head font-bold text-3xl sm:text-4xl text-text mt-2 mb-3">Every Home Service You'll Ever Need</h2>
-            <p className="text-muted max-w-xl mx-auto">Stop juggling five different numbers. One platform for all of it.</p>
+            <h2 className="font-head font-bold text-3xl sm:text-4xl text-text mt-2 mb-3">Cleaning Services We Cover</h2>
+            <p className="text-muted max-w-xl mx-auto">One platform for all your cleaning needs — from daily maintenance to deep cleaning.</p>
           </div>
           <div ref={servicesRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map((s) => (
