@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { getDb } = require('./_db.cjs')
+const { getDb } = require('./_db.js')
 
 const JWT_SECRET = process.env.JWT_SECRET || 'iprofixer-secret-key-change-in-production'
 const JWT_EXPIRES_IN = '7d'
