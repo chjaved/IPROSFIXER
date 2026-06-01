@@ -19,9 +19,9 @@ export default function ProtectedRoute({ children, allowedTypes = [] }) {
   }
 
   // Check if user type is allowed
-  if (allowedTypes.length > 0 && !allowedTypes.includes(user?.role)) {
-    if (user?.role === 'consumer') return <Navigate to="/dashboard" replace />
-    if (user?.role === 'professional') return <Navigate to="/pro-dashboard" replace />
+  if (allowedTypes.length > 0 && !allowedTypes.includes(user?.type)) {
+    if (user?.type === 'consumer') return <Navigate to="/dashboard" replace />
+    if (user?.type === 'professional') return <Navigate to="/pro-dashboard" replace />
     return <Navigate to="/" replace />
   }
 

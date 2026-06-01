@@ -72,8 +72,8 @@ export function AuthProvider({ children }) {
     logout,
     updateUser,
     isAuthenticated: !!user,
-    isConsumer: user?.role === 'consumer',
-    isProfessional: user?.role === 'professional',
+    isConsumer: user?.type === 'consumer',
+    isProfessional: user?.type === 'professional',
   }
 
   return (

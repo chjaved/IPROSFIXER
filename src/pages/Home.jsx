@@ -304,18 +304,18 @@ export default function Home() {
               </a>
             </div>
 
-            {/* App download buttons */}
+            {/* Web signup buttons */}
             <div className="fade-up fade-up-5 flex flex-wrap gap-3 mb-6">
-              <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-black/70 hover:bg-black text-white px-4 py-2.5 rounded-xl transition-all border border-white/15">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="white" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
-                <div><div className="text-[10px] text-white/60 leading-none">Get it on</div><div className="text-sm font-bold leading-tight">Google Play</div></div>
-              </a>
-              <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-black/70 hover:bg-black text-white px-4 py-2.5 rounded-xl transition-all border border-white/15">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="white" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.22-1.96 1.08-3.11-1.05.05-2.31.72-3.06 1.63-.67.81-1.26 2.11-1.1 3.12 1.19.09 2.4-.6 3.08-1.64z"/></svg>
-                <div><div className="text-[10px] text-white/60 leading-none">Download on the</div><div className="text-sm font-bold leading-tight">App Store</div></div>
-              </a>
+              <Link to="/signup"
+                className="flex items-center gap-3 bg-white hover:bg-gray-50 text-brand px-4 py-2.5 rounded-xl transition-all shadow-lg">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-3H9V7h2v6z"/></svg>
+                <div><div className="text-[10px] text-brand/60 leading-none">New Customer?</div><div className="text-sm font-bold leading-tight">Sign Up Now</div></div>
+              </Link>
+              <Link to="/services"
+                className="flex items-center gap-3 bg-brand-light/30 hover:bg-brand-light/50 border border-white/30 text-white px-4 py-2.5 rounded-xl transition-all">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <div><div className="text-[10px] text-white/80 leading-none">Browse</div><div className="text-sm font-bold leading-tight">Our Services</div></div>
+              </Link>
             </div>
 
             {/* Stacked avatars social proof */}

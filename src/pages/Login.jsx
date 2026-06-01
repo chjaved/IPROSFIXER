@@ -33,7 +33,7 @@ export default function Login() {
 
     try {
       const user = await login(email, password)
-      const dest = from || (user.role === 'professional' ? '/pro-dashboard' : '/dashboard')
+      const dest = from || (user.type === 'professional' ? '/pro-dashboard' : '/dashboard')
       navigate(dest, { replace: true })
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.')
