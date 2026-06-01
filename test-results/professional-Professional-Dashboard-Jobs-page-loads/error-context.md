@@ -6,8 +6,8 @@
 
 # Test info
 
-- Name: auth.spec.js >> Authentication >> Professional signup succeeds and redirects to pro dashboard
-- Location: tests\auth.spec.js:48:3
+- Name: professional.spec.js >> Professional Dashboard >> Jobs page loads
+- Location: tests\professional.spec.js:40:3
 
 # Error details
 
@@ -80,12 +80,12 @@ waiting for navigation until "load"
             - generic [ref=e62]: Full Name
             - generic [ref=e63]:
               - img [ref=e64]
-              - textbox "Your full name" [ref=e67]: Siti Pro
+              - textbox "Your full name" [ref=e67]: Siti Professional
           - generic [ref=e68]:
             - generic [ref=e69]: Email Address
             - generic [ref=e70]:
               - img [ref=e71]
-              - textbox "you@example.com" [ref=e74]: pro_1780250229896@test.com
+              - textbox "you@example.com" [ref=e74]: pro_1780299023614@test.com
           - generic [ref=e75]:
             - generic [ref=e76]: Phone Number
             - generic [ref=e77]:
@@ -364,76 +364,72 @@ waiting for navigation until "load"
   1  | import { test, expect } from '@playwright/test';
   2  | 
   3  | const timestamp = Date.now();
-  4  | const customerEmail = `customer_${timestamp}@test.com`;
-  5  | const proEmail = `pro_${timestamp}@test.com`;
-  6  | const password = 'Test1234';
-  7  | 
-  8  | test.describe('Authentication', () => {
-  9  | 
-  10 |   test('Customer signup succeeds and redirects to dashboard', async ({ page }) => {
-  11 |     await page.goto('/signup');
-  12 |     await page.waitForLoadState('networkidle');
-  13 |     await page.fill('input[name="name"], input[placeholder*="Full Name"], input[placeholder*="name" i]', 'Test Customer');
-  14 |     await page.fill('input[type="email"]', customerEmail);
-  15 |     const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
-  16 |     if (await phone.count() > 0) await phone.first().fill('0123456789');
-  17 |     await page.fill('input[type="password"]', password);
-  18 |     const confirm = page.locator('input[name="confirmPassword"], input[placeholder*="Confirm" i]');
-  19 |     if (await confirm.count() > 0) await confirm.first().fill(password);
-  20 |     const checkbox = page.locator('input[type="checkbox"]');
-  21 |     if (await checkbox.count() > 0) await checkbox.first().check();
-  22 |     await page.click('button[type="submit"], button:has-text("Create Account"), button:has-text("Sign Up")');
-  23 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
-  24 |     expect(page.url()).toContain('dashboard');
-  25 |   });
-  26 | 
-  27 |   test('Customer login succeeds', async ({ page }) => {
-  28 |     await page.goto('/login');
-  29 |     await page.waitForLoadState('networkidle');
-  30 |     await page.fill('input[type="email"]', customerEmail);
-  31 |     await page.fill('input[type="password"]', password);
-  32 |     await page.click('button[type="submit"], button:has-text("Login"), button:has-text("Sign In")');
-  33 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
-  34 |     expect(page.url()).toContain('dashboard');
-  35 |   });
-  36 | 
-  37 |   test('Login with wrong password shows error', async ({ page }) => {
-  38 |     await page.goto('/login');
-  39 |     await page.waitForLoadState('networkidle');
-  40 |     await page.fill('input[type="email"]', customerEmail);
-  41 |     await page.fill('input[type="password"]', 'wrongpassword');
-  42 |     await page.click('button[type="submit"], button:has-text("Login")');
-  43 |     await page.waitForTimeout(4000);
-  44 |     const error = page.locator('[class*="error"], [class*="alert"], [role="alert"], text=/invalid/i, text=/incorrect/i, text=/wrong/i');
-  45 |     expect(await error.count()).toBeGreaterThan(0);
-  46 |   });
-  47 | 
-  48 |   test('Professional signup succeeds and redirects to pro dashboard', async ({ page }) => {
-  49 |     await page.goto('/pro-signup');
-  50 |     await page.waitForLoadState('networkidle');
-  51 |     await page.fill('input[name="name"], input[placeholder*="Full Name" i]', 'Siti Pro');
-  52 |     await page.fill('input[type="email"]', proEmail);
-  53 |     const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
-  54 |     if (await phone.count() > 0) await phone.first().fill('0123456789');
-  55 |     const whatsapp = page.locator('input[name="whatsapp"], input[placeholder*="WhatsApp" i]');
-  56 |     if (await whatsapp.count() > 0) await whatsapp.first().fill('0123456789');
-  57 |     const cat = page.locator('select[name="service_category"], select[name="serviceCategory"]');
-  58 |     if (await cat.count() > 0) await cat.first().selectOption({ index: 1 });
-  59 |     const area = page.locator('select[name="coverage_area"], select[name="coverageArea"]');
-  60 |     if (await area.count() > 0) await area.first().selectOption({ index: 1 });
-  61 |     const exp = page.locator('input[name="years_experience"], input[name="yearsExperience"], input[placeholder*="Experience" i]');
-  62 |     if (await exp.count() > 0) await exp.first().fill('3');
-  63 |     await page.fill('input[type="password"]', password);
-  64 |     const confirm = page.locator('input[name="confirmPassword"], input[placeholder*="Confirm" i]');
-  65 |     if (await confirm.count() > 0) await confirm.first().fill(password);
-  66 |     const checkbox = page.locator('input[type="checkbox"]');
-  67 |     if (await checkbox.count() > 0) await checkbox.first().check();
-  68 |     await page.click('button[type="submit"], button:has-text("Join"), button:has-text("Sign Up"), button:has-text("Complete")');
-> 69 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
+  4  | const proEmail = `pro_${timestamp}@test.com`;
+  5  | const password = 'Test1234';
+  6  | 
+  7  | test.describe('Professional Dashboard', () => {
+  8  | 
+  9  |   test.beforeEach(async ({ page }) => {
+  10 |     await page.goto('/pro-signup');
+  11 |     await page.waitForLoadState('networkidle');
+  12 |     await page.fill('input[name="name"], input[placeholder*="Full Name" i]', 'Siti Professional');
+  13 |     await page.fill('input[type="email"]', proEmail);
+  14 |     const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
+  15 |     if (await phone.count() > 0) await phone.first().fill('0123456789');
+  16 |     const whatsapp = page.locator('input[name="whatsapp"], input[placeholder*="WhatsApp" i]');
+  17 |     if (await whatsapp.count() > 0) await whatsapp.first().fill('0123456789');
+  18 |     const cat = page.locator('select[name="service_category"], select[name="serviceCategory"]');
+  19 |     if (await cat.count() > 0) await cat.first().selectOption({ index: 1 });
+  20 |     const area = page.locator('select[name="coverage_area"], select[name="coverageArea"]');
+  21 |     if (await area.count() > 0) await area.first().selectOption({ index: 1 });
+  22 |     const exp = page.locator('input[name="years_experience"], input[name="yearsExperience"], input[placeholder*="Experience" i]');
+  23 |     if (await exp.count() > 0) await exp.first().fill('3');
+  24 |     await page.fill('input[type="password"]', password);
+  25 |     const confirm = page.locator('input[placeholder*="Confirm" i], input[name="confirmPassword"]');
+  26 |     if (await confirm.count() > 0) await confirm.first().fill(password);
+  27 |     const checkbox = page.locator('input[type="checkbox"]');
+  28 |     if (await checkbox.count() > 0) await checkbox.first().check();
+  29 |     await page.click('button[type="submit"], button:has-text("Join"), button:has-text("Complete"), button:has-text("Sign Up")');
+> 30 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
      |                ^ TimeoutError: page.waitForURL: Timeout 15000ms exceeded.
-  70 |     expect(page.url()).toContain('dashboard');
-  71 |   });
-  72 | 
-  73 | });
-  74 | 
+  31 |   });
+  32 | 
+  33 |   test('Pro dashboard overview loads without errors', async ({ page }) => {
+  34 |     await page.waitForLoadState('networkidle');
+  35 |     await expect(page.locator('h1, h2').first()).toBeVisible({ timeout: 8000 });
+  36 |     const errorCount = await page.locator('text=/something went wrong/i, text=/error loading/i').count();
+  37 |     expect(errorCount).toBe(0);
+  38 |   });
+  39 | 
+  40 |   test('Jobs page loads', async ({ page }) => {
+  41 |     await page.goto('/pro-dashboard/jobs');
+  42 |     await page.waitForLoadState('networkidle');
+  43 |     await page.waitForTimeout(2000);
+  44 |     await expect(page.locator('h1, h2').first()).toBeVisible({ timeout: 8000 });
+  45 |   });
+  46 | 
+  47 |   test('Earnings page loads with RM text', async ({ page }) => {
+  48 |     await page.goto('/pro-dashboard/earnings');
+  49 |     await page.waitForLoadState('networkidle');
+  50 |     await page.waitForTimeout(2000);
+  51 |     const rmText = page.locator('text=/RM/');
+  52 |     expect(await rmText.count()).toBeGreaterThan(0);
+  53 |   });
+  54 | 
+  55 |   test('Reviews page loads', async ({ page }) => {
+  56 |     await page.goto('/pro-dashboard/reviews');
+  57 |     await page.waitForLoadState('networkidle');
+  58 |     await page.waitForTimeout(2000);
+  59 |     await expect(page.locator('h1, h2').first()).toBeVisible({ timeout: 8000 });
+  60 |   });
+  61 | 
+  62 |   test('Profile page shows email', async ({ page }) => {
+  63 |     await page.goto('/pro-dashboard/profile');
+  64 |     await page.waitForLoadState('networkidle');
+  65 |     await page.waitForTimeout(2000);
+  66 |     await expect(page.locator(`text=${proEmail}`)).toBeVisible({ timeout: 8000 });
+  67 |   });
+  68 | 
+  69 | });
+  70 | 
 ```

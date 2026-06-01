@@ -85,7 +85,7 @@ waiting for navigation until "load"
             - generic [ref=e69]: Email Address
             - generic [ref=e70]:
               - img [ref=e71]
-              - textbox "you@example.com" [ref=e74]: pro_1780251304664@test.com
+              - textbox "you@example.com" [ref=e74]: pro_1780298888650@test.com
           - generic [ref=e75]:
             - generic [ref=e76]: Phone Number
             - generic [ref=e77]:
@@ -404,8 +404,8 @@ waiting for navigation until "load"
   41 |     await page.fill('input[type="password"]', 'wrongpassword');
   42 |     await page.click('button[type="submit"], button:has-text("Login")');
   43 |     await page.waitForTimeout(4000);
-  44 |     const error = page.locator('[class*="error"], [class*="alert"], [role="alert"], text=/invalid/i, text=/incorrect/i, text=/wrong/i');
-  45 |     expect(await error.count()).toBeGreaterThan(0);
+  44 |     const error = page.locator('[class*="error"], [class*="alert"], [role="alert"]');
+  45 |     await expect(error).toBeVisible({ timeout: 5000 });
   46 |   });
   47 | 
   48 |   test('Professional signup succeeds and redirects to pro dashboard', async ({ page }) => {

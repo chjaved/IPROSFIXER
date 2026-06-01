@@ -1,33 +1,35 @@
 import { test, expect } from '@playwright/test';
 
-const timestamp = Date.now();
-const proEmail = `pro_${timestamp}@test.com`;
 const password = 'Test1234';
 
 test.describe('Professional Dashboard', () => {
+  let proEmail;
 
   test.beforeEach(async ({ page }) => {
+    // Generate unique email for each test
+    proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+
     await page.goto('/pro-signup');
     await page.waitForLoadState('networkidle');
-    await page.fill('input[name="name"], input[placeholder*="Full Name" i]', 'Siti Professional');
-    await page.fill('input[type="email"]', proEmail);
-    const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
-    if (await phone.count() > 0) await phone.first().fill('0123456789');
-    const whatsapp = page.locator('input[name="whatsapp"], input[placeholder*="WhatsApp" i]');
-    if (await whatsapp.count() > 0) await whatsapp.first().fill('0123456789');
-    const cat = page.locator('select[name="service_category"], select[name="serviceCategory"]');
-    if (await cat.count() > 0) await cat.first().selectOption({ index: 1 });
-    const area = page.locator('select[name="coverage_area"], select[name="coverageArea"]');
-    if (await area.count() > 0) await area.first().selectOption({ index: 1 });
-    const exp = page.locator('input[name="years_experience"], input[name="yearsExperience"], input[placeholder*="Experience" i]');
-    if (await exp.count() > 0) await exp.first().fill('3');
-    await page.fill('input[type="password"]', password);
-    const confirm = page.locator('input[placeholder*="Confirm" i], input[name="confirmPassword"]');
-    if (await confirm.count() > 0) await confirm.first().fill(password);
-    const checkbox = page.locator('input[type="checkbox"]');
-    if (await checkbox.count() > 0) await checkbox.first().check();
-    await page.click('button[type="submit"], button:has-text("Join"), button:has-text("Complete"), button:has-text("Sign Up")');
-    await page.waitForURL(/dashboard/, { timeout: 15000 });
+
+    // Fill form fields matching ProSignup.jsx exactly
+    await page.fill('input[name="name"]', 'Siti Professional');
+    await page.fill('input[name="email"]', proEmail);
+    await page.fill('input[name="phone"]', '0123456789');
+    await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+    await page.fill('input[name="location"]', 'Kuala Lumpur');
+    await page.fill('input[name="experience"]', '3');
+    await page.fill('input[name="password"]', password);
+    await page.fill('input[name="confirmPassword"]', password);
+
+    // Check terms checkbox
+    await page.check('input[name="agreed"]');
+
+    // Click submit button with exact text "Join as Professional"
+    await page.click('button[type="submit"]');
+
+    // Wait for navigation to pro-dashboard
+    await page.waitForURL(/pro-dashboard/, { timeout: 15000 });
   });
 
   test('Pro dashboard overview loads without errors', async ({ page }) => {

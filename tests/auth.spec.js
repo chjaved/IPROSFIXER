@@ -39,35 +39,38 @@ test.describe('Authentication', () => {
     await page.waitForLoadState('networkidle');
     await page.fill('input[type="email"]', customerEmail);
     await page.fill('input[type="password"]', 'wrongpassword');
-    await page.click('button[type="submit"], button:has-text("Login")');
+    await page.click('button[type="submit"]');
     await page.waitForTimeout(4000);
-    const error = page.locator('[class*="error"], [class*="alert"], [role="alert"]');
+    // Error in Login.jsx uses bg-red-50 class
+    const error = page.locator('.bg-red-50, [class*="red-50"]');
     await expect(error).toBeVisible({ timeout: 5000 });
   });
 
   test('Professional signup succeeds and redirects to pro dashboard', async ({ page }) => {
+    // Generate unique email for this test
+    const testProEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+
     await page.goto('/pro-signup');
     await page.waitForLoadState('networkidle');
-    await page.fill('input[name="name"], input[placeholder*="Full Name" i]', 'Siti Pro');
-    await page.fill('input[type="email"]', proEmail);
-    const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
-    if (await phone.count() > 0) await phone.first().fill('0123456789');
-    const whatsapp = page.locator('input[name="whatsapp"], input[placeholder*="WhatsApp" i]');
-    if (await whatsapp.count() > 0) await whatsapp.first().fill('0123456789');
-    const cat = page.locator('select[name="service_category"], select[name="serviceCategory"]');
-    if (await cat.count() > 0) await cat.first().selectOption({ index: 1 });
-    const area = page.locator('select[name="coverage_area"], select[name="coverageArea"]');
-    if (await area.count() > 0) await area.first().selectOption({ index: 1 });
-    const exp = page.locator('input[name="years_experience"], input[name="yearsExperience"], input[placeholder*="Experience" i]');
-    if (await exp.count() > 0) await exp.first().fill('3');
-    await page.fill('input[type="password"]', password);
-    const confirm = page.locator('input[name="confirmPassword"], input[placeholder*="Confirm" i]');
-    if (await confirm.count() > 0) await confirm.first().fill(password);
-    const checkbox = page.locator('input[type="checkbox"]');
-    if (await checkbox.count() > 0) await checkbox.first().check();
-    await page.click('button[type="submit"], button:has-text("Join"), button:has-text("Sign Up"), button:has-text("Complete")');
-    await page.waitForURL(/dashboard/, { timeout: 15000 });
-    expect(page.url()).toContain('dashboard');
+
+    // Fill form fields matching ProSignup.jsx exactly
+    await page.fill('input[name="name"]', 'Siti Pro');
+    await page.fill('input[name="email"]', testProEmail);
+    await page.fill('input[name="phone"]', '0123456789');
+    await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+    await page.fill('input[name="location"]', 'Kuala Lumpur');
+    await page.fill('input[name="experience"]', '3');
+    await page.fill('input[name="password"]', password);
+    await page.fill('input[name="confirmPassword"]', password);
+
+    // Check terms checkbox
+    await page.check('input[name="agreed"]');
+
+    // Click submit button
+    await page.click('button[type="submit"]');
+
+    await page.waitForURL(/pro-dashboard/, { timeout: 15000 });
+    expect(page.url()).toContain('pro-dashboard');
   });
 
 });

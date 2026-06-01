@@ -1,16 +1,18 @@
 import { test, expect } from '@playwright/test';
 
-const timestamp = Date.now();
-const email = `cust_${timestamp}@test.com`;
 const password = 'Test1234';
 
 test.describe('Customer Dashboard', () => {
+  let testEmail;
 
   test.beforeEach(async ({ page }) => {
+    // Generate unique email for each test to avoid "already exists" error
+    testEmail = `cust_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+
     await page.goto('/signup');
     await page.waitForLoadState('networkidle');
     await page.fill('input[name="name"], input[placeholder*="Full Name" i]', 'Test Customer');
-    await page.fill('input[type="email"]', email);
+    await page.fill('input[type="email"]', testEmail);
     const phone = page.locator('input[name="phone"], input[placeholder*="Phone" i]');
     if (await phone.count() > 0) await phone.first().fill('0123456789');
     await page.fill('input[type="password"]', password);
@@ -57,10 +59,12 @@ test.describe('Customer Dashboard', () => {
       if (await submitBtn.count() > 0) await submitBtn.first().click();
       await page.waitForTimeout(4000);
       const ref = page.locator('text=/IPF-/');
-      const success = page.locator('[class*="success"], text=/success/i, text=/confirmed/i');
+      const success = page.locator('[class*="success"]');
+      const confirmed = page.locator('text=/confirmed/i');
       const hasRef = await ref.count() > 0;
       const hasSuccess = await success.count() > 0;
-      expect(hasRef || hasSuccess).toBeTruthy();
+      const hasConfirmed = await confirmed.count() > 0;
+      expect(hasRef || hasSuccess || hasConfirmed).toBeTruthy();
     } else {
       test.skip();
     }
@@ -70,7 +74,7 @@ test.describe('Customer Dashboard', () => {
     await page.goto('/dashboard/profile');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(2000);
-    const emailVisible = page.locator(`text=${email}`);
+    const emailVisible = page.locator(`text=${testEmail}`);
     await expect(emailVisible).toBeVisible({ timeout: 8000 });
   });
 
@@ -85,8 +89,13 @@ test.describe('Customer Dashboard', () => {
       if (await saveBtn.count() > 0) {
         await saveBtn.first().click();
         await page.waitForTimeout(3000);
-        const success = page.locator('[class*="success"], text=/saved/i, text=/updated/i, text=/success/i');
-        expect(await success.count()).toBeGreaterThan(0);
+        const successMsg = page.locator('[class*="success"]');
+        const savedMsg = page.locator('text=/saved/i');
+        const updatedMsg = page.locator('text=/updated/i');
+        const hasSuccess = await successMsg.count() > 0;
+        const hasSaved = await savedMsg.count() > 0;
+        const hasUpdated = await updatedMsg.count() > 0;
+        expect(hasSuccess || hasSaved || hasUpdated).toBeTruthy();
       }
     }
   });
