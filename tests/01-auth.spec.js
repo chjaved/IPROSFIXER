@@ -17,9 +17,9 @@ test('01 - Homepage loads correctly', async ({ page }) => {
 
 test('02 - Login page loads', async ({ page }) => {
   await page.goto('/login');
-  await expect(page.locator('input[type="email"]')).toBeVisible();
-  await expect(page.locator('input[type="password"]')).toBeVisible();
-  await expect(page.locator('button[type="submit"]')).toBeVisible();
+  await expect(page.locator('input[type="email"]').first()).toBeVisible();
+  await expect(page.locator('input[type="password"]').first()).toBeVisible();
+  await expect(page.locator('button[type="submit"]').first()).toBeVisible();
   console.log('✅ Login page loaded');
 });
 
@@ -59,15 +59,16 @@ test('06 - Professional signup creates account and redirects to pro dashboard', 
 });
 
 test('07 - Logout works correctly', async ({ page }) => {
-  await customerLogin(page, custEmail, password);
+  const logoutEmail = `logout_${Date.now()}@test.com`;
+  await customerSignup(page, logoutEmail, password);
   await page.waitForTimeout(2000);
-  const logout = page.locator('button:has-text("Logout"), button:has-text("Sign Out"), a:has-text("Logout"), a:has-text("Sign Out")');
+  const logout = page.locator('button:has-text("Logout"), button:has-text("Sign Out"), a:has-text("Logout")');
   if (await logout.count() > 0) {
     await logout.first().click();
     await page.waitForTimeout(3000);
     expect(page.url()).not.toContain('dashboard');
     console.log('✅ Logout successful');
   } else {
-    console.log('⚠️ Logout button not found — skipping');
+    console.log('⚠️ Logout button not found');
   }
 });

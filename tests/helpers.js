@@ -18,9 +18,9 @@ export async function customerSignup(page, email, password = 'Test1234!') {
 export async function customerLogin(page, email, password = 'Test1234!') {
   await page.goto('/login');
   await page.waitForLoadState('networkidle');
-  await page.fill('input[type="email"]', email);
-  await page.fill('input[type="password"]', password);
-  await page.click('button[type="submit"]');
+  await page.locator('input[type="email"]').first().fill(email);
+  await page.locator('input[type="password"]').first().fill(password);
+  await page.locator('button[type="submit"]').first().click();
   await page.waitForURL(/dashboard/, { timeout: 30000 });
 }
 
@@ -41,8 +41,11 @@ export async function proSignup(page, email, password = 'Test1234!') {
   await page.fill('input[type="password"]', password);
   const confirm = page.locator('input[placeholder*="Confirm"], input[name="confirmPassword"]');
   if (await confirm.count() > 0) await confirm.fill(password);
-  const checkbox = page.locator('input[type="checkbox"]');
-  if (await checkbox.count() > 0) await checkbox.check();
+  const checkboxes = page.locator('input[type="checkbox"]');
+  const count = await checkboxes.count();
+  for (let i = 0; i < count; i++) {
+    await checkboxes.nth(i).check();
+  }
   await page.click('button[type="submit"]');
   await page.waitForURL(/dashboard/, { timeout: 30000 });
 }
@@ -50,8 +53,8 @@ export async function proSignup(page, email, password = 'Test1234!') {
 export async function proLogin(page, email, password = 'Test1234!') {
   await page.goto('/login');
   await page.waitForLoadState('networkidle');
-  await page.fill('input[type="email"]', email);
-  await page.fill('input[type="password"]', password);
-  await page.click('button[type="submit"]');
+  await page.locator('input[type="email"]').first().fill(email);
+  await page.locator('input[type="password"]').first().fill(password);
+  await page.locator('button[type="submit"]').first().click();
   await page.waitForURL(/dashboard/, { timeout: 30000 });
 }
