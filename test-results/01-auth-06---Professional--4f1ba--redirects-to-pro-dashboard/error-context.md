@@ -12,13 +12,10 @@
 # Error details
 
 ```
-Error: locator.check: Error: strict mode violation: locator('input[type="checkbox"]') resolved to 2 elements:
-    1) <input type="checkbox" name="hasTransport" class="rounded border-gray-300 text-orange focus:ring-orange"/> aka getByRole('checkbox', { name: 'I have my own transport' })
-    2) <input type="checkbox" class="mt-1 rounded border-gray-300 text-orange focus:ring-orange"/> aka getByRole('checkbox', { name: 'I agree to the Terms of' })
-
-Call log:
-  - waiting for locator('input[type="checkbox"]')
-
+TimeoutError: page.waitForURL: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for navigation until "load"
+============================================================
 ```
 
 # Page snapshot
@@ -88,7 +85,7 @@ Call log:
             - generic [ref=e69]: Email Address
             - generic [ref=e70]:
               - img [ref=e71]
-              - textbox "you@example.com" [ref=e74]: pro_1780327992479@test.com
+              - textbox "you@example.com" [ref=e74]: pro_1780328764065@test.com
           - generic [ref=e75]:
             - generic [ref=e76]: Phone Number
             - generic [ref=e77]:
@@ -126,7 +123,7 @@ Call log:
               - generic [ref=e90]: Location
               - generic [ref=e91]:
                 - img [ref=e92]
-                - combobox [ref=e95]:
+                - combobox [active] [ref=e95]:
                   - option "Select area" [selected]
                   - option "Kuala Lumpur"
                   - option "Petaling Jaya"
@@ -149,7 +146,7 @@ Call log:
                 - option "3-5 years"
                 - option "5+ years"
           - generic [ref=e99] [cursor=pointer]:
-            - checkbox "I have my own transport" [ref=e100]
+            - checkbox "I have my own transport" [checked] [ref=e100]
             - generic [ref=e101]: I have my own transport
           - generic [ref=e102]:
             - generic [ref=e103]: Password
@@ -162,11 +159,11 @@ Call log:
             - generic [ref=e114]: Confirm Password
             - generic [ref=e115]:
               - img [ref=e116]
-              - textbox "Confirm your password" [active] [ref=e119]: Test1234!
+              - textbox "Confirm your password" [ref=e119]: Test1234!
               - button [ref=e120] [cursor=pointer]:
                 - img [ref=e121]
           - generic [ref=e124] [cursor=pointer]:
-            - checkbox "I agree to the Terms of Service, Privacy Policy, and undergo a background check" [ref=e125]
+            - checkbox "I agree to the Terms of Service, Privacy Policy, and undergo a background check" [checked] [ref=e125]
             - generic [ref=e126]:
               - text: I agree to the
               - link "Terms of Service" [ref=e127]:
@@ -384,9 +381,9 @@ Call log:
   18 | export async function customerLogin(page, email, password = 'Test1234!') {
   19 |   await page.goto('/login');
   20 |   await page.waitForLoadState('networkidle');
-  21 |   await page.fill('input[type="email"]', email);
-  22 |   await page.fill('input[type="password"]', password);
-  23 |   await page.click('button[type="submit"]');
+  21 |   await page.locator('input[type="email"]').first().fill(email);
+  22 |   await page.locator('input[type="password"]').first().fill(password);
+  23 |   await page.locator('button[type="submit"]').first().click();
   24 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
   25 | }
   26 | 
@@ -407,20 +404,23 @@ Call log:
   41 |   await page.fill('input[type="password"]', password);
   42 |   const confirm = page.locator('input[placeholder*="Confirm"], input[name="confirmPassword"]');
   43 |   if (await confirm.count() > 0) await confirm.fill(password);
-  44 |   const checkbox = page.locator('input[type="checkbox"]');
-> 45 |   if (await checkbox.count() > 0) await checkbox.check();
-     |                                                  ^ Error: locator.check: Error: strict mode violation: locator('input[type="checkbox"]') resolved to 2 elements:
-  46 |   await page.click('button[type="submit"]');
-  47 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
-  48 | }
-  49 | 
-  50 | export async function proLogin(page, email, password = 'Test1234!') {
-  51 |   await page.goto('/login');
-  52 |   await page.waitForLoadState('networkidle');
-  53 |   await page.fill('input[type="email"]', email);
-  54 |   await page.fill('input[type="password"]', password);
-  55 |   await page.click('button[type="submit"]');
-  56 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
-  57 | }
-  58 | 
+  44 |   const checkboxes = page.locator('input[type="checkbox"]');
+  45 |   const count = await checkboxes.count();
+  46 |   for (let i = 0; i < count; i++) {
+  47 |     await checkboxes.nth(i).check();
+  48 |   }
+  49 |   await page.click('button[type="submit"]');
+> 50 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
+     |              ^ TimeoutError: page.waitForURL: Timeout 30000ms exceeded.
+  51 | }
+  52 | 
+  53 | export async function proLogin(page, email, password = 'Test1234!') {
+  54 |   await page.goto('/login');
+  55 |   await page.waitForLoadState('networkidle');
+  56 |   await page.locator('input[type="email"]').first().fill(email);
+  57 |   await page.locator('input[type="password"]').first().fill(password);
+  58 |   await page.locator('button[type="submit"]').first().click();
+  59 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
+  60 | }
+  61 | 
 ```
