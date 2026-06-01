@@ -1,0 +1,346 @@
+﻿
+Running 15 tests using 1 worker
+
+  Γ£ô   1 tests\auth.spec.js:10:3 ΓÇ║ Authentication ΓÇ║ Customer signup succeeds and redirects to dashboard (20.2s)
+  Γ£ô   2 tests\auth.spec.js:27:3 ΓÇ║ Authentication ΓÇ║ Customer login succeeds (12.7s)
+  Γ£ô   3 tests\auth.spec.js:37:3 ΓÇ║ Authentication ΓÇ║ Login with wrong password shows error (11.2s)
+  Γ£ÿ   4 tests\auth.spec.js:49:3 ΓÇ║ Authentication ΓÇ║ Professional signup succeeds and redirects to pro dashboard (1.5m)
+  Γ£ô   5 tests\customer.spec.js:27:3 ΓÇ║ Customer Dashboard ΓÇ║ Dashboard overview loads with stats (31.5s)
+  Γ£ô   6 tests\customer.spec.js:34:3 ΓÇ║ Customer Dashboard ΓÇ║ Bookings page loads (17.4s)
+  Γ£ô   7 tests\customer.spec.js:40:3 ΓÇ║ Customer Dashboard ΓÇ║ Booking form opens and submits (33.7s)
+  Γ£ô   8 tests\customer.spec.js:73:3 ΓÇ║ Customer Dashboard ΓÇ║ Profile page loads and shows email (15.7s)
+  Γ£ô   9 tests\customer.spec.js:81:3 ΓÇ║ Customer Dashboard ΓÇ║ Profile update saves successfully (16.7s)
+Γ£à Step 1: Customer registered, on dashboard
+  Γ£ÿ  10 tests\e2e.spec.js:50:3 ΓÇ║ End-to-End Booking Lifecycle ΓÇ║ Complete booking lifecycle: register ΓåÆ book ΓåÆ accept ΓåÆ complete ΓåÆ review (1.5m)
+  Γ£ÿ  11 tests\professional.spec.js:35:3 ΓÇ║ Professional Dashboard ΓÇ║ Pro dashboard overview loads without errors (1.6m)
+  Γ£ÿ  12 tests\professional.spec.js:42:3 ΓÇ║ Professional Dashboard ΓÇ║ Jobs page loads (1.5m)
+  Γ£ÿ  13 tests\professional.spec.js:49:3 ΓÇ║ Professional Dashboard ΓÇ║ Earnings page loads with RM text (1.5m)
+  Γ£ÿ  14 tests\professional.spec.js:57:3 ΓÇ║ Professional Dashboard ΓÇ║ Reviews page loads (1.5m)
+  Γ£ÿ  15 tests\professional.spec.js:64:3 ΓÇ║ Professional Dashboard ΓÇ║ Profile page shows email (1.5m)
+
+
+  1) tests\auth.spec.js:49:3 ΓÇ║ Authentication ΓÇ║ Professional signup succeeds and redirects to pro dashboard 
+
+    [31mTest timeout of 90000ms exceeded.[39m
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    163 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      58 |     await page.fill('input[name="email"]', testProEmail);
+      59 |     await page.fill('input[name="phone"]', '0123456789');
+    > 60 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      61 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      62 |     await page.fill('input[name="experience"]', '3');
+      63 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\auth.spec.js:60:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\auth-Authentication-Profes-4f499--redirects-to-pro-dashboard\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\auth-Authentication-Profes-4f499--redirects-to-pro-dashboard\error-context.md
+
+  2) tests\e2e.spec.js:50:3 ΓÇ║ End-to-End Booking Lifecycle ΓÇ║ Complete booking lifecycle: register ΓåÆ book ΓåÆ accept ΓåÆ complete ΓåÆ review 
+
+    [31mTest timeout of 90000ms exceeded.[39m
+
+    Error: page.selectOption: Test ended.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    157 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      30 |   await page.fill('input[name="email"]', email);
+      31 |   await page.fill('input[name="phone"]', '0123456789');
+    > 32 |   await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |              ^
+      33 |   await page.fill('input[name="location"]', 'Kuala Lumpur');
+      34 |   await page.fill('input[name="experience"]', '2');
+      35 |   await page.fill('input[name="password"]', password);
+        at registerPro (C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\e2e.spec.js:32:14)
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\e2e.spec.js:61:5
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\e2e-End-to-End-Booking-Lif-ad413--accept-ΓåÆ-complete-ΓåÆ-review\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    attachment #2: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\e2e-End-to-End-Booking-Lif-ad413--accept-ΓåÆ-complete-ΓåÆ-review\test-failed-2.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\e2e-End-to-End-Booking-Lif-ad413--accept-ΓåÆ-complete-ΓåÆ-review\error-context.md
+
+  3) tests\professional.spec.js:35:3 ΓÇ║ Professional Dashboard ΓÇ║ Pro dashboard overview loads without errors 
+
+    [31mTest timeout of 90000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |   let proEmail;
+       7 |
+    >  8 |   test.beforeEach(async ({ page }) => {
+         |        ^
+       9 |     // Generate unique email for each test
+      10 |     proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+      11 |
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:8:8
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    160 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      17 |     await page.fill('input[name="email"]', proEmail);
+      18 |     await page.fill('input[name="phone"]', '0123456789');
+    > 19 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      20 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      21 |     await page.fill('input[name="experience"]', '3');
+      22 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:19:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\professional-Professional--7a1fd-erview-loads-without-errors\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\professional-Professional--7a1fd-erview-loads-without-errors\error-context.md
+
+  4) tests\professional.spec.js:42:3 ΓÇ║ Professional Dashboard ΓÇ║ Jobs page loads ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    [31mTest timeout of 90000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |   let proEmail;
+       7 |
+    >  8 |   test.beforeEach(async ({ page }) => {
+         |        ^
+       9 |     // Generate unique email for each test
+      10 |     proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+      11 |
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:8:8
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    162 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      17 |     await page.fill('input[name="email"]', proEmail);
+      18 |     await page.fill('input[name="phone"]', '0123456789');
+    > 19 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      20 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      21 |     await page.fill('input[name="experience"]', '3');
+      22 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:19:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\professional-Professional-Dashboard-Jobs-page-loads\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\professional-Professional-Dashboard-Jobs-page-loads\error-context.md
+
+  5) tests\professional.spec.js:49:3 ΓÇ║ Professional Dashboard ΓÇ║ Earnings page loads with RM text ΓöÇΓöÇΓöÇ
+
+    [31mTest timeout of 90000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |   let proEmail;
+       7 |
+    >  8 |   test.beforeEach(async ({ page }) => {
+         |        ^
+       9 |     // Generate unique email for each test
+      10 |     proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+      11 |
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:8:8
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    153 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      17 |     await page.fill('input[name="email"]', proEmail);
+      18 |     await page.fill('input[name="phone"]', '0123456789');
+    > 19 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      20 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      21 |     await page.fill('input[name="experience"]', '3');
+      22 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:19:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\professional-Professional--c5a77-ngs-page-loads-with-RM-text\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\professional-Professional--c5a77-ngs-page-loads-with-RM-text\error-context.md
+
+  6) tests\professional.spec.js:57:3 ΓÇ║ Professional Dashboard ΓÇ║ Reviews page loads ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    [31mTest timeout of 90000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |   let proEmail;
+       7 |
+    >  8 |   test.beforeEach(async ({ page }) => {
+         |        ^
+       9 |     // Generate unique email for each test
+      10 |     proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+      11 |
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:8:8
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    166 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      17 |     await page.fill('input[name="email"]', proEmail);
+      18 |     await page.fill('input[name="phone"]', '0123456789');
+    > 19 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      20 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      21 |     await page.fill('input[name="experience"]', '3');
+      22 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:19:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\professional-Professional-Dashboard-Reviews-page-loads\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\professional-Professional-Dashboard-Reviews-page-loads\error-context.md
+
+  7) tests\professional.spec.js:64:3 ΓÇ║ Professional Dashboard ΓÇ║ Profile page shows email ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    [31mTest timeout of 90000ms exceeded while running "beforeEach" hook.[39m
+
+       6 |   let proEmail;
+       7 |
+    >  8 |   test.beforeEach(async ({ page }) => {
+         |        ^
+       9 |     // Generate unique email for each test
+      10 |     proEmail = `pro_${Date.now()}_${Math.random().toString(36).substr(2, 5)}@test.com`;
+      11 |
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:8:8
+
+    Error: page.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('select[name="serviceCategory"]')[22m
+    [2m    - locator resolved to <select required="" name="serviceCategory" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange focus:border-orange outline-none transition-all appearance-none bg-white">ΓÇª</select>[22m
+    [2m  - attempting select option action[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 ├ù waiting for element to be visible and enabled[22m
+    [2m      - did not find some options[22m
+    [2m    - retrying select option action[22m
+    [2m      - waiting 100ms[22m
+    [2m    168 ├ù waiting for element to be visible and enabled[22m
+    [2m        - did not find some options[22m
+    [2m      - retrying select option action[22m
+    [2m        - waiting 500ms[22m
+
+
+      17 |     await page.fill('input[name="email"]', proEmail);
+      18 |     await page.fill('input[name="phone"]', '0123456789');
+    > 19 |     await page.selectOption('select[name="serviceCategory"]', 'cleaning');
+         |                ^
+      20 |     await page.fill('input[name="location"]', 'Kuala Lumpur');
+      21 |     await page.fill('input[name="experience"]', '3');
+      22 |     await page.fill('input[name="password"]', password);
+        at C:\Users\ahmad\Downloads\IPROFIXER_MASTER\iprofixer-web\client\tests\professional.spec.js:19:16
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\professional-Professional-Dashboard-Profile-page-shows-email\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error Context: test-results\professional-Professional-Dashboard-Profile-page-shows-email\error-context.md
+
+  7 failed
+    tests\auth.spec.js:49:3 ΓÇ║ Authentication ΓÇ║ Professional signup succeeds and redirects to pro dashboard 
+    tests\e2e.spec.js:50:3 ΓÇ║ End-to-End Booking Lifecycle ΓÇ║ Complete booking lifecycle: register ΓåÆ book ΓåÆ accept ΓåÆ complete ΓåÆ review 
+    tests\professional.spec.js:35:3 ΓÇ║ Professional Dashboard ΓÇ║ Pro dashboard overview loads without errors 
+    tests\professional.spec.js:42:3 ΓÇ║ Professional Dashboard ΓÇ║ Jobs page loads ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    tests\professional.spec.js:49:3 ΓÇ║ Professional Dashboard ΓÇ║ Earnings page loads with RM text ΓöÇΓöÇΓöÇΓöÇ
+    tests\professional.spec.js:57:3 ΓÇ║ Professional Dashboard ΓÇ║ Reviews page loads ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    tests\professional.spec.js:64:3 ΓÇ║ Professional Dashboard ΓÇ║ Profile page shows email ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  8 passed (18.5m)

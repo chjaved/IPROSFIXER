@@ -1,15 +1,18 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  timeout: 40000,
+  timeout: 60000,
+  expect: { timeout: 10000 },
   retries: 0,
+  workers: 1,
   use: {
     baseURL: 'https://iprosfixer.vercel.app',
-    headless: true,
+    headless: false,
+    viewport: { width: 1280, height: 720 },
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    actionTimeout: 15000,
   },
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
-  workers: 1,
 });

@@ -1,0 +1,6 @@
+﻿
+Running 15 tests using 1 worker
+
+  Γ£ô   1 tests\auth.spec.js:10:3 ΓÇ║ Authentication ΓÇ║ Customer signup succeeds and redirects to dashboard (34.8s)
+  Γ£ô   2 tests\auth.spec.js:27:3 ΓÇ║ Authentication ΓÇ║ Customer login succeeds (17.2s)
+  Γ£ô   3 tests\auth.spec.js:37:3 ΓÇ║ Authentication ΓÇ║ Login with wrong password shows error (26.8s)
