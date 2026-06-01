@@ -75,7 +75,7 @@ waiting for navigation until "load"
         - heading "Create Account" [level=1] [ref=e53]
         - paragraph [ref=e54]: Sign up to book home services
       - generic [ref=e55]:
-        - generic [ref=e56]: Unexpected token 'A', "A server e"... is not valid JSON
+        - generic [ref=e56]: Email already registered
         - generic [ref=e57]:
           - generic [ref=e58]:
             - generic [ref=e59]: Full Name
@@ -86,7 +86,7 @@ waiting for navigation until "load"
             - generic [ref=e66]: Email Address
             - generic [ref=e67]:
               - img [ref=e68]
-              - textbox "you@example.com" [ref=e71]: cust_1780249014620@test.com
+              - textbox "you@example.com" [ref=e71]: cust_1780251383583@test.com
           - generic [ref=e72]:
             - generic [ref=e73]: Phone Number
             - generic [ref=e74]:

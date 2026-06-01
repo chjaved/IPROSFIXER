@@ -12,10 +12,7 @@
 # Error details
 
 ```
-TimeoutError: page.waitForURL: Timeout 15000ms exceeded.
-=========================== logs ===========================
-waiting for navigation until "load"
-============================================================
+Error: locator.count: Unexpected token "=" while parsing css selector "[class*="success"], text=/success/i, text=/confirmed/i". Did you mean to CSS.escape it?
 ```
 
 # Page snapshot
@@ -39,266 +36,315 @@ waiting for navigation until "load"
         - link "FAQ" [ref=e13] [cursor=pointer]:
           - /url: /faq
       - generic [ref=e14]:
-        - link "Login" [ref=e15] [cursor=pointer]:
-          - /url: /login
+        - link "My Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
           - img [ref=e16]
-          - text: Login
-        - link "Sign Up" [ref=e19] [cursor=pointer]:
-          - /url: /signup
-          - img [ref=e20]
-          - text: Sign Up
-  - generic [ref=e24]:
-    - generic [ref=e25]:
-      - heading "Create Your iPROFIXER Account" [level=1] [ref=e26]
-      - paragraph [ref=e27]: Join thousands of happy customers booking home services
-    - generic [ref=e28]:
-      - generic [ref=e29]:
-        - img [ref=e30]
-        - heading "Quality Service" [level=3] [ref=e32]
-        - paragraph [ref=e33]: Verified professionals only
-      - generic [ref=e34]:
-        - img [ref=e35]
-        - heading "Easy Booking" [level=3] [ref=e37]
-        - paragraph [ref=e38]: Book in just 2 minutes
-      - generic [ref=e39]:
-        - img [ref=e40]
-        - heading "Secure Payment" [level=3] [ref=e42]
-        - paragraph [ref=e43]: Pay after job completion
-  - generic [ref=e45]:
-    - link "Back to Home" [ref=e46] [cursor=pointer]:
-      - /url: /
-      - img [ref=e47]
-      - text: Back to Home
-    - generic [ref=e49]:
-      - generic [ref=e50]:
-        - img "iPROFIXER" [ref=e52]
-        - heading "Create Account" [level=1] [ref=e53]
-        - paragraph [ref=e54]: Sign up to book home services
-      - generic [ref=e55]:
-        - generic [ref=e56]: Unexpected token 'A', "A server e"... is not valid JSON
-        - generic [ref=e57]:
-          - generic [ref=e58]:
-            - generic [ref=e59]: Full Name
-            - generic [ref=e60]:
-              - img [ref=e61]
-              - textbox "John Doe" [ref=e64]: Test Customer
-          - generic [ref=e65]:
-            - generic [ref=e66]: Email Address
-            - generic [ref=e67]:
-              - img [ref=e68]
-              - textbox "you@example.com" [ref=e71]: cust_1780248968534@test.com
-          - generic [ref=e72]:
-            - generic [ref=e73]: Phone Number
-            - generic [ref=e74]:
-              - img [ref=e75]
-              - textbox "+60 12-345-6789" [ref=e77]: "0123456789"
-          - generic [ref=e78]:
-            - generic [ref=e79]: Password
-            - generic [ref=e80]:
-              - img [ref=e81]
-              - textbox "At least 6 characters" [ref=e84]: Test1234
-              - button [ref=e85] [cursor=pointer]:
-                - img [ref=e86]
-          - generic [ref=e89]:
-            - generic [ref=e90]: Confirm Password
-            - generic [ref=e91]:
+          - text: My Dashboard
+        - generic [ref=e21]:
+          - img [ref=e22]
+          - generic [ref=e25]: Hi, Test
+        - button "Logout" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+          - text: Logout
+  - generic [ref=e30]:
+    - complementary [ref=e31]:
+      - generic [ref=e32]:
+        - link "iPROFIXER" [ref=e33] [cursor=pointer]:
+          - /url: /
+          - img "iPROFIXER" [ref=e34]
+        - navigation [ref=e35]:
+          - link "Dashboard" [ref=e36] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e37]
+            - text: Dashboard
+          - link "Profile" [ref=e42] [cursor=pointer]:
+            - /url: /dashboard/profile
+            - img [ref=e43]
+            - text: Profile
+          - link "Bookings" [ref=e46] [cursor=pointer]:
+            - /url: /dashboard/bookings
+            - img [ref=e47]
+            - text: Bookings
+          - link "Refunds" [ref=e49] [cursor=pointer]:
+            - /url: /dashboard/refunds
+            - img [ref=e50]
+            - text: Refunds
+          - link "Services" [ref=e55] [cursor=pointer]:
+            - /url: /dashboard/services
+            - img [ref=e56]
+            - text: Services
+          - link "Appointments" [ref=e59] [cursor=pointer]:
+            - /url: /dashboard/appointments
+            - img [ref=e60]
+            - text: Appointments
+    - main [ref=e63]:
+      - generic [ref=e64]:
+        - heading "My Bookings" [level=1] [ref=e65]
+        - paragraph [ref=e66]: View and manage all your service bookings
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - paragraph [ref=e69]: "0"
+            - paragraph [ref=e70]: Total
+          - generic [ref=e71]:
+            - paragraph [ref=e72]: "0"
+            - paragraph [ref=e73]: Upcoming
+          - generic [ref=e74]:
+            - paragraph [ref=e75]: "0"
+            - paragraph [ref=e76]: Completed
+          - generic [ref=e77]:
+            - paragraph [ref=e78]: "0"
+            - paragraph [ref=e79]: Pending
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - img [ref=e83]
+            - textbox "Search bookings..." [ref=e86]
+          - generic [ref=e87]:
+            - img [ref=e88]
+            - combobox [ref=e90]:
+              - option "All Status" [selected]
+              - option "Pending"
+              - option "Confirmed"
+              - option "Accepted"
+              - option "Completed"
+              - option "Cancelled"
+            - button "New Booking" [ref=e91] [cursor=pointer]:
               - img [ref=e92]
-              - textbox "Confirm your password" [ref=e95]: Test1234
-              - button [ref=e96] [cursor=pointer]:
-                - img [ref=e97]
-          - generic [ref=e100] [cursor=pointer]:
-            - checkbox "I agree to the Terms of Service and Privacy Policy" [checked] [ref=e101]
-            - generic [ref=e102]:
-              - text: I agree to the
-              - link "Terms of Service" [ref=e103]:
-                - /url: /terms
-              - text: and
-              - link "Privacy Policy" [ref=e104]:
-                - /url: /privacy
-          - button "Create Account" [ref=e105] [cursor=pointer]
-        - generic [ref=e110]: Already have an account?
-        - link "Sign in" [ref=e111] [cursor=pointer]:
-          - /url: /login
-    - paragraph [ref=e112]:
-      - text: Want to join as a professional?
-      - link "Apply here" [ref=e113] [cursor=pointer]:
-        - /url: /pro-signup
-  - contentinfo [ref=e114]:
-    - generic [ref=e117]:
-      - generic [ref=e118]:
-        - img [ref=e120]
-        - generic [ref=e122]: Verified Pros
-      - generic [ref=e123]:
-        - img [ref=e125]
-        - generic [ref=e128]: Quality Assured
-      - generic [ref=e129]:
-        - img [ref=e131]
-        - generic [ref=e134]: On-Time Service
-    - generic [ref=e135]:
-      - generic [ref=e136]:
-        - generic [ref=e137]:
-          - link "iPROFIXER" [ref=e138] [cursor=pointer]:
+              - text: New Booking
+        - generic [ref=e95]:
+          - img [ref=e96]
+          - paragraph [ref=e98]: No bookings found
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - heading "New Booking" [level=3] [ref=e102]
+            - button [ref=e103] [cursor=pointer]:
+              - img [ref=e104]
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - generic [ref=e109]: Service *
+              - combobox [active] [ref=e110]:
+                - option "Select a service..." [selected]
+                - option "Caregiver (RM 25)"
+                - option "Home Deep Cleaning (RM 120)"
+                - option "Post-Event Cleanup (RM 150)"
+                - option "Post-Renovation Cleaning (RM 200)"
+                - option "Regular Maid Service (RM 80)"
+                - option "Sofa & Carpet Cleaning (RM 120)"
+                - option "Sofa & Carpet Cleaning (RM 120)"
+                - option "Laundry & Ironing (RM 3)"
+                - option "Laundry & Ironing (RM 3)"
+                - option "Part-Time Maid (RM 80)"
+                - option "AC Service & Repair (RM 150)"
+                - option "Appliance Repair (RM 90)"
+                - option "Electrical Works (RM 100)"
+                - option "Plumbing Repair (RM 120)"
+            - generic [ref=e111]:
+              - generic [ref=e112]: Area *
+              - combobox [ref=e113]:
+                - option "Select area..." [selected]
+                - option "Kuala Lumpur"
+                - option "Petaling Jaya"
+                - option "Shah Alam"
+                - option "Subang Jaya"
+                - option "Cheras"
+                - option "Klang"
+                - option "Cyberjaya"
+                - option "Putrajaya"
+                - option "Ampang"
+                - option "Bangsar"
+                - option "Mont Kiara"
+                - option "Damansara"
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Date *
+                - textbox [ref=e117]: 2026-07-15
+              - generic [ref=e118]:
+                - generic [ref=e119]: Time *
+                - textbox [ref=e120]: 10:00
+            - generic [ref=e121]:
+              - generic [ref=e122]: WhatsApp Number
+              - textbox "e.g. 0123456789" [ref=e123]
+            - generic [ref=e124]:
+              - generic [ref=e125]: Notes
+              - textbox "Any special instructions..." [ref=e126]
+            - generic [ref=e127]:
+              - button "Cancel" [ref=e128] [cursor=pointer]
+              - button "Book Now" [ref=e129] [cursor=pointer]
+  - contentinfo [ref=e130]:
+    - generic [ref=e133]:
+      - generic [ref=e134]:
+        - img [ref=e136]
+        - generic [ref=e138]: Verified Pros
+      - generic [ref=e139]:
+        - img [ref=e141]
+        - generic [ref=e144]: Quality Assured
+      - generic [ref=e145]:
+        - img [ref=e147]
+        - generic [ref=e150]: On-Time Service
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]:
+          - link "iPROFIXER" [ref=e154] [cursor=pointer]:
             - /url: /
-            - img "iPROFIXER" [ref=e139]
-          - paragraph [ref=e140]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
-          - generic [ref=e141]:
-            - link "+03-8080 5249" [ref=e142] [cursor=pointer]:
+            - img "iPROFIXER" [ref=e155]
+          - paragraph [ref=e156]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
+          - generic [ref=e157]:
+            - link "+03-8080 5249" [ref=e158] [cursor=pointer]:
               - /url: tel:+60380805249
-              - img [ref=e144]
-              - generic [ref=e146]: +03-8080 5249
-            - link "for_services@iprofixer.com.my" [ref=e147] [cursor=pointer]:
+              - img [ref=e160]
+              - generic [ref=e162]: +03-8080 5249
+            - link "for_services@iprofixer.com.my" [ref=e163] [cursor=pointer]:
               - /url: mailto:for_services@iprofixer.com.my
-              - img [ref=e149]
-              - generic [ref=e152]: for_services@iprofixer.com.my
-            - generic [ref=e153]:
-              - img [ref=e155]
-              - generic [ref=e158]: Ara Damansara, Petaling Jaya
-        - generic [ref=e159]:
-          - generic [ref=e160]:
-            - heading "Services" [level=4] [ref=e161]
-            - list [ref=e162]:
-              - listitem [ref=e163]:
-                - link "Home Deep Cleaning" [ref=e164] [cursor=pointer]:
-                  - /url: /services
-                  - img [ref=e165]
-                  - text: Home Deep Cleaning
-              - listitem [ref=e167]:
-                - link "Regular Maid Service" [ref=e168] [cursor=pointer]:
-                  - /url: /services
-                  - img [ref=e169]
-                  - text: Regular Maid Service
-              - listitem [ref=e171]:
-                - link "Post-Renovation Cleaning" [ref=e172] [cursor=pointer]:
-                  - /url: /services
-                  - img [ref=e173]
-                  - text: Post-Renovation Cleaning
-              - listitem [ref=e175]:
-                - link "Sofa & Carpet Cleaning" [ref=e176] [cursor=pointer]:
-                  - /url: /services
-                  - img [ref=e177]
-                  - text: Sofa & Carpet Cleaning
+              - img [ref=e165]
+              - generic [ref=e168]: for_services@iprofixer.com.my
+            - generic [ref=e169]:
+              - img [ref=e171]
+              - generic [ref=e174]: Ara Damansara, Petaling Jaya
+        - generic [ref=e175]:
+          - generic [ref=e176]:
+            - heading "Services" [level=4] [ref=e177]
+            - list [ref=e178]:
               - listitem [ref=e179]:
-                - link "Post-Event Cleanup" [ref=e180] [cursor=pointer]:
+                - link "Home Deep Cleaning" [ref=e180] [cursor=pointer]:
                   - /url: /services
                   - img [ref=e181]
-                  - text: Post-Event Cleanup
+                  - text: Home Deep Cleaning
               - listitem [ref=e183]:
-                - link "Laundry & Ironing" [ref=e184] [cursor=pointer]:
+                - link "Regular Maid Service" [ref=e184] [cursor=pointer]:
                   - /url: /services
                   - img [ref=e185]
-                  - text: Laundry & Ironing
+                  - text: Regular Maid Service
               - listitem [ref=e187]:
-                - link "Part-Time Maid" [ref=e188] [cursor=pointer]:
+                - link "Post-Renovation Cleaning" [ref=e188] [cursor=pointer]:
                   - /url: /services
                   - img [ref=e189]
+                  - text: Post-Renovation Cleaning
+              - listitem [ref=e191]:
+                - link "Sofa & Carpet Cleaning" [ref=e192] [cursor=pointer]:
+                  - /url: /services
+                  - img [ref=e193]
+                  - text: Sofa & Carpet Cleaning
+              - listitem [ref=e195]:
+                - link "Post-Event Cleanup" [ref=e196] [cursor=pointer]:
+                  - /url: /services
+                  - img [ref=e197]
+                  - text: Post-Event Cleanup
+              - listitem [ref=e199]:
+                - link "Laundry & Ironing" [ref=e200] [cursor=pointer]:
+                  - /url: /services
+                  - img [ref=e201]
+                  - text: Laundry & Ironing
+              - listitem [ref=e203]:
+                - link "Part-Time Maid" [ref=e204] [cursor=pointer]:
+                  - /url: /services
+                  - img [ref=e205]
                   - text: Part-Time Maid
-          - generic [ref=e191]:
-            - heading "Company" [level=4] [ref=e192]
-            - list [ref=e193]:
-              - listitem [ref=e194]:
-                - link "About iPROFIXER" [ref=e195] [cursor=pointer]:
-                  - /url: /about
-                  - img [ref=e196]
-                  - text: About iPROFIXER
-              - listitem [ref=e198]:
-                - link "How It Works" [ref=e199] [cursor=pointer]:
-                  - /url: /how-it-works
-                  - img [ref=e200]
-                  - text: How It Works
-              - listitem [ref=e202]:
-                - link "Join as Professional" [ref=e203] [cursor=pointer]:
-                  - /url: /for-professionals
-                  - img [ref=e204]
-                  - text: Join as Professional
-              - listitem [ref=e206]:
-                - link "Careers" [ref=e207] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e208]
-                  - text: Careers
+          - generic [ref=e207]:
+            - heading "Company" [level=4] [ref=e208]
+            - list [ref=e209]:
               - listitem [ref=e210]:
-                - link "Blog & Tips" [ref=e211] [cursor=pointer]:
-                  - /url: /signup
+                - link "About iPROFIXER" [ref=e211] [cursor=pointer]:
+                  - /url: /about
                   - img [ref=e212]
+                  - text: About iPROFIXER
+              - listitem [ref=e214]:
+                - link "How It Works" [ref=e215] [cursor=pointer]:
+                  - /url: /how-it-works
+                  - img [ref=e216]
+                  - text: How It Works
+              - listitem [ref=e218]:
+                - link "Join as Professional" [ref=e219] [cursor=pointer]:
+                  - /url: /for-professionals
+                  - img [ref=e220]
+                  - text: Join as Professional
+              - listitem [ref=e222]:
+                - link "Careers" [ref=e223] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e224]
+                  - text: Careers
+              - listitem [ref=e226]:
+                - link "Blog & Tips" [ref=e227] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e228]
                   - text: Blog & Tips
-          - generic [ref=e214]:
-            - heading "Support" [level=4] [ref=e215]
-            - list [ref=e216]:
-              - listitem [ref=e217]:
-                - link "Help Center / FAQ" [ref=e218] [cursor=pointer]:
-                  - /url: /faq
-                  - img [ref=e219]
-                  - text: Help Center / FAQ
-              - listitem [ref=e221]:
-                - link "Safety Guidelines" [ref=e222] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e223]
-                  - text: Safety Guidelines
-              - listitem [ref=e225]:
-                - link "Cancellation Policy" [ref=e226] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e227]
-                  - text: Cancellation Policy
-              - listitem [ref=e229]:
-                - link "Refund Policy" [ref=e230] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e231]
-                  - text: Refund Policy
+          - generic [ref=e230]:
+            - heading "Support" [level=4] [ref=e231]
+            - list [ref=e232]:
               - listitem [ref=e233]:
-                - link "Service Guarantee" [ref=e234] [cursor=pointer]:
-                  - /url: /signup
+                - link "Help Center / FAQ" [ref=e234] [cursor=pointer]:
+                  - /url: /faq
                   - img [ref=e235]
+                  - text: Help Center / FAQ
+              - listitem [ref=e237]:
+                - link "Safety Guidelines" [ref=e238] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e239]
+                  - text: Safety Guidelines
+              - listitem [ref=e241]:
+                - link "Cancellation Policy" [ref=e242] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e243]
+                  - text: Cancellation Policy
+              - listitem [ref=e245]:
+                - link "Refund Policy" [ref=e246] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e247]
+                  - text: Refund Policy
+              - listitem [ref=e249]:
+                - link "Service Guarantee" [ref=e250] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e251]
                   - text: Service Guarantee
-        - generic [ref=e237]:
-          - heading "Stay Updated" [level=4] [ref=e238]
-          - paragraph [ref=e239]: Get home maintenance tips and exclusive offers.
-          - generic [ref=e240]:
-            - generic [ref=e241]:
-              - img [ref=e242]
-              - textbox "Enter your email" [ref=e245]
-            - button "Subscribe Now" [ref=e246] [cursor=pointer]
-          - link "Chat on WhatsApp" [ref=e247] [cursor=pointer]:
+        - generic [ref=e253]:
+          - heading "Stay Updated" [level=4] [ref=e254]
+          - paragraph [ref=e255]: Get home maintenance tips and exclusive offers.
+          - generic [ref=e256]:
+            - generic [ref=e257]:
+              - img [ref=e258]
+              - textbox "Enter your email" [ref=e261]
+            - button "Subscribe Now" [ref=e262] [cursor=pointer]
+          - link "Chat on WhatsApp" [ref=e263] [cursor=pointer]:
             - /url: https://wa.me/60162104127
-            - img [ref=e248]
+            - img [ref=e264]
             - text: Chat on WhatsApp
-      - generic [ref=e251]:
-        - generic [ref=e252]:
-          - generic [ref=e253]: "Follow us:"
-          - generic [ref=e254]:
-            - link "Facebook" [ref=e255] [cursor=pointer]:
+      - generic [ref=e267]:
+        - generic [ref=e268]:
+          - generic [ref=e269]: "Follow us:"
+          - generic [ref=e270]:
+            - link "Facebook" [ref=e271] [cursor=pointer]:
               - /url: https://facebook.com/iprofixer
-              - img [ref=e256]
-            - link "Instagram" [ref=e258] [cursor=pointer]:
+              - img [ref=e272]
+            - link "Instagram" [ref=e274] [cursor=pointer]:
               - /url: https://instagram.com/iprofixer
-              - img [ref=e259]
-            - link "LinkedIn" [ref=e262] [cursor=pointer]:
+              - img [ref=e275]
+            - link "LinkedIn" [ref=e278] [cursor=pointer]:
               - /url: https://linkedin.com/company/iprofixer
-              - img [ref=e263]
-            - link "Twitter" [ref=e267] [cursor=pointer]:
+              - img [ref=e279]
+            - link "Twitter" [ref=e283] [cursor=pointer]:
               - /url: https://twitter.com/iprofixer
-              - img [ref=e268]
-            - link "YouTube" [ref=e270] [cursor=pointer]:
-              - /url: https://youtube.com/iprofixer
-              - img [ref=e271]
-        - generic [ref=e274]:
-          - generic [ref=e275]: "We accept:"
-          - generic [ref=e276]:
-            - img [ref=e277]
-            - img [ref=e279]
-            - img [ref=e281]
-            - generic [ref=e283]:
               - img [ref=e284]
-              - generic [ref=e286]: Pay
-      - generic [ref=e288]:
-        - paragraph [ref=e289]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+            - link "YouTube" [ref=e286] [cursor=pointer]:
+              - /url: https://youtube.com/iprofixer
+              - img [ref=e287]
         - generic [ref=e290]:
-          - link "Privacy Policy" [ref=e291] [cursor=pointer]:
+          - generic [ref=e291]: "We accept:"
+          - generic [ref=e292]:
+            - img [ref=e293]
+            - img [ref=e295]
+            - img [ref=e297]
+            - generic [ref=e299]:
+              - img [ref=e300]
+              - generic [ref=e302]: Pay
+      - generic [ref=e304]:
+        - paragraph [ref=e305]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+        - generic [ref=e306]:
+          - link "Privacy Policy" [ref=e307] [cursor=pointer]:
             - /url: /privacy
-          - link "Terms of Service" [ref=e292] [cursor=pointer]:
+          - link "Terms of Service" [ref=e308] [cursor=pointer]:
             - /url: /terms
-          - link "Cookies" [ref=e293] [cursor=pointer]:
+          - link "Cookies" [ref=e309] [cursor=pointer]:
             - /url: /cookie-policy
-    - button "Back to top" [ref=e294] [cursor=pointer]:
-      - img [ref=e295]
+    - button "Back to top" [ref=e310] [cursor=pointer]:
+      - img [ref=e311]
 ```
 
 # Test source
@@ -325,8 +371,7 @@ waiting for navigation until "load"
   19 |     const checkbox = page.locator('input[type="checkbox"]');
   20 |     if (await checkbox.count() > 0) await checkbox.first().check();
   21 |     await page.click('button[type="submit"], button:has-text("Create"), button:has-text("Sign Up")');
-> 22 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
-     |                ^ TimeoutError: page.waitForURL: Timeout 15000ms exceeded.
+  22 |     await page.waitForURL(/dashboard/, { timeout: 15000 });
   23 |   });
   24 | 
   25 |   test('Dashboard overview loads with stats', async ({ page }) => {
@@ -366,7 +411,8 @@ waiting for navigation until "load"
   59 |       const ref = page.locator('text=/IPF-/');
   60 |       const success = page.locator('[class*="success"], text=/success/i, text=/confirmed/i');
   61 |       const hasRef = await ref.count() > 0;
-  62 |       const hasSuccess = await success.count() > 0;
+> 62 |       const hasSuccess = await success.count() > 0;
+     |                                        ^ Error: locator.count: Unexpected token "=" while parsing css selector "[class*="success"], text=/success/i, text=/confirmed/i". Did you mean to CSS.escape it?
   63 |       expect(hasRef || hasSuccess).toBeTruthy();
   64 |     } else {
   65 |       test.skip();

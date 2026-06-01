@@ -39,266 +39,298 @@ waiting for navigation until "load"
         - link "FAQ" [ref=e13] [cursor=pointer]:
           - /url: /faq
       - generic [ref=e14]:
-        - link "Login" [ref=e15] [cursor=pointer]:
-          - /url: /login
+        - link "My Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
           - img [ref=e16]
-          - text: Login
-        - link "Sign Up" [ref=e19] [cursor=pointer]:
-          - /url: /signup
-          - img [ref=e20]
-          - text: Sign Up
-  - generic [ref=e24]:
-    - generic [ref=e25]:
-      - heading "Create Your iPROFIXER Account" [level=1] [ref=e26]
-      - paragraph [ref=e27]: Join thousands of happy customers booking home services
-    - generic [ref=e28]:
-      - generic [ref=e29]:
-        - img [ref=e30]
-        - heading "Quality Service" [level=3] [ref=e32]
-        - paragraph [ref=e33]: Verified professionals only
-      - generic [ref=e34]:
-        - img [ref=e35]
-        - heading "Easy Booking" [level=3] [ref=e37]
-        - paragraph [ref=e38]: Book in just 2 minutes
-      - generic [ref=e39]:
-        - img [ref=e40]
-        - heading "Secure Payment" [level=3] [ref=e42]
-        - paragraph [ref=e43]: Pay after job completion
-  - generic [ref=e45]:
-    - link "Back to Home" [ref=e46] [cursor=pointer]:
-      - /url: /
-      - img [ref=e47]
-      - text: Back to Home
-    - generic [ref=e49]:
-      - generic [ref=e50]:
-        - img "iPROFIXER" [ref=e52]
-        - heading "Create Account" [level=1] [ref=e53]
-        - paragraph [ref=e54]: Sign up to book home services
-      - generic [ref=e55]:
-        - generic [ref=e56]: Unexpected token 'A', "A server e"... is not valid JSON
-        - generic [ref=e57]:
-          - generic [ref=e58]:
-            - generic [ref=e59]: Full Name
-            - generic [ref=e60]:
-              - img [ref=e61]
-              - textbox "John Doe" [ref=e64]: E2E Customer
-          - generic [ref=e65]:
-            - generic [ref=e66]: Email Address
-            - generic [ref=e67]:
-              - img [ref=e68]
-              - textbox "you@example.com" [ref=e71]: e2e_cust_1780249038510@test.com
+          - text: My Dashboard
+        - generic [ref=e21]:
+          - img [ref=e22]
+          - generic [ref=e25]: Hi, E2E
+        - button "Logout" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+          - text: Logout
+  - generic [ref=e30]:
+    - complementary [ref=e31]:
+      - generic [ref=e32]:
+        - link "iPROFIXER" [ref=e33] [cursor=pointer]:
+          - /url: /
+          - img "iPROFIXER" [ref=e34]
+        - navigation [ref=e35]:
+          - link "Dashboard" [ref=e36] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e37]
+            - text: Dashboard
+          - link "Profile" [ref=e42] [cursor=pointer]:
+            - /url: /dashboard/profile
+            - img [ref=e43]
+            - text: Profile
+          - link "Bookings" [ref=e46] [cursor=pointer]:
+            - /url: /dashboard/bookings
+            - img [ref=e47]
+            - text: Bookings
+          - link "Refunds" [ref=e49] [cursor=pointer]:
+            - /url: /dashboard/refunds
+            - img [ref=e50]
+            - text: Refunds
+          - link "Services" [ref=e55] [cursor=pointer]:
+            - /url: /dashboard/services
+            - img [ref=e56]
+            - text: Services
+          - link "Appointments" [ref=e59] [cursor=pointer]:
+            - /url: /dashboard/appointments
+            - img [ref=e60]
+            - text: Appointments
+    - main [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - heading "Dashboard Overview" [level=1] [ref=e67]
+            - paragraph [ref=e68]: Welcome back, E2E Customer!
+          - link "Book a Service" [ref=e69] [cursor=pointer]:
+            - /url: /dashboard/bookings
+        - generic [ref=e70]:
           - generic [ref=e72]:
-            - generic [ref=e73]: Phone Number
-            - generic [ref=e74]:
-              - img [ref=e75]
-              - textbox "+60 12-345-6789" [ref=e77]: "0123456789"
-          - generic [ref=e78]:
-            - generic [ref=e79]: Password
-            - generic [ref=e80]:
-              - img [ref=e81]
-              - textbox "At least 6 characters" [ref=e84]: Test1234
-              - button [ref=e85] [cursor=pointer]:
-                - img [ref=e86]
-          - generic [ref=e89]:
-            - generic [ref=e90]: Confirm Password
-            - generic [ref=e91]:
-              - img [ref=e92]
-              - textbox "Confirm your password" [ref=e95]: Test1234
-              - button [ref=e96] [cursor=pointer]:
-                - img [ref=e97]
-          - generic [ref=e100] [cursor=pointer]:
-            - checkbox "I agree to the Terms of Service and Privacy Policy" [checked] [ref=e101]
+            - generic [ref=e73]:
+              - paragraph [ref=e74]: Total Bookings
+              - heading "0" [level=3] [ref=e75]
+              - paragraph [ref=e76]: All time
+            - img [ref=e78]
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - paragraph [ref=e83]: Completed Jobs
+              - heading "0" [level=3] [ref=e84]
+              - paragraph [ref=e85]: Successfully finished
+            - img [ref=e87]
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - paragraph [ref=e93]: Upcoming
+              - heading "0" [level=3] [ref=e94]
+              - paragraph [ref=e95]: Scheduled
+            - img [ref=e97]
+          - generic [ref=e101]:
             - generic [ref=e102]:
-              - text: I agree to the
-              - link "Terms of Service" [ref=e103]:
-                - /url: /terms
-              - text: and
-              - link "Privacy Policy" [ref=e104]:
-                - /url: /privacy
-          - button "Create Account" [ref=e105] [cursor=pointer]
-        - generic [ref=e110]: Already have an account?
-        - link "Sign in" [ref=e111] [cursor=pointer]:
-          - /url: /login
-    - paragraph [ref=e112]:
-      - text: Want to join as a professional?
-      - link "Apply here" [ref=e113] [cursor=pointer]:
-        - /url: /pro-signup
-  - contentinfo [ref=e114]:
-    - generic [ref=e117]:
-      - generic [ref=e118]:
-        - img [ref=e120]
-        - generic [ref=e122]: Verified Pros
-      - generic [ref=e123]:
-        - img [ref=e125]
-        - generic [ref=e128]: Quality Assured
-      - generic [ref=e129]:
-        - img [ref=e131]
-        - generic [ref=e134]: On-Time Service
-    - generic [ref=e135]:
-      - generic [ref=e136]:
-        - generic [ref=e137]:
-          - link "iPROFIXER" [ref=e138] [cursor=pointer]:
+              - paragraph [ref=e103]: Total Spent
+              - heading "RM 0" [level=3] [ref=e104]
+              - paragraph [ref=e105]: All time
+            - img [ref=e107]
+        - generic [ref=e110]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Recent Bookings" [level=2] [ref=e114]
+              - link "View All" [ref=e115] [cursor=pointer]:
+                - /url: /dashboard/bookings
+                - text: View All
+                - img [ref=e116]
+            - generic [ref=e118]:
+              - img [ref=e119]
+              - paragraph [ref=e121]: No bookings yet. Book your first service!
+              - link "Book Now →" [ref=e122] [cursor=pointer]:
+                - /url: /dashboard/bookings
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - heading "Quick Actions" [level=2] [ref=e125]
+              - generic [ref=e126]:
+                - link "Book New Service" [ref=e127] [cursor=pointer]:
+                  - /url: /dashboard/bookings
+                  - img [ref=e128]
+                  - generic [ref=e130]: Book New Service
+                - link "View Schedule" [ref=e131] [cursor=pointer]:
+                  - /url: /dashboard/appointments
+                  - img [ref=e132]
+                  - generic [ref=e135]: View Schedule
+                - link "Update Profile" [ref=e136] [cursor=pointer]:
+                  - /url: /dashboard/profile
+                  - img [ref=e137]
+                  - generic [ref=e140]: Update Profile
+                - link "Contact Support" [ref=e141] [cursor=pointer]:
+                  - /url: https://wa.me/60162104127
+                  - img [ref=e142]
+                  - generic [ref=e144]: Contact Support
+            - generic [ref=e145]:
+              - generic [ref=e146]:
+                - img [ref=e147]
+                - heading "Need Help?" [level=2] [ref=e149]
+              - paragraph [ref=e150]: Questions about your booking or service?
+              - link "Chat on WhatsApp" [ref=e151] [cursor=pointer]:
+                - /url: https://wa.me/60162104127
+                - img [ref=e152]
+                - text: Chat on WhatsApp
+  - contentinfo [ref=e154]:
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - img [ref=e160]
+        - generic [ref=e162]: Verified Pros
+      - generic [ref=e163]:
+        - img [ref=e165]
+        - generic [ref=e168]: Quality Assured
+      - generic [ref=e169]:
+        - img [ref=e171]
+        - generic [ref=e174]: On-Time Service
+    - generic [ref=e175]:
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - link "iPROFIXER" [ref=e178] [cursor=pointer]:
             - /url: /
-            - img "iPROFIXER" [ref=e139]
-          - paragraph [ref=e140]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
-          - generic [ref=e141]:
-            - link "+03-8080 5249" [ref=e142] [cursor=pointer]:
+            - img "iPROFIXER" [ref=e179]
+          - paragraph [ref=e180]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
+          - generic [ref=e181]:
+            - link "+03-8080 5249" [ref=e182] [cursor=pointer]:
               - /url: tel:+60380805249
-              - img [ref=e144]
-              - generic [ref=e146]: +03-8080 5249
-            - link "for_services@iprofixer.com.my" [ref=e147] [cursor=pointer]:
+              - img [ref=e184]
+              - generic [ref=e186]: +03-8080 5249
+            - link "for_services@iprofixer.com.my" [ref=e187] [cursor=pointer]:
               - /url: mailto:for_services@iprofixer.com.my
-              - img [ref=e149]
-              - generic [ref=e152]: for_services@iprofixer.com.my
-            - generic [ref=e153]:
-              - img [ref=e155]
-              - generic [ref=e158]: Ara Damansara, Petaling Jaya
-        - generic [ref=e159]:
-          - generic [ref=e160]:
-            - heading "Services" [level=4] [ref=e161]
-            - list [ref=e162]:
-              - listitem [ref=e163]:
-                - link "Home Deep Cleaning" [ref=e164] [cursor=pointer]:
+              - img [ref=e189]
+              - generic [ref=e192]: for_services@iprofixer.com.my
+            - generic [ref=e193]:
+              - img [ref=e195]
+              - generic [ref=e198]: Ara Damansara, Petaling Jaya
+        - generic [ref=e199]:
+          - generic [ref=e200]:
+            - heading "Services" [level=4] [ref=e201]
+            - list [ref=e202]:
+              - listitem [ref=e203]:
+                - link "Home Deep Cleaning" [ref=e204] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e165]
+                  - img [ref=e205]
                   - text: Home Deep Cleaning
-              - listitem [ref=e167]:
-                - link "Regular Maid Service" [ref=e168] [cursor=pointer]:
+              - listitem [ref=e207]:
+                - link "Regular Maid Service" [ref=e208] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e169]
+                  - img [ref=e209]
                   - text: Regular Maid Service
-              - listitem [ref=e171]:
-                - link "Post-Renovation Cleaning" [ref=e172] [cursor=pointer]:
+              - listitem [ref=e211]:
+                - link "Post-Renovation Cleaning" [ref=e212] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e173]
+                  - img [ref=e213]
                   - text: Post-Renovation Cleaning
-              - listitem [ref=e175]:
-                - link "Sofa & Carpet Cleaning" [ref=e176] [cursor=pointer]:
+              - listitem [ref=e215]:
+                - link "Sofa & Carpet Cleaning" [ref=e216] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e177]
+                  - img [ref=e217]
                   - text: Sofa & Carpet Cleaning
-              - listitem [ref=e179]:
-                - link "Post-Event Cleanup" [ref=e180] [cursor=pointer]:
+              - listitem [ref=e219]:
+                - link "Post-Event Cleanup" [ref=e220] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e181]
+                  - img [ref=e221]
                   - text: Post-Event Cleanup
-              - listitem [ref=e183]:
-                - link "Laundry & Ironing" [ref=e184] [cursor=pointer]:
+              - listitem [ref=e223]:
+                - link "Laundry & Ironing" [ref=e224] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e185]
+                  - img [ref=e225]
                   - text: Laundry & Ironing
-              - listitem [ref=e187]:
-                - link "Part-Time Maid" [ref=e188] [cursor=pointer]:
+              - listitem [ref=e227]:
+                - link "Part-Time Maid" [ref=e228] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e189]
+                  - img [ref=e229]
                   - text: Part-Time Maid
-          - generic [ref=e191]:
-            - heading "Company" [level=4] [ref=e192]
-            - list [ref=e193]:
-              - listitem [ref=e194]:
-                - link "About iPROFIXER" [ref=e195] [cursor=pointer]:
+          - generic [ref=e231]:
+            - heading "Company" [level=4] [ref=e232]
+            - list [ref=e233]:
+              - listitem [ref=e234]:
+                - link "About iPROFIXER" [ref=e235] [cursor=pointer]:
                   - /url: /about
-                  - img [ref=e196]
+                  - img [ref=e236]
                   - text: About iPROFIXER
-              - listitem [ref=e198]:
-                - link "How It Works" [ref=e199] [cursor=pointer]:
+              - listitem [ref=e238]:
+                - link "How It Works" [ref=e239] [cursor=pointer]:
                   - /url: /how-it-works
-                  - img [ref=e200]
+                  - img [ref=e240]
                   - text: How It Works
-              - listitem [ref=e202]:
-                - link "Join as Professional" [ref=e203] [cursor=pointer]:
+              - listitem [ref=e242]:
+                - link "Join as Professional" [ref=e243] [cursor=pointer]:
                   - /url: /for-professionals
-                  - img [ref=e204]
+                  - img [ref=e244]
                   - text: Join as Professional
-              - listitem [ref=e206]:
-                - link "Careers" [ref=e207] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e208]
+              - listitem [ref=e246]:
+                - link "Careers" [ref=e247] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e248]
                   - text: Careers
-              - listitem [ref=e210]:
-                - link "Blog & Tips" [ref=e211] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e212]
+              - listitem [ref=e250]:
+                - link "Blog & Tips" [ref=e251] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e252]
                   - text: Blog & Tips
-          - generic [ref=e214]:
-            - heading "Support" [level=4] [ref=e215]
-            - list [ref=e216]:
-              - listitem [ref=e217]:
-                - link "Help Center / FAQ" [ref=e218] [cursor=pointer]:
-                  - /url: /faq
-                  - img [ref=e219]
-                  - text: Help Center / FAQ
-              - listitem [ref=e221]:
-                - link "Safety Guidelines" [ref=e222] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e223]
-                  - text: Safety Guidelines
-              - listitem [ref=e225]:
-                - link "Cancellation Policy" [ref=e226] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e227]
-                  - text: Cancellation Policy
-              - listitem [ref=e229]:
-                - link "Refund Policy" [ref=e230] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e231]
-                  - text: Refund Policy
-              - listitem [ref=e233]:
-                - link "Service Guarantee" [ref=e234] [cursor=pointer]:
-                  - /url: /signup
-                  - img [ref=e235]
-                  - text: Service Guarantee
-        - generic [ref=e237]:
-          - heading "Stay Updated" [level=4] [ref=e238]
-          - paragraph [ref=e239]: Get home maintenance tips and exclusive offers.
-          - generic [ref=e240]:
-            - generic [ref=e241]:
-              - img [ref=e242]
-              - textbox "Enter your email" [ref=e245]
-            - button "Subscribe Now" [ref=e246] [cursor=pointer]
-          - link "Chat on WhatsApp" [ref=e247] [cursor=pointer]:
-            - /url: https://wa.me/60162104127
-            - img [ref=e248]
-            - text: Chat on WhatsApp
-      - generic [ref=e251]:
-        - generic [ref=e252]:
-          - generic [ref=e253]: "Follow us:"
           - generic [ref=e254]:
-            - link "Facebook" [ref=e255] [cursor=pointer]:
+            - heading "Support" [level=4] [ref=e255]
+            - list [ref=e256]:
+              - listitem [ref=e257]:
+                - link "Help Center / FAQ" [ref=e258] [cursor=pointer]:
+                  - /url: /faq
+                  - img [ref=e259]
+                  - text: Help Center / FAQ
+              - listitem [ref=e261]:
+                - link "Safety Guidelines" [ref=e262] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e263]
+                  - text: Safety Guidelines
+              - listitem [ref=e265]:
+                - link "Cancellation Policy" [ref=e266] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e267]
+                  - text: Cancellation Policy
+              - listitem [ref=e269]:
+                - link "Refund Policy" [ref=e270] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e271]
+                  - text: Refund Policy
+              - listitem [ref=e273]:
+                - link "Service Guarantee" [ref=e274] [cursor=pointer]:
+                  - /url: /dashboard
+                  - img [ref=e275]
+                  - text: Service Guarantee
+        - generic [ref=e277]:
+          - heading "Stay Updated" [level=4] [ref=e278]
+          - paragraph [ref=e279]: Get home maintenance tips and exclusive offers.
+          - generic [ref=e280]:
+            - generic [ref=e281]:
+              - img [ref=e282]
+              - textbox "Enter your email" [ref=e285]
+            - button "Subscribe Now" [ref=e286] [cursor=pointer]
+          - link "Chat on WhatsApp" [ref=e287] [cursor=pointer]:
+            - /url: https://wa.me/60162104127
+            - img [ref=e288]
+            - text: Chat on WhatsApp
+      - generic [ref=e291]:
+        - generic [ref=e292]:
+          - generic [ref=e293]: "Follow us:"
+          - generic [ref=e294]:
+            - link "Facebook" [ref=e295] [cursor=pointer]:
               - /url: https://facebook.com/iprofixer
-              - img [ref=e256]
-            - link "Instagram" [ref=e258] [cursor=pointer]:
+              - img [ref=e296]
+            - link "Instagram" [ref=e298] [cursor=pointer]:
               - /url: https://instagram.com/iprofixer
-              - img [ref=e259]
-            - link "LinkedIn" [ref=e262] [cursor=pointer]:
+              - img [ref=e299]
+            - link "LinkedIn" [ref=e302] [cursor=pointer]:
               - /url: https://linkedin.com/company/iprofixer
-              - img [ref=e263]
-            - link "Twitter" [ref=e267] [cursor=pointer]:
+              - img [ref=e303]
+            - link "Twitter" [ref=e307] [cursor=pointer]:
               - /url: https://twitter.com/iprofixer
-              - img [ref=e268]
-            - link "YouTube" [ref=e270] [cursor=pointer]:
+              - img [ref=e308]
+            - link "YouTube" [ref=e310] [cursor=pointer]:
               - /url: https://youtube.com/iprofixer
-              - img [ref=e271]
-        - generic [ref=e274]:
-          - generic [ref=e275]: "We accept:"
-          - generic [ref=e276]:
-            - img [ref=e277]
-            - img [ref=e279]
-            - img [ref=e281]
-            - generic [ref=e283]:
-              - img [ref=e284]
-              - generic [ref=e286]: Pay
-      - generic [ref=e288]:
-        - paragraph [ref=e289]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
-        - generic [ref=e290]:
-          - link "Privacy Policy" [ref=e291] [cursor=pointer]:
+              - img [ref=e311]
+        - generic [ref=e314]:
+          - generic [ref=e315]: "We accept:"
+          - generic [ref=e316]:
+            - img [ref=e317]
+            - img [ref=e319]
+            - img [ref=e321]
+            - generic [ref=e323]:
+              - img [ref=e324]
+              - generic [ref=e326]: Pay
+      - generic [ref=e328]:
+        - paragraph [ref=e329]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+        - generic [ref=e330]:
+          - link "Privacy Policy" [ref=e331] [cursor=pointer]:
             - /url: /privacy
-          - link "Terms of Service" [ref=e292] [cursor=pointer]:
+          - link "Terms of Service" [ref=e332] [cursor=pointer]:
             - /url: /terms
-          - link "Cookies" [ref=e293] [cursor=pointer]:
+          - link "Cookies" [ref=e333] [cursor=pointer]:
             - /url: /cookie-policy
-    - button "Back to top" [ref=e294] [cursor=pointer]:
-      - img [ref=e295]
+    - button "Back to top" [ref=e334] [cursor=pointer]:
+      - img [ref=e335]
 ```
 
 # Test source
@@ -324,8 +356,7 @@ waiting for navigation until "load"
   18  |   const checkbox = page.locator('input[type="checkbox"]');
   19  |   if (await checkbox.count() > 0) await checkbox.first().check();
   20  |   await page.click('button[type="submit"], button:has-text("Create"), button:has-text("Sign Up")');
-> 21  |   await page.waitForURL(/dashboard/, { timeout: 15000 });
-      |              ^ TimeoutError: page.waitForURL: Timeout 15000ms exceeded.
+  21  |   await page.waitForURL(/dashboard/, { timeout: 15000 });
   22  | }
   23  | 
   24  | async function registerPro(page, email) {
@@ -349,7 +380,8 @@ waiting for navigation until "load"
   42  |   const checkbox = page.locator('input[type="checkbox"]');
   43  |   if (await checkbox.count() > 0) await checkbox.first().check();
   44  |   await page.click('button[type="submit"], button:has-text("Join"), button:has-text("Complete"), button:has-text("Sign Up")');
-  45  |   await page.waitForURL(/dashboard/, { timeout: 15000 });
+> 45  |   await page.waitForURL(/dashboard/, { timeout: 15000 });
+      |              ^ TimeoutError: page.waitForURL: Timeout 15000ms exceeded.
   46  | }
   47  | 
   48  | test.describe('End-to-End Booking Lifecycle', () => {
@@ -426,4 +458,28 @@ waiting for navigation until "load"
   119 |     if (await completeBtn.count() > 0) {
   120 |       await completeBtn.first().click();
   121 |       await proPage.waitForTimeout(2000);
+  122 |       console.log('✅ Step 6: Job marked as complete');
+  123 |     } else {
+  124 |       console.log('⚠️ Step 6: Complete button not found');
+  125 |     }
+  126 | 
+  127 |     // ── Step 7: Customer sees completed + submits review ──────────
+  128 |     await custPage.goto('https://iprosfixer.vercel.app/dashboard/bookings');
+  129 |     await custPage.waitForTimeout(2000);
+  130 |     const completedStatus = custPage.locator('text=/completed/i');
+  131 |     console.log(await completedStatus.count() > 0 ? '✅ Step 7: Customer sees Completed status' : '⚠️ Step 7: Completed status not visible');
+  132 | 
+  133 |     const reviewBtn = custPage.locator('button:has-text("Review"), button:has-text("Leave Review"), button:has-text("Rate")');
+  134 |     if (await reviewBtn.count() > 0) {
+  135 |       await reviewBtn.first().click();
+  136 |       await custPage.waitForTimeout(1000);
+  137 |       const stars = custPage.locator('[class*="star"], input[type="radio"][name*="rating"]');
+  138 |       if (await stars.count() > 0) await stars.last().click();
+  139 |       const reviewText = custPage.locator('textarea, input[name="comment"], input[placeholder*="review" i]');
+  140 |       if (await reviewText.count() > 0) await reviewText.first().fill('Great service, very professional!');
+  141 |       const submitReview = custPage.locator('button:has-text("Submit"), button:has-text("Post"), button[type="submit"]');
+  142 |       if (await submitReview.count() > 0) await submitReview.first().click();
+  143 |       await custPage.waitForTimeout(2000);
+  144 |       console.log('✅ Step 8: Review submitted');
+  145 |     }
 ```

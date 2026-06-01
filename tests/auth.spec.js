@@ -41,8 +41,8 @@ test.describe('Authentication', () => {
     await page.fill('input[type="password"]', 'wrongpassword');
     await page.click('button[type="submit"], button:has-text("Login")');
     await page.waitForTimeout(4000);
-    const error = page.locator('[class*="error"], [class*="alert"], [role="alert"], text=/invalid/i, text=/incorrect/i, text=/wrong/i');
-    expect(await error.count()).toBeGreaterThan(0);
+    const error = page.locator('[class*="error"], [class*="alert"], [role="alert"]');
+    await expect(error).toBeVisible({ timeout: 5000 });
   });
 
   test('Professional signup succeeds and redirects to pro dashboard', async ({ page }) => {

@@ -75,13 +75,13 @@ Error: locator.count: Unexpected token "=" while parsing css selector "[class*="
         - generic [ref=e59]:
           - button "Customer" [ref=e60] [cursor=pointer]
           - button "Professional" [ref=e61] [cursor=pointer]
-        - generic [ref=e62]: Unexpected token 'A', "A server e"... is not valid JSON
+        - generic [ref=e62]: Invalid credentials
         - generic [ref=e63]:
           - generic [ref=e64]:
             - generic [ref=e65]: Email Address
             - generic [ref=e66]:
               - img [ref=e67]
-              - textbox "you@example.com" [ref=e70]: customer_1780248887765@test.com
+              - textbox "you@example.com" [ref=e70]: customer_1780251282085@test.com
           - generic [ref=e71]:
             - generic [ref=e72]: Password
             - generic [ref=e73]:
