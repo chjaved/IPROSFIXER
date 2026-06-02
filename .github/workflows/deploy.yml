@@ -1,38 +1,13 @@
-name: Deploy iPROFIXER
+name: Deploy to Vercel
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install and build
-        run: |
-          cd client
-          npm ci
-          npm run build
-        env:
-          VITE_API_URL: https://iprosfixer.vercel.app/api
-
-      - name: Copy htaccess to dist
-        run: cp client/public/.htaccess client/dist/.htaccess
-
-      - name: Commit dist to GitHub
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add client/dist -f
-          git diff --staged --quiet || git commit -m "build: update dist [skip ci]"
-          git push
+      - name: Trigger Vercel deployment
+        run: echo "Vercel auto-deploys from GitHub. No action needed."
