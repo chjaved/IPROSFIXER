@@ -196,15 +196,15 @@ const HIW_STEPS = [
     n: '1',
     title: 'Tell us what you need',
     desc: 'Pick your service and area. Takes 30 seconds.',
-    img: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&q=80',
-    imgAlt: 'Malaysian person using smartphone to book cleaning service',
+    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80',
+    imgAlt: 'Person browsing home services on smartphone app',
   },
   {
     n: '2',
     title: 'We match you with a pro',
     desc: "You'll get a WhatsApp message with your matched professional within 15 minutes.",
-    img: 'https://images.unsplash.com/photo-1512428559087-560fa0db0152?w=400&q=80',
-    imgAlt: 'Malaysian cleaning professional profile photo',
+    img: 'https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?w=400&q=80',
+    imgAlt: 'Verified professional cleaner profile with notification',
   },
   {
     n: '3',
@@ -217,8 +217,8 @@ const HIW_STEPS = [
     n: '4',
     title: 'Pay after. Rate your pro',
     desc: "Cash, DuitNow, TnG or GrabPay. Only pay when you're satisfied.",
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80',
-    imgAlt: 'Mobile payment using e-wallet app in Malaysia',
+    img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=80',
+    imgAlt: 'Customer giving 5 star rating and review on mobile app',
   },
 ]
 
