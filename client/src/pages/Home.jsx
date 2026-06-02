@@ -266,6 +266,7 @@ export default function Home() {
 
   return (
     <>
+      {/* Pro Signup Popup Modal */}
       <ProSignupPopup />
       
       <section
