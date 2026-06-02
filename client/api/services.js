@@ -11,6 +11,14 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
   if (req.method === 'OPTIONS') return res.status(200).end()
+
+  const url = req.url || ''
+
+  // Health check endpoint
+  if (url === '/api/health' || url.includes('/health')) {
+    return res.status(200).json({ success: true, message: 'iPROFIXER API running', timestamp: new Date().toISOString() })
+  }
+
   if (req.method !== 'GET') return res.status(405).json({ success: false, message: 'Method not allowed' })
 
   try {

@@ -16,7 +16,9 @@
     { "source": "/api/chat", "destination": "/api/chat.js" },
     { "source": "/api/seed", "destination": "/api/seed.js" },
     { "source": "/api/seed-data", "destination": "/api/seed-data.js" },
-    { "source": "/api/health", "destination": "/api/health.js" },
+    { "source": "/api/health", "destination": "/api/services.js" },
+    { "source": "/api/contact", "destination": "/api/contact.js" },
+    { "source": "/api/join", "destination": "/api/contact.js" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
