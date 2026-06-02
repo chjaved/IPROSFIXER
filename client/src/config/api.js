@@ -1,4 +1,4 @@
-export const API_BASE = import.meta.env.VITE_API_URL || 'https://iprofixer.com.my/api';
+export const API_BASE = import.meta.env.VITE_API_URL || 'https://iprosfixer.vercel.app/api';
 
 export const apiCall = async (endpoint, options = {}) => {
   const token = localStorage.getItem('iprofixer_token');
