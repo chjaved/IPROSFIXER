@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Calendar, MapPin, Clock, CheckCircle, XCircle, AlertCircle, Search, Filter, Loader2, Plus, X } from 'lucide-react'
+import { Calendar, MapPin, Clock, CheckCircle, XCircle, AlertCircle, Search, Filter, Loader2, Plus, X, Upload, CreditCard, FileImage } from 'lucide-react'
 import api from '../../../lib/api.js'
 
 const STATUS_COLORS = {
@@ -8,6 +8,13 @@ const STATUS_COLORS = {
   accepted:  'bg-blue-100 text-blue-700',
   pending:   'bg-orange-100 text-orange-700',
   cancelled: 'bg-red-100 text-red-700',
+}
+
+const PAYMENT_STATUS_COLORS = {
+  unpaid: 'bg-gray-100 text-gray-600',
+  receipt_uploaded: 'bg-amber-100 text-amber-700',
+  verified: 'bg-green-100 text-green-700',
+  receipt_rejected: 'bg-red-100 text-red-700',
 }
 const STATUS_ICONS = {
   completed: CheckCircle,
@@ -43,6 +50,18 @@ export default function Bookings() {
     whatsapp: ''
   })
   const [error, setError] = useState('')
+  
+  // Payment receipt modal state
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [selectedBooking, setSelectedBooking] = useState(null)
+  const [paymentSubmitting, setPaymentSubmitting] = useState(false)
+  const [paymentSuccess, setPaymentSuccess] = useState(null)
+  const [paymentData, setPaymentData] = useState({
+    amount: '',
+    payment_method: 'duitnow',
+    receipt_file: null,
+    receipt_preview: null
+  })
 
   const load = () => {
     setLoading(true)
@@ -65,6 +84,81 @@ export default function Bookings() {
       setBookings(prev => prev.map(b => b.id === id ? { ...b, status: 'cancelled' } : b))
     } catch (e) { alert(e.message) }
     finally { setCancelling(null) }
+  }
+
+  const openPaymentModal = (booking) => {
+    setSelectedBooking(booking)
+    setPaymentData({
+      amount: booking.price || '',
+      payment_method: 'duitnow',
+      receipt_file: null,
+      receipt_preview: null
+    })
+    setPaymentSuccess(null)
+    setShowPaymentModal(true)
+  }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size must be less than 5MB')
+      return
+    }
+    
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setPaymentData(prev => ({
+        ...prev,
+        receipt_file: file,
+        receipt_preview: reader.result
+      }))
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const submitPayment = async (e) => {
+    e.preventDefault()
+    if (!paymentData.receipt_file) {
+      alert('Please upload a receipt image')
+      return
+    }
+    
+    setPaymentSubmitting(true)
+    try {
+      // Convert preview (data URL) to base64
+      const base64String = paymentData.receipt_preview.split(',')[1]
+      
+      const res = await api.post('/payments/upload', {
+        booking_id: selectedBooking.id,
+        amount: parseFloat(paymentData.amount),
+        payment_method: paymentData.payment_method,
+        receipt_base64: base64String,
+        receipt_filename: paymentData.receipt_file.name
+      })
+      
+      if (res.success) {
+        setPaymentSuccess({
+          message: res.message,
+          reference: res.reference
+        })
+        // Update booking payment status locally
+        setBookings(prev => prev.map(b => 
+          b.id === selectedBooking.id 
+            ? { ...b, payment_status: 'receipt_uploaded' } 
+            : b
+        ))
+        setTimeout(() => {
+          setShowPaymentModal(false)
+          setPaymentSuccess(null)
+        }, 3000)
+      }
+    } catch (e) {
+      alert(e.message || 'Failed to upload receipt')
+    } finally {
+      setPaymentSubmitting(false)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -186,6 +280,20 @@ export default function Bookings() {
                           {cancelling === b.id ? 'Cancelling…' : 'Cancel'}
                         </button>
                       )}
+                      {b.status === 'completed' && (!b.payment_status || b.payment_status === 'unpaid') && (
+                        <button onClick={() => openPaymentModal(b)}
+                          className="text-teal hover:text-teal-dark text-sm font-medium">
+                          Upload Receipt
+                        </button>
+                      )}
+                      {b.payment_status === 'receipt_uploaded' && (
+                        <span className="text-amber-600 text-xs">Awaiting Verification</span>
+                      )}
+                      {b.payment_status === 'verified' && (
+                        <span className="text-green-600 text-xs flex items-center gap-1">
+                          <CheckCircle size={12} /> Paid
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -265,6 +373,118 @@ export default function Bookings() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Receipt Upload Modal */}
+      {showPaymentModal && selectedBooking && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <h3 className="text-lg font-bold text-gray-900">Upload Payment Receipt</h3>
+              <button onClick={() => setShowPaymentModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
+                <X size={20} />
+              </button>
+            </div>
+            
+            {paymentSuccess ? (
+              <div className="p-6">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center gap-2 text-green-700 mb-2">
+                    <CheckCircle size={20} />
+                    <span className="font-semibold">Receipt Submitted!</span>
+                  </div>
+                  <p className="text-green-700 text-sm">{paymentSuccess.message}</p>
+                  <p className="text-green-800 font-mono text-sm mt-2">Reference: {paymentSuccess.reference}</p>
+                </div>
+                <p className="text-gray-500 text-sm text-center">Closing in 3 seconds...</p>
+              </div>
+            ) : (
+              <form onSubmit={submitPayment} className="p-6 space-y-4">
+                <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                  <p className="text-sm text-blue-800">
+                    <strong>Booking:</strong> {selectedBooking.service_name}<br/>
+                    <strong>Amount Due:</strong> <span className="text-lg font-bold text-blue-900">RM {parseFloat(selectedBooking.price||0).toFixed(0)}</span>
+                  </p>
+                </div>
+
+                <div className="bg-amber-50 border border-amber-100 rounded-lg p-4">
+                  <p className="text-sm text-amber-800">
+                    <strong>Payment Instructions:</strong><br/>
+                    Please transfer the exact amount to our DuitNow account:<br/>
+                    <span className="font-mono font-bold text-amber-900">03-8080 5249</span><br/>
+                    <span className="text-xs text-amber-700">iPROFIXER — IPROS EDUCTECH SDN BHD</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                  <select 
+                    value={paymentData.payment_method} 
+                    onChange={e => setPaymentData({...paymentData, payment_method: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal">
+                    <option value="duitnow">DuitNow</option>
+                    <option value="tng">Touch 'n Go</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="cash">Cash</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Amount Paid (RM)</label>
+                  <input 
+                    type="number" 
+                    step="0.01"
+                    required 
+                    value={paymentData.amount} 
+                    onChange={e => setPaymentData({...paymentData, amount: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal"
+                    placeholder="Enter amount paid"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Receipt Screenshot/PDF</label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-teal transition-colors">
+                    {paymentData.receipt_preview ? (
+                      <div className="space-y-2">
+                        <img src={paymentData.receipt_preview} alt="Receipt preview" className="max-h-40 mx-auto rounded" />
+                        <button 
+                          type="button"
+                          onClick={() => setPaymentData({...paymentData, receipt_file: null, receipt_preview: null})}
+                          className="text-sm text-red-600 hover:text-red-700"
+                        >
+                          Remove & Upload Different
+                        </button>
+                      </div>
+                    ) : (
+                      <label className="cursor-pointer block">
+                        <FileImage size={40} className="mx-auto text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-600">Click to upload receipt</span>
+                        <span className="text-xs text-gray-400 block mt-1">JPG, PNG, PDF (max 5MB)</span>
+                        <input 
+                          type="file" 
+                          accept="image/jpeg,image/png,image/jpg,application/pdf"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                      </label>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button type="button" onClick={() => setShowPaymentModal(false)}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                  <button type="submit" disabled={paymentSubmitting || !paymentData.receipt_file}
+                    className="flex-1 bg-teal text-white px-4 py-2 rounded-lg hover:bg-teal-dark disabled:opacity-50 flex items-center justify-center gap-2">
+                    {paymentSubmitting && <Loader2 size={16} className="animate-spin" />}
+                    {paymentSubmitting ? 'Uploading...' : 'Submit Receipt'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}

@@ -32,6 +32,7 @@ import ProJobs from './pages/dashboard/professional/Jobs.jsx'
 import ProEarnings from './pages/dashboard/professional/Earnings.jsx'
 import ProSchedule from './pages/dashboard/professional/Schedule.jsx'
 import ProReviews from './pages/dashboard/professional/Reviews.jsx'
+import AdminPayments from './pages/admin/AdminPayments.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 
 export default function App() {
@@ -56,6 +57,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/pro-signup" element={<ProSignup />} />
+
+        {/* Admin routes - password protected */}
+        <Route path="/admin/payments" element={<AdminPayments />} />
 
         {/* Protected Consumer Dashboard routes */}
         <Route 

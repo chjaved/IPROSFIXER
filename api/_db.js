@@ -131,6 +131,30 @@ async function initTables() {
     )
   `
 
+  // Add payment_status column to bookings if not exists
+  await sql`
+    ALTER TABLE bookings ADD COLUMN IF NOT EXISTS payment_status VARCHAR(50) DEFAULT 'unpaid'
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS payments (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT REFERENCES bookings(id),
+      customer_id TEXT REFERENCES users(id),
+      amount REAL NOT NULL,
+      payment_method VARCHAR(50) DEFAULT 'duitnow',
+      receipt_url TEXT,
+      receipt_filename TEXT,
+      reference_code VARCHAR(100) UNIQUE,
+      status VARCHAR(50) DEFAULT 'pending_verification',
+      commission_amount REAL,
+      pro_payout_amount REAL,
+      admin_note TEXT,
+      verified_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
   // Seed default services if empty
   const existing = await sql`SELECT COUNT(*) as count FROM services`
   if (parseInt(existing[0].count) === 0) {

@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react'
-import { Wallet, TrendingUp, TrendingDown, DollarSign, Calendar, Banknote, Loader2 } from 'lucide-react'
+import { Wallet, TrendingUp, TrendingDown, DollarSign, Calendar, Banknote, Loader2, CheckCircle, Clock } from 'lucide-react'
 import api from '../../../lib/api.js'
 
 export default function Earnings() {
   const [transactions, setTransactions] = useState([])
+  const [payouts, setPayouts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.get('/transactions').then(data => {
-      setTransactions(data.data?.transactions || data.transactions || [])
+    Promise.all([
+      api.get('/transactions'),
+      api.get('/payments/admin').catch(() => ({ payments: [] }))
+    ]).then(([txnData, payoutData]) => {
+      setTransactions(txnData.data?.transactions || txnData.transactions || [])
+      setPayouts(payoutData.payments || [])
     }).catch(console.error).finally(() => setLoading(false))
   }, [])
 
@@ -77,6 +82,65 @@ export default function Earnings() {
         </div>
       </div>
 
+      {/* Payout Breakdown */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+        <h3 className="font-semibold text-gray-900 mb-4">Job Payout Breakdown</h3>
+        {payouts.length === 0 ? (
+          <div className="text-center text-gray-400 py-10">
+            <Wallet size={36} className="mx-auto mb-3 opacity-30" />
+            <p>No completed jobs yet</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {payouts.filter(p => p.status === 'verified').slice(0, 10).map(p => {
+              const bookingAmount = parseFloat(p.amount || 0);
+              const commission = parseFloat(p.commission_amount || (bookingAmount * 0.15));
+              const proPayout = parseFloat(p.pro_payout_amount || (bookingAmount - commission));
+              
+              return (
+                <div key={p.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-gray-900">{p.service_name || 'Service'}</span>
+                      <span className="text-xs text-gray-500">({p.booking_number})</span>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      p.status === 'verified' ? 'bg-green-100 text-green-700' : 
+                      p.status === 'pending_verification' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100'
+                    }`}>
+                      {p.status === 'verified' ? 'Paid' : p.status === 'pending_verification' ? 'Pending' : p.status}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <p className="text-gray-500 text-xs">Booking Amount</p>
+                      <p className="font-medium text-gray-900">RM {bookingAmount.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-xs">Platform Fee (15%)</p>
+                      <p className="font-medium text-red-600">-RM {commission.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-xs">Your Payout (85%)</p>
+                      <p className="font-bold text-green-600">RM {proPayout.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Clock size={14} className="text-gray-400" />
+                      <span className="text-xs text-gray-500">Verified: {new Date(p.verified_at).toLocaleDateString('en-MY')}</span>
+                    </div>
+                    <span className="text-xs text-green-600 flex items-center gap-1">
+                      <CheckCircle size={12} /> Ready for Payout
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h3 className="font-semibold text-gray-900 mb-4">Recent Transactions</h3>
         {transactions.length === 0 ? (
@@ -90,20 +154,29 @@ export default function Earnings() {
               <div key={txn.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    txn.type === 'withdrawal' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'
+                    txn.type === 'withdrawal' ? 'bg-red-100 text-red-600' : 
+                    txn.type === 'payout' ? 'bg-blue-100 text-blue-600' :
+                    'bg-green-100 text-green-600'
                   }`}>
-                    {txn.type === 'withdrawal' ? <TrendingDown size={18} /> : <DollarSign size={18} />}
+                    {txn.type === 'withdrawal' ? <TrendingDown size={18} /> : 
+                     txn.type === 'payout' ? <DollarSign size={18} /> :
+                     <DollarSign size={18} />}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 text-sm">{txn.description || txn.type}</p>
+                    <p className="font-medium text-gray-900 text-sm">{txn.description || (txn.type === 'payout' ? 'Job Payout' : txn.type)}</p>
                     <p className="text-xs text-gray-500">
                       {txn.created_at ? new Date(txn.created_at).toLocaleDateString('en-MY', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'}
                     </p>
                   </div>
                 </div>
-                <p className={`font-bold ${parseFloat(txn.amount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {parseFloat(txn.amount) >= 0 ? '+' : ''}RM {Math.abs(parseFloat(txn.amount||0)).toFixed(2)}
-                </p>
+                <div className="text-right">
+                  <p className={`font-bold ${parseFloat(txn.amount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {parseFloat(txn.amount) >= 0 ? '+' : ''}RM {Math.abs(parseFloat(txn.amount||0)).toFixed(2)}
+                  </p>
+                  {txn.type === 'payout' && (
+                    <span className="text-xs text-blue-600">{txn.status === 'completed' ? 'Released' : 'Pending Release'}</span>
+                  )}
+                </div>
               </div>
             ))}
           </div>
