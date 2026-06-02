@@ -22,8 +22,8 @@ jobs:
         env:
           VITE_API_URL: https://iprosfixer.vercel.app/api
 
-      - name: Deploy to cPanel
-        uses: SamKirkland/FTP-Deploy-Action@4.3.4
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.2
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
