@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/iprofix/public_html/
+    - /bin/cp -rf client/dist/* $DEPLOYPATH
+    - /bin/cp client/public/.htaccess $DEPLOYPATH
