@@ -1,3 +1,4 @@
+// iPROFIXER v1.0 - deployed via GitHub Actions
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
