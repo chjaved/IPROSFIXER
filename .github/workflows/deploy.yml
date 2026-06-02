@@ -44,6 +44,7 @@ jobs:
           local-dir: ./client/dist/
           server-dir: /public_html/
           port: 21
+          dangerous-clean-slate: true
           log-level: verbose
 
       - name: Verify deployment
