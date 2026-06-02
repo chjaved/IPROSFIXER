@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
+  'https://iprofixer.com.my',
+  'https://www.iprofixer.com.my',
   'http://localhost:5173',
   'http://localhost:4173',
 ];
