@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
-const BASE = '/api'
+const BASE = import.meta.env.VITE_API_URL || '/api'
 const AuthContext = createContext(null)
 
 async function apiPost(path, body) {
