@@ -1,5 +1,6 @@
 ﻿import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import ProSignupPopup from '../components/ProSignupPopup'
 
 const WA_SVG = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
@@ -265,6 +266,7 @@ export default function Home() {
 
   return (
     <>
+      <ProSignupPopup />
       
       <section
         className="hero-circle-bg relative overflow-hidden pt-[68px]"
@@ -328,7 +330,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-white/80 text-sm">
-                <strong className="text-white">9,000+ homeowners</strong> trust us across Klang Valley
+                <strong className="text-white">2,000+ homeowners</strong> trust us across Klang Valley
               </p>
             </div>
           </div>
@@ -352,7 +354,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-[10px] text-gray-500 leading-none">Verified &amp; Insured</div>
-                  <div className="text-xs font-bold text-gray-800">500+ Professionals</div>
+                  <div className="text-xs font-bold text-gray-800">100+ Professionals</div>
                 </div>
               </div>
 
@@ -362,7 +364,7 @@ export default function Home() {
                   {[0,1,2,3,4].map(i => <StarIcon key={i} />)}
                 </div>
                 <div className="text-xs font-bold text-gray-800">4.9 / 5.0</div>
-                <div className="text-[10px] text-gray-500">9,641 reviews</div>
+                <div className="text-[10px] text-gray-500">2,000+ reviews</div>
               </div>
 
               {/* Bottom: stacked client avatars */}
@@ -376,7 +378,7 @@ export default function Home() {
                     ))}
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-gray-800">9,000+ happy clients</div>
+                    <div className="text-xs font-bold text-gray-800">2,000+ happy clients</div>
                     <div className="text-[10px] text-gray-500">Across Klang Valley</div>
                   </div>
                 </div>
@@ -391,9 +393,9 @@ export default function Home() {
       <section style={{ background: '#04342C' }} className="py-12" aria-label="iPROFIXER statistics">
         <div className="max-w-content mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x divide-white/10">
-            <StatCounter target={9641} suffix="+"  label="Cleaning jobs completed" />
-            <StatCounter target={98}   suffix="%"  label="Customer satisfaction" />
-            <StatCounter target={500}   suffix="+"  label="Vetted cleaning professionals" />
+            <StatCounter target={2000} suffix="+"  label="Cleaning jobs completed" />
+            <StatCounter target={90}   suffix="%+"  label="Customer satisfaction" />
+            <StatCounter target={100}   suffix="+"  label="Vetted cleaning professionals" />
             <StatCounter target={12}   suffix=""   label="Cities in Klang Valley" />
           </div>
         </div>
@@ -539,7 +541,7 @@ export default function Home() {
               </div>
               <div className="p-8 pt-4 flex flex-col gap-4">
                 <h3 className="font-head font-bold text-2xl text-text">Earn more. Work on your own terms.</h3>
-                <p className="text-muted text-sm leading-relaxed">Join 500+ professionals already earning through iPROFIXER. Set your own hours, pick your own jobs and get paid straight after every booking.</p>
+                <p className="text-muted text-sm leading-relaxed">Join 100+ professionals already earning through iPROFIXER. Set your own hours, pick your own jobs and get paid straight after every booking.</p>
                 <ul className="space-y-2">
                   {['Free to join - no monthly fee','Set your own rates and availability','Get client requests in your city','Payments secured on every job'].map(b => (
                     <li key={b} className="flex items-center gap-2 text-sm text-text"><CheckIcon />{b}</li>
@@ -571,7 +573,7 @@ export default function Home() {
                   {[0,1,2,3,4].map(i => <StarIcon key={i} />)}
                   <span className="text-sm font-bold text-gray-800 ml-1">4.9</span>
                 </div>
-                <div className="text-xs text-gray-500">Based on 9,641 Google reviews</div>
+                <div className="text-xs text-gray-500">Based on 2,000+ Google reviews</div>
               </div>
             </div>
           </div>
