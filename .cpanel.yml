@@ -1,4 +1,6 @@
 ---
 deployment:
   tasks:
-    - echo "Backend code updated via git pull - frontend deployed via GitHub Actions"
+    - export DEPLOYPATH=/home/iprofix1/public_html/
+    - /bin/cp -rf client/dist/* $DEPLOYPATH
+    - /bin/cp -f client/dist/.htaccess $DEPLOYPATH.htaccess 2>/dev/null || true
