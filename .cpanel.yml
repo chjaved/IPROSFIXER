@@ -3,4 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/iprofix1/public_html/
     - /bin/cp -rf client/dist/* $DEPLOYPATH
-    - /bin/cp -f client/dist/.htaccess $DEPLOYPATH.htaccess 2>/dev/null || true
+    - /bin/cp -f client/public/.htaccess $DEPLOYPATH.htaccess
