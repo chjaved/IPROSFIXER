@@ -6,8 +6,8 @@
 
 # Test info
 
-- Name: 02-auth.spec.js >> AUTH-03 - Wrong password shows error
-- Location: tests\02-auth.spec.js:20:1
+- Name: 02-auth.spec.js >> AUTH-10 - Rate limiting on failed logins
+- Location: tests\02-auth.spec.js:94:1
 
 # Error details
 
@@ -56,8 +56,7 @@ Call log:
   20  | test('AUTH-03 - Wrong password shows error', async ({ page }) => {
   21  |   await page.goto('/login');
   22  |   await page.waitForLoadState('networkidle');
-> 23  |   await page.locator('input[type="email"]').first().fill(custEmail);
-      |                                                     ^ TimeoutError: locator.fill: Timeout 15000ms exceeded.
+  23  |   await page.locator('input[type="email"]').first().fill(custEmail);
   24  |   await page.locator('input[type="password"]').first().fill('wrongpassword');
   25  |   await page.locator('button[type="submit"]').first().click();
   26  |   await page.waitForTimeout(5000);
@@ -132,7 +131,8 @@ Call log:
   95  |   await page.goto('/login');
   96  |   await page.waitForLoadState('networkidle');
   97  |   for (let i = 0; i < 12; i++) {
-  98  |     await page.locator('input[type="email"]').first().fill(`fake${i}@test.com`);
+> 98  |     await page.locator('input[type="email"]').first().fill(`fake${i}@test.com`);
+      |                                                       ^ TimeoutError: locator.fill: Timeout 15000ms exceeded.
   99  |     await page.locator('input[type="password"]').first().fill('wrongpass');
   100 |     await page.locator('button[type="submit"]').first().click();
   101 |     await page.waitForTimeout(500);

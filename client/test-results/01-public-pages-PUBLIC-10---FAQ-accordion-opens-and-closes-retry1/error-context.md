@@ -25,7 +25,7 @@ Call log:
       - element is not visible
     - retrying click action
       - waiting 100ms
-    28 × waiting for element to be visible, enabled and stable
+    29 × waiting for element to be visible, enabled and stable
        - element is not visible
      - retrying click action
        - waiting 500ms

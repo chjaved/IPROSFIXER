@@ -15,24 +15,13 @@
 Error: expect(received).toContain(expected) // indexOf
 
 Expected substring: "ok"
-Received string:    "404
-Not Found·
-The resource requested could not be found on this server!··
-Proudly powered by LiteSpeed Web Server·
-Please be advised that LiteSpeed Technologies Inc. is not a web hosting company and, as such, has no control over content found on this site."
+Received string:    "{\"success\":true,\"message\":\"iPROFIXER API running\",\"timestamp\":\"2026-06-03T03:08:43.219Z\"}"
 ```
 
 # Page snapshot
 
 ```yaml
-- generic [active] [ref=e1]:
-  - generic [ref=e3]:
-    - heading "404" [level=1] [ref=e4]
-    - heading "Not Found" [level=2] [ref=e5]
-    - paragraph [ref=e6]: The resource requested could not be found on this server!
-  - generic [ref=e7]:
-    - text: Proudly powered by LiteSpeed Web Server
-    - paragraph [ref=e8]: Please be advised that LiteSpeed Technologies Inc. is not a web hosting company and, as such, has no control over content found on this site.
+- generic [ref=e2]: "{\"success\":true,\"message\":\"iPROFIXER API running\",\"timestamp\":\"2026-06-03T03:08:43.219Z\"}"
 ```
 
 # Test source
