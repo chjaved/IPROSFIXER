@@ -39,323 +39,196 @@ waiting for navigation until "load"
         - link "FAQ" [ref=e13] [cursor=pointer]:
           - /url: /faq
       - generic [ref=e14]:
-        - link "Login" [ref=e15] [cursor=pointer]:
-          - /url: /login
+        - link "Pro Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /pro-dashboard
           - img [ref=e16]
-          - text: Login
-        - link "Sign Up" [ref=e19] [cursor=pointer]:
-          - /url: /signup
-          - img [ref=e20]
-          - text: Sign Up
-  - generic [ref=e24]:
-    - generic [ref=e25]:
-      - heading "Join iPROFIXER as a Professional" [level=1] [ref=e26]
-      - paragraph [ref=e27]: Start earning with your skills. Connect with thousands of customers in your area.
-    - generic [ref=e28]:
-      - generic [ref=e29]:
-        - img [ref=e30]
-        - heading "Earn More" [level=3] [ref=e32]
-        - paragraph [ref=e33]: Competitive rates & tips
-      - generic [ref=e34]:
-        - img [ref=e35]
-        - heading "More Jobs" [level=3] [ref=e40]
-        - paragraph [ref=e41]: Steady stream of customers
+          - text: Pro Dashboard
+        - generic [ref=e21]:
+          - img [ref=e22]
+          - generic [ref=e25]: Hi, Siti
+        - button "Logout" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+          - text: Logout
+  - generic [ref=e31]:
+    - img [ref=e33]
+    - heading "Welcome to iPROFIXER Pro!" [level=2] [ref=e36]
+    - paragraph [ref=e37]: Your professional account has been created. Redirecting to your dashboard...
+  - contentinfo [ref=e38]:
+    - generic [ref=e41]:
       - generic [ref=e42]:
-        - img [ref=e43]
-        - heading "Grow Skills" [level=3] [ref=e46]
-        - paragraph [ref=e47]: Build your reputation
-  - generic [ref=e49]:
-    - link "Back to Home" [ref=e50] [cursor=pointer]:
-      - /url: /
-      - img [ref=e51]
-      - text: Back to Home
-    - generic [ref=e53]:
-      - generic [ref=e54]:
-        - img "iPROFIXER" [ref=e56]
-        - heading "Join as a Cleaner" [level=1] [ref=e57]
-        - paragraph [ref=e58]: Maids, deep cleaners, helpers & caregivers welcome
-      - generic [ref=e59]:
-        - generic [ref=e60]:
-          - generic [ref=e61]:
-            - generic [ref=e62]: Full Name
-            - generic [ref=e63]:
-              - img [ref=e64]
-              - textbox "Your full name" [ref=e67]: Siti Pro Cleaner
-          - generic [ref=e68]:
-            - generic [ref=e69]: Email Address
-            - generic [ref=e70]:
-              - img [ref=e71]
-              - textbox "you@example.com" [ref=e74]: auth_pro_1780457900757@test.com
-          - generic [ref=e75]:
-            - generic [ref=e76]: Phone Number
-            - generic [ref=e77]:
-              - img [ref=e78]
-              - textbox "+60 12-345-6789" [ref=e80]: "0123456789"
-          - generic [ref=e81]:
-            - generic [ref=e82]: Service Category
-            - generic [ref=e83]:
-              - img [ref=e84]
-              - combobox [ref=e87]:
-                - option "Select your service"
-                - option "Part-Time Maid / Cleaner" [selected]
-                - option "Full-Time Maid"
-                - option "Live-In Maid"
-                - option "Household Helper"
-                - option "Wash & Fold Service"
-                - option "Ironing & Pressing"
-                - option "Dry Cleaning"
-                - option "Laundry Pickup & Delivery"
-                - option "Deep Home Cleaning"
-                - option "Post-Renovation Cleaning"
-                - option "Post-Event / Party Cleanup"
-                - option "Move-In / Move-Out Cleaning"
-                - option "Sofa & Upholstery Cleaning"
-                - option "Carpet & Rug Cleaning"
-                - option "Mattress Cleaning"
-                - option "Curtain Cleaning"
-                - option "Marble / Parquet Polishing"
-                - option "Newborn / Confinement Helper"
-                - option "Post-Natal Care Assistant"
-                - option "Elderly Care Helper"
-                - option "Childcare / Nanny"
-          - generic [ref=e88]:
-            - generic [ref=e89]:
-              - generic [ref=e90]: Location
-              - generic [ref=e91]:
-                - img [ref=e92]
-                - combobox [active] [ref=e95]:
-                  - option "Select area" [selected]
-                  - option "Kuala Lumpur"
-                  - option "Petaling Jaya"
-                  - option "Shah Alam"
-                  - option "Subang Jaya"
-                  - option "Cheras"
-                  - option "Klang"
-                  - option "Cyberjaya"
-                  - option "Putrajaya"
-                  - option "Ampang"
-                  - option "Bangsar"
-                  - option "Mont Kiara"
-                  - option "Damansara"
-            - generic [ref=e96]:
-              - generic [ref=e97]: Experience
-              - combobox [ref=e98]:
-                - option "Select" [selected]
-                - option "0-1 years"
-                - option "1-3 years"
-                - option "3-5 years"
-                - option "5+ years"
-          - generic [ref=e99] [cursor=pointer]:
-            - checkbox "I have my own transport" [checked] [ref=e100]
-            - generic [ref=e101]: I have my own transport
-          - generic [ref=e102]:
-            - generic [ref=e103]: Password
-            - generic [ref=e104]:
-              - img [ref=e105]
-              - textbox "At least 6 characters" [ref=e108]: Test1234!
-              - button [ref=e109] [cursor=pointer]:
-                - img [ref=e110]
-          - generic [ref=e113]:
-            - generic [ref=e114]: Confirm Password
-            - generic [ref=e115]:
-              - img [ref=e116]
-              - textbox "Confirm your password" [ref=e119]: Test1234!
-              - button [ref=e120] [cursor=pointer]:
-                - img [ref=e121]
-          - generic [ref=e124] [cursor=pointer]:
-            - checkbox "I agree to the Terms of Service, Privacy Policy, and undergo a background check" [checked] [ref=e125]
-            - generic [ref=e126]:
-              - text: I agree to the
-              - link "Terms of Service" [ref=e127]:
-                - /url: /terms
-              - text: ","
-              - link "Privacy Policy" [ref=e128]:
-                - /url: /privacy
-              - text: ", and undergo a background check"
-          - button "Join as Professional" [ref=e129] [cursor=pointer]
-        - generic [ref=e134]: Already registered?
-        - link "Sign in to your account" [ref=e135] [cursor=pointer]:
-          - /url: /login
-    - paragraph [ref=e136]:
-      - text: Looking for home services?
-      - link "Sign up as Customer" [ref=e137] [cursor=pointer]:
-        - /url: /signup
-  - contentinfo [ref=e138]:
-    - generic [ref=e141]:
-      - generic [ref=e142]:
-        - img [ref=e144]
-        - generic [ref=e146]: Verified Pros
-      - generic [ref=e147]:
-        - img [ref=e149]
-        - generic [ref=e152]: Quality Assured
-      - generic [ref=e153]:
-        - img [ref=e155]
-        - generic [ref=e158]: On-Time Service
-    - generic [ref=e159]:
-      - generic [ref=e160]:
-        - generic [ref=e161]:
-          - link "iPROFIXER" [ref=e162] [cursor=pointer]:
+        - img [ref=e44]
+        - generic [ref=e46]: Verified Pros
+      - generic [ref=e47]:
+        - img [ref=e49]
+        - generic [ref=e52]: Quality Assured
+      - generic [ref=e53]:
+        - img [ref=e55]
+        - generic [ref=e58]: On-Time Service
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - link "iPROFIXER" [ref=e62] [cursor=pointer]:
             - /url: /
-            - img "iPROFIXER" [ref=e163]
-          - paragraph [ref=e164]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
-          - generic [ref=e165]:
-            - link "+03-8080 5249" [ref=e166] [cursor=pointer]:
+            - img "iPROFIXER" [ref=e63]
+          - paragraph [ref=e64]: Malaysia's most trusted cleaning service platform. Connecting homeowners with verified cleaning professionals for all your home cleaning needs.
+          - generic [ref=e65]:
+            - link "+03-8080 5249" [ref=e66] [cursor=pointer]:
               - /url: tel:+60380805249
-              - img [ref=e168]
-              - generic [ref=e170]: +03-8080 5249
-            - link "for_services@iprofixer.com.my" [ref=e171] [cursor=pointer]:
+              - img [ref=e68]
+              - generic [ref=e70]: +03-8080 5249
+            - link "for_services@iprofixer.com.my" [ref=e71] [cursor=pointer]:
               - /url: mailto:for_services@iprofixer.com.my
-              - img [ref=e173]
-              - generic [ref=e176]: for_services@iprofixer.com.my
-            - generic [ref=e177]:
-              - img [ref=e179]
-              - generic [ref=e182]: Ara Damansara, Petaling Jaya
-        - generic [ref=e183]:
-          - generic [ref=e184]:
-            - heading "Services" [level=4] [ref=e185]
-            - list [ref=e186]:
-              - listitem [ref=e187]:
-                - link "Home Deep Cleaning" [ref=e188] [cursor=pointer]:
+              - img [ref=e73]
+              - generic [ref=e76]: for_services@iprofixer.com.my
+            - generic [ref=e77]:
+              - img [ref=e79]
+              - generic [ref=e82]: Ara Damansara, Petaling Jaya
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - heading "Services" [level=4] [ref=e85]
+            - list [ref=e86]:
+              - listitem [ref=e87]:
+                - link "Home Deep Cleaning" [ref=e88] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e189]
+                  - img [ref=e89]
                   - text: Home Deep Cleaning
-              - listitem [ref=e191]:
-                - link "Regular Maid Service" [ref=e192] [cursor=pointer]:
+              - listitem [ref=e91]:
+                - link "Regular Maid Service" [ref=e92] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e193]
+                  - img [ref=e93]
                   - text: Regular Maid Service
-              - listitem [ref=e195]:
-                - link "Post-Renovation Cleaning" [ref=e196] [cursor=pointer]:
+              - listitem [ref=e95]:
+                - link "Post-Renovation Cleaning" [ref=e96] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e197]
+                  - img [ref=e97]
                   - text: Post-Renovation Cleaning
-              - listitem [ref=e199]:
-                - link "Sofa & Carpet Cleaning" [ref=e200] [cursor=pointer]:
+              - listitem [ref=e99]:
+                - link "Sofa & Carpet Cleaning" [ref=e100] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e201]
+                  - img [ref=e101]
                   - text: Sofa & Carpet Cleaning
-              - listitem [ref=e203]:
-                - link "Post-Event Cleanup" [ref=e204] [cursor=pointer]:
+              - listitem [ref=e103]:
+                - link "Post-Event Cleanup" [ref=e104] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e205]
+                  - img [ref=e105]
                   - text: Post-Event Cleanup
-              - listitem [ref=e207]:
-                - link "Laundry & Ironing" [ref=e208] [cursor=pointer]:
+              - listitem [ref=e107]:
+                - link "Laundry & Ironing" [ref=e108] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e209]
+                  - img [ref=e109]
                   - text: Laundry & Ironing
-              - listitem [ref=e211]:
-                - link "Part-Time Maid" [ref=e212] [cursor=pointer]:
+              - listitem [ref=e111]:
+                - link "Part-Time Maid" [ref=e112] [cursor=pointer]:
                   - /url: /services
-                  - img [ref=e213]
+                  - img [ref=e113]
                   - text: Part-Time Maid
-          - generic [ref=e215]:
-            - heading "Company" [level=4] [ref=e216]
-            - list [ref=e217]:
-              - listitem [ref=e218]:
-                - link "About iPROFIXER" [ref=e219] [cursor=pointer]:
+          - generic [ref=e115]:
+            - heading "Company" [level=4] [ref=e116]
+            - list [ref=e117]:
+              - listitem [ref=e118]:
+                - link "About iPROFIXER" [ref=e119] [cursor=pointer]:
                   - /url: /about
-                  - img [ref=e220]
+                  - img [ref=e120]
                   - text: About iPROFIXER
-              - listitem [ref=e222]:
-                - link "How It Works" [ref=e223] [cursor=pointer]:
+              - listitem [ref=e122]:
+                - link "How It Works" [ref=e123] [cursor=pointer]:
                   - /url: /how-it-works
-                  - img [ref=e224]
+                  - img [ref=e124]
                   - text: How It Works
-              - listitem [ref=e226]:
-                - link "Join as Professional" [ref=e227] [cursor=pointer]:
+              - listitem [ref=e126]:
+                - link "Join as Professional" [ref=e127] [cursor=pointer]:
                   - /url: /for-professionals
-                  - img [ref=e228]
+                  - img [ref=e128]
                   - text: Join as Professional
-              - listitem [ref=e230]:
-                - link "Careers" [ref=e231] [cursor=pointer]:
+              - listitem [ref=e130]:
+                - link "Careers" [ref=e131] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e232]
+                  - img [ref=e132]
                   - text: Careers
-              - listitem [ref=e234]:
-                - link "Blog & Tips" [ref=e235] [cursor=pointer]:
+              - listitem [ref=e134]:
+                - link "Blog & Tips" [ref=e135] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e236]
+                  - img [ref=e136]
                   - text: Blog & Tips
-          - generic [ref=e238]:
-            - heading "Support" [level=4] [ref=e239]
-            - list [ref=e240]:
-              - listitem [ref=e241]:
-                - link "Help Center / FAQ" [ref=e242] [cursor=pointer]:
+          - generic [ref=e138]:
+            - heading "Support" [level=4] [ref=e139]
+            - list [ref=e140]:
+              - listitem [ref=e141]:
+                - link "Help Center / FAQ" [ref=e142] [cursor=pointer]:
                   - /url: /faq
-                  - img [ref=e243]
+                  - img [ref=e143]
                   - text: Help Center / FAQ
-              - listitem [ref=e245]:
-                - link "Safety Guidelines" [ref=e246] [cursor=pointer]:
+              - listitem [ref=e145]:
+                - link "Safety Guidelines" [ref=e146] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e247]
+                  - img [ref=e147]
                   - text: Safety Guidelines
-              - listitem [ref=e249]:
-                - link "Cancellation Policy" [ref=e250] [cursor=pointer]:
+              - listitem [ref=e149]:
+                - link "Cancellation Policy" [ref=e150] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e251]
+                  - img [ref=e151]
                   - text: Cancellation Policy
-              - listitem [ref=e253]:
-                - link "Refund Policy" [ref=e254] [cursor=pointer]:
+              - listitem [ref=e153]:
+                - link "Refund Policy" [ref=e154] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e255]
+                  - img [ref=e155]
                   - text: Refund Policy
-              - listitem [ref=e257]:
-                - link "Service Guarantee" [ref=e258] [cursor=pointer]:
+              - listitem [ref=e157]:
+                - link "Service Guarantee" [ref=e158] [cursor=pointer]:
                   - /url: /pro-signup
-                  - img [ref=e259]
+                  - img [ref=e159]
                   - text: Service Guarantee
-        - generic [ref=e261]:
-          - heading "Stay Updated" [level=4] [ref=e262]
-          - paragraph [ref=e263]: Get home maintenance tips and exclusive offers.
-          - generic [ref=e264]:
-            - generic [ref=e265]:
-              - img [ref=e266]
-              - textbox "Enter your email" [ref=e269]
-            - button "Subscribe Now" [ref=e270] [cursor=pointer]
-          - link "Chat on WhatsApp" [ref=e271] [cursor=pointer]:
+        - generic [ref=e161]:
+          - heading "Stay Updated" [level=4] [ref=e162]
+          - paragraph [ref=e163]: Get home maintenance tips and exclusive offers.
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - img [ref=e166]
+              - textbox "Enter your email" [ref=e169]
+            - button "Subscribe Now" [ref=e170] [cursor=pointer]
+          - link "Chat on WhatsApp" [ref=e171] [cursor=pointer]:
             - /url: https://wa.me/60162104127
-            - img [ref=e272]
+            - img [ref=e172]
             - text: Chat on WhatsApp
-      - generic [ref=e275]:
-        - generic [ref=e276]:
-          - generic [ref=e277]: "Follow us:"
-          - generic [ref=e278]:
-            - link "Facebook" [ref=e279] [cursor=pointer]:
+      - generic [ref=e175]:
+        - generic [ref=e176]:
+          - generic [ref=e177]: "Follow us:"
+          - generic [ref=e178]:
+            - link "Facebook" [ref=e179] [cursor=pointer]:
               - /url: https://facebook.com/iprofixer
-              - img [ref=e280]
-            - link "Instagram" [ref=e282] [cursor=pointer]:
+              - img [ref=e180]
+            - link "Instagram" [ref=e182] [cursor=pointer]:
               - /url: https://instagram.com/iprofixer
-              - img [ref=e283]
-            - link "LinkedIn" [ref=e286] [cursor=pointer]:
+              - img [ref=e183]
+            - link "LinkedIn" [ref=e186] [cursor=pointer]:
               - /url: https://linkedin.com/company/iprofixer
-              - img [ref=e287]
-            - link "Twitter" [ref=e291] [cursor=pointer]:
+              - img [ref=e187]
+            - link "Twitter" [ref=e191] [cursor=pointer]:
               - /url: https://twitter.com/iprofixer
-              - img [ref=e292]
-            - link "YouTube" [ref=e294] [cursor=pointer]:
+              - img [ref=e192]
+            - link "YouTube" [ref=e194] [cursor=pointer]:
               - /url: https://youtube.com/iprofixer
-              - img [ref=e295]
-        - generic [ref=e298]:
-          - generic [ref=e299]: "We accept:"
-          - generic [ref=e300]:
-            - img [ref=e301]
-            - img [ref=e303]
-            - img [ref=e305]
-            - generic [ref=e307]:
-              - img [ref=e308]
-              - generic [ref=e310]: Pay
-      - generic [ref=e312]:
-        - paragraph [ref=e313]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
-        - generic [ref=e314]:
-          - link "Privacy Policy" [ref=e315] [cursor=pointer]:
+              - img [ref=e195]
+        - generic [ref=e198]:
+          - generic [ref=e199]: "We accept:"
+          - generic [ref=e200]:
+            - img [ref=e201]
+            - img [ref=e203]
+            - img [ref=e205]
+            - generic [ref=e207]:
+              - img [ref=e208]
+              - generic [ref=e210]: Pay
+      - generic [ref=e212]:
+        - paragraph [ref=e213]: © 2026 iPROFIXER — IPROS EDUCTECH SDN BHD. All rights reserved.
+        - generic [ref=e214]:
+          - link "Privacy Policy" [ref=e215] [cursor=pointer]:
             - /url: /privacy
-          - link "Terms of Service" [ref=e316] [cursor=pointer]:
+          - link "Terms of Service" [ref=e216] [cursor=pointer]:
             - /url: /terms
-          - link "Cookies" [ref=e317] [cursor=pointer]:
+          - link "Cookies" [ref=e217] [cursor=pointer]:
             - /url: /cookie-policy
-    - button "Back to top" [ref=e318] [cursor=pointer]:
-      - img [ref=e319]
+    - button "Back to top" [ref=e218] [cursor=pointer]:
+      - img [ref=e219]
 ```
 
 # Test source

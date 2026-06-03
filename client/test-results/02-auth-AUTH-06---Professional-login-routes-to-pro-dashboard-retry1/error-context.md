@@ -21,14 +21,21 @@ Call log:
 # Page snapshot
 
 ```yaml
-- generic [active] [ref=e1]:
-  - generic [ref=e3]:
-    - heading "404" [level=1] [ref=e4]
-    - heading "Not Found" [level=2] [ref=e5]
-    - paragraph [ref=e6]: The resource requested could not be found on this server!
-  - generic [ref=e7]:
-    - text: Proudly powered by LiteSpeed Web Server
-    - paragraph [ref=e8]: Please be advised that LiteSpeed Technologies Inc. is not a web hosting company and, as such, has no control over content found on this site.
+- generic [ref=e2]:
+  - heading "Index of /" [level=1] [ref=e3]
+  - table [ref=e5]:
+    - rowgroup [ref=e6]:
+      - row "Name Last Modified Size" [ref=e7]:
+        - columnheader "Name" [ref=e8]:
+          - link "Name" [ref=e9] [cursor=pointer]:
+            - /url: "?ND"
+        - columnheader "Last Modified" [ref=e10]:
+          - link "Last Modified" [ref=e11] [cursor=pointer]:
+            - /url: "?MA"
+        - columnheader "Size" [ref=e12]:
+          - link "Size" [ref=e13] [cursor=pointer]:
+            - /url: "?SA"
+  - generic [ref=e14]: Proudly Served by LiteSpeed Web Server at www.iprofixer.com.my Port 443
 ```
 
 # Test source

@@ -12,23 +12,10 @@
 # Error details
 
 ```
-TimeoutError: page.fill: Timeout 15000ms exceeded.
-Call log:
-  - waiting for locator('input[name="name"], input[placeholder*="Full Name"]')
-
-```
-
-# Page snapshot
-
-```yaml
-- generic [active] [ref=e1]:
-  - generic [ref=e3]:
-    - heading "404" [level=1] [ref=e4]
-    - heading "Not Found" [level=2] [ref=e5]
-    - paragraph [ref=e6]: The resource requested could not be found on this server!
-  - generic [ref=e7]:
-    - text: Proudly powered by LiteSpeed Web Server
-    - paragraph [ref=e8]: Please be advised that LiteSpeed Technologies Inc. is not a web hosting company and, as such, has no control over content found on this site.
+Error: page.waitForURL: Target page, context or browser has been closed
+=========================== logs ===========================
+waiting for navigation until "load"
+============================================================
 ```
 
 # Test source
@@ -40,8 +27,7 @@ Call log:
   4  | export async function signup(page, email, name = 'Test User') {
   5  |   await page.goto('/signup');
   6  |   await page.waitForLoadState('networkidle');
-> 7  |   await page.fill('input[name="name"], input[placeholder*="Full Name"]', name);
-     |              ^ TimeoutError: page.fill: Timeout 15000ms exceeded.
+  7  |   await page.fill('input[name="name"], input[placeholder*="Full Name"]', name);
   8  |   await page.locator('input[type="email"]').first().fill(email);
   9  |   await page.fill('input[name="phone"], input[placeholder*="Phone"]', '0123456789');
   10 |   await page.locator('input[type="password"]').first().fill(password);
@@ -51,7 +37,8 @@ Call log:
   14 |   const count = await checkboxes.count();
   15 |   for (let i = 0; i < count; i++) await checkboxes.nth(i).check();
   16 |   await page.locator('button[type="submit"]').first().click();
-  17 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
+> 17 |   await page.waitForURL(/dashboard/, { timeout: 30000 });
+     |              ^ Error: page.waitForURL: Target page, context or browser has been closed
   18 | }
   19 | 
   20 | export async function login(page, email) {

@@ -78,13 +78,13 @@ waiting for navigation until "load"
         - generic [ref=e59]:
           - button "Customer" [ref=e60] [cursor=pointer]
           - button "Professional" [ref=e61] [cursor=pointer]
-        - generic [ref=e62]: "Failed to execute 'json' on 'Response': Unexpected end of JSON input"
+        - generic [ref=e62]: Invalid credentials
         - generic [ref=e63]:
           - generic [ref=e64]:
             - generic [ref=e65]: Email Address
             - generic [ref=e66]:
               - img [ref=e67]
-              - textbox "you@example.com" [ref=e70]: auth_cust_1780458107475@test.com
+              - textbox "you@example.com" [ref=e70]: auth_cust_1780459519617@test.com
           - generic [ref=e71]:
             - generic [ref=e72]: Password
             - generic [ref=e73]:
