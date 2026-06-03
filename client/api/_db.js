@@ -1,12 +1,31 @@
 const { neon } = require('@neondatabase/serverless')
 const crypto = require('crypto')
 
-function getDb() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL environment variable is not set')
-  }
-  return neon(process.env.DATABASE_URL)
+// Environment variable validation
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL environment variable is required')
 }
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required')
+}
+
+// Connection pooling with Neon
+const sql = neon(process.env.DATABASE_URL, {
+  fetchConnectionCache: true
+})
+
+function getDb() {
+  return sql
+}
+
+// Sanitize user object - remove sensitive fields
+function sanitizeUser(user) {
+  if (!user) return null
+  const { password_hash, password, ...safe } = user
+  return safe
+}
+
+module.exports = { getDb, initTables, generateId, sanitizeUser }
 
 async function initTables() {
   const sql = getDb()
@@ -131,6 +150,16 @@ async function initTables() {
     )
   `
 
+  // Create database indexes for performance
+  await sql`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_bookings_consumer_id ON bookings(consumer_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_bookings_professional_id ON bookings(professional_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_reviews_professional_id ON reviews(professional_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_transactions_payee_id ON transactions(payee_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_services_slug ON services(slug)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_services_category ON services(category)`
+
   // Add payment_status column to bookings if not exists
   await sql`
     ALTER TABLE bookings ADD COLUMN IF NOT EXISTS payment_status VARCHAR(50) DEFAULT 'unpaid'
@@ -190,4 +219,4 @@ function generateId() {
   return crypto.randomUUID()
 }
 
-module.exports = { getDb, initTables, generateId }
+module.exports = { getDb, initTables, generateId, sanitizeUser }

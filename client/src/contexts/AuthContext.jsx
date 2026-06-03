@@ -3,6 +3,16 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const BASE = import.meta.env.VITE_API_URL || ''
 const AuthContext = createContext(null)
 
+// Token expiry check helper
+const isTokenExpired = (token) => {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    return payload.exp * 1000 < Date.now()
+  } catch {
+    return true
+  }
+}
+
 async function apiPost(path, body) {
   const res = await fetch(`${BASE}${path}`, {
     method: 'POST',
@@ -22,7 +32,15 @@ export function AuthProvider({ children }) {
     const storedUser = localStorage.getItem('iprofixer_user')
     const storedToken = localStorage.getItem('iprofixer_token')
     if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser))
+      // Check if token is expired
+      if (isTokenExpired(storedToken)) {
+        // Clear expired token and redirect to login
+        localStorage.removeItem('iprofixer_token')
+        localStorage.removeItem('iprofixer_user')
+        window.location.href = '/login'
+      } else {
+        setUser(JSON.parse(storedUser))
+      }
     }
     setLoading(false)
   }, [])

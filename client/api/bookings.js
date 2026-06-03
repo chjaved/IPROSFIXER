@@ -6,12 +6,51 @@ async function ensureTables() {
   if (!tablesReady) { await initTables(); tablesReady = true }
 }
 
+// Rate limiting store
+const rateLimitStore = new Map()
+
+function checkRateLimit(key, maxRequests = 100, windowMs = 15 * 60 * 1000) {
+  const now = Date.now()
+  const windowStart = now - windowMs
+  if (!rateLimitStore.has(key)) rateLimitStore.set(key, [])
+  const requests = rateLimitStore.get(key).filter(time => time > windowStart)
+  if (requests.length >= maxRequests) return { allowed: false }
+  requests.push(now)
+  rateLimitStore.set(key, requests)
+  return { allowed: true }
+}
+
+// Security headers
+function setSecurityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('X-XSS-Protection', '1; mode=block')
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+}
+
+// Valid Klang Valley areas
+const VALID_AREAS = ['KL', 'PJ', 'Shah Alam', 'Subang', 'Cheras', 'Klang', 'Cyberjaya', 'Putrajaya', 'Ampang', 'Bangsar', 'Mont Kiara', 'Damansara']
+
 module.exports = async function handler(req, res) {
+  // Set CORS headers
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  const allowedOrigins = ['https://iprofixer.com.my', 'https://www.iprofixer.com.my', 'https://iprosfixer.vercel.app']
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  setSecurityHeaders(res)
+  
   if (req.method === 'OPTIONS') return res.status(200).end()
+  
+  // Rate limiting
+  const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown'
+  const rateLimit = checkRateLimit(`bookings:${clientIp}`, 50)
+  if (!rateLimit.allowed) {
+    return res.status(429).json({ success: false, message: 'Too many requests' })
+  }
 
   try {
     try {
@@ -50,17 +89,22 @@ function genBookingRef() {
 async function listBookings(req, res, sql) {
   const userId = req.user.id
   const userType = req.user.type
-  const { status } = req.query || {}
+  const { status, page = 1, limit = 20 } = req.query || {}
+  
+  // Pagination
+  const pageNum = Math.max(1, parseInt(page) || 1)
+  const limitNum = Math.min(50, Math.max(1, parseInt(limit) || 20))
+  const offset = (pageNum - 1) * limitNum
 
   let bookings
   if (userType === 'consumer') {
     bookings = status
-      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} AND b.status=${status} ORDER BY b.created_at DESC`
-      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} ORDER BY b.created_at DESC`
+      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} AND b.status=${status} ORDER BY b.created_at DESC LIMIT ${limitNum} OFFSET ${offset}`
+      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as professional_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.professional_id=u.id WHERE b.consumer_id=${userId} ORDER BY b.created_at DESC LIMIT ${limitNum} OFFSET ${offset}`
   } else {
     bookings = status
-      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE (b.professional_id=${userId} OR b.professional_id IS NULL) AND b.status=${status} ORDER BY b.created_at DESC`
-      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE b.professional_id=${userId} OR b.professional_id IS NULL ORDER BY b.created_at DESC`
+      ? await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE (b.professional_id=${userId} OR b.professional_id IS NULL) AND b.status=${status} ORDER BY b.created_at DESC LIMIT ${limitNum} OFFSET ${offset}`
+      : await sql`SELECT b.*, s.name as service_name, s.icon, u.name as customer_name FROM bookings b LEFT JOIN services s ON b.service_id=s.id LEFT JOIN users u ON b.consumer_id=u.id WHERE b.professional_id=${userId} OR b.professional_id IS NULL ORDER BY b.created_at DESC LIMIT ${limitNum} OFFSET ${offset}`
   }
 
   // Normalise: Flutter BookingModel reads service_name, area, total_amount
@@ -71,7 +115,7 @@ async function listBookings(req, res, sql) {
     total_amount: b.price || b.total_amount || 0,
   }))
 
-  return res.json({ success: true, bookings: normalised, data: normalised })
+  return res.json({ success: true, bookings: normalised, data: normalised, pagination: { page: pageNum, limit: limitNum } })
 }
 
 async function createBooking(req, res, sql) {
@@ -86,6 +130,19 @@ async function createBooking(req, res, sql) {
 
   if (!serviceId || !scheduledDate || !scheduledTime || !area)
     return res.status(400).json({ success: false, message: 'service_id, scheduled_date, scheduled_time, and area are required' })
+  
+  // Validate area is in valid Klang Valley areas
+  if (!VALID_AREAS.some(validArea => area.toLowerCase().includes(validArea.toLowerCase()))) {
+    return res.status(400).json({ success: false, message: `Area must be one of: ${VALID_AREAS.join(', ')}` })
+  }
+  
+  // Validate date is in future
+  const bookingDate = new Date(scheduledDate)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  if (bookingDate < today) {
+    return res.status(400).json({ success: false, message: 'Booking date must be in the future' })
+  }
 
   const svcRows = await sql`SELECT * FROM services WHERE id=${serviceId} AND is_active=TRUE`
   if (!svcRows.length) return res.status(404).json({ success: false, message: 'Service not found' })

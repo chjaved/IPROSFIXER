@@ -1,4 +1,4 @@
-const { getDb, initTables, generateId } = require('./_db.js')
+const { getDb, initTables, generateId, sanitizeUser } = require('./_db.js')
 const { hashPassword, verifyPassword, generateToken, authMiddleware } = require('./_auth.js')
 
 let tablesReady = false
@@ -6,12 +6,67 @@ async function ensureTables() {
   if (!tablesReady) { await initTables(); tablesReady = true }
 }
 
+// Rate limiting store (in-memory)
+const rateLimitStore = new Map()
+
+// Rate limiter function
+function checkRateLimit(key, maxRequests = 100, windowMs = 15 * 60 * 1000) {
+  const now = Date.now()
+  const windowStart = now - windowMs
+  
+  if (!rateLimitStore.has(key)) {
+    rateLimitStore.set(key, [])
+  }
+  
+  const requests = rateLimitStore.get(key).filter(time => time > windowStart)
+  
+  if (requests.length >= maxRequests) {
+    return { allowed: false, retryAfter: Math.ceil((requests[0] + windowMs - now) / 1000) }
+  }
+  
+  requests.push(now)
+  rateLimitStore.set(key, requests)
+  return { allowed: true }
+}
+
+// Input validation helpers
+const validators = {
+  email: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+  password: (pwd) => pwd && pwd.length >= 8,
+  name: (name) => name && name.length >= 2 && name.length <= 100,
+  phone: (phone) => /^\d{10,12}$/.test(phone),
+  whatsapp: (wa) => /^\d{10,12}$/.test(wa)
+}
+
+// Security headers
+function setSecurityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('X-XSS-Protection', '1; mode=block')
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+}
+
 module.exports = async function handler(req, res) {
+  // Set CORS headers - restrict to production domain
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  const allowedOrigins = ['https://iprofixer.com.my', 'https://www.iprofixer.com.my', 'https://iprosfixer.vercel.app']
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  setSecurityHeaders(res)
+  
   if (req.method === 'OPTIONS') return res.status(200).end()
+  
+  // Check rate limit for this endpoint
+  const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown'
+  const rateLimitKey = `auth:${clientIp}`
+  const rateLimit = checkRateLimit(rateLimitKey, 10, 15 * 60 * 1000) // 10 requests per 15 min for auth
+  if (!rateLimit.allowed) {
+    return res.status(429).json({ success: false, message: 'Too many requests. Please try again later.' })
+  }
 
   try {
     try {
@@ -35,7 +90,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET'  && action === 'verify') {
       const ok = await authMiddleware(req, res)
       if (!ok) return
-      return res.json({ success: true, user: safeUser(req.user) })
+      return res.json({ success: true, user: sanitizeUser(req.user) })
     }
 
     return res.status(404).json({ success: false, message: 'Route not found: ' + url })
@@ -45,16 +100,19 @@ module.exports = async function handler(req, res) {
   }
 }
 
-function safeUser(u) {
-  return { id: u.id, email: u.email, name: u.name, phone: u.phone || '', role: u.role || u.type || 'consumer' }
-}
 
 async function handleRegister(req, res) {
   const { email, password, name, phone } = req.body || {}
+  
+  // Input validation
   if (!email || !password || !name)
     return res.status(400).json({ success: false, message: 'Email, password, and name are required' })
-  if (password.length < 6)
-    return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' })
+  if (!validators.email(email))
+    return res.status(400).json({ success: false, message: 'Please enter a valid email address' })
+  if (!validators.password(password))
+    return res.status(400).json({ success: false, message: 'Password must be at least 8 characters' })
+  if (!validators.name(name))
+    return res.status(400).json({ success: false, message: 'Name must be 2-100 characters' })
 
   const sql = getDb()
   const existing = await sql`SELECT id FROM users WHERE email = ${email}`
@@ -71,16 +129,22 @@ async function handleRegister(req, res) {
     success: true,
     message: 'Account created successfully',
     token,
-    user: { id: userId, email, name, phone: phone || '', type: 'consumer', role: 'consumer' }
+    user: sanitizeUser({ id: userId, email, name, phone: phone || '', type: 'consumer', role: 'consumer' })
   })
 }
 
 async function handleRegisterPro(req, res) {
   const { email, password, name, phone, whatsapp, service_category, coverage_area, years_of_experience } = req.body || {}
+  
+  // Input validation
   if (!email || !password || !name)
     return res.status(400).json({ success: false, message: 'Email, password, and name are required' })
-  if (password.length < 6)
-    return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' })
+  if (!validators.email(email))
+    return res.status(400).json({ success: false, message: 'Please enter a valid email address' })
+  if (!validators.password(password))
+    return res.status(400).json({ success: false, message: 'Password must be at least 8 characters' })
+  if (!validators.name(name))
+    return res.status(400).json({ success: false, message: 'Name must be 2-100 characters' })
 
   const sql = getDb()
   const existing = await sql`SELECT id FROM users WHERE email = ${email}`
@@ -100,7 +164,7 @@ async function handleRegisterPro(req, res) {
     success: true,
     message: 'Professional account created successfully',
     token,
-    user: { id: userId, email, name, phone: phone || '', type: 'professional', role: 'professional' }
+    user: sanitizeUser({ id: userId, email, name, phone: phone || '', type: 'professional', role: 'professional' })
   })
 }
 
@@ -123,6 +187,6 @@ async function handleLogin(req, res) {
     success: true,
     message: 'Login successful',
     token,
-    user: safeUser(user)
+    user: sanitizeUser(user)
   })
 }

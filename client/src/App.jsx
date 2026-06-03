@@ -34,6 +34,7 @@ import ProEarnings from './pages/dashboard/professional/Earnings.jsx'
 import ProSchedule from './pages/dashboard/professional/Schedule.jsx'
 import ProReviews from './pages/dashboard/professional/Reviews.jsx'
 import AdminPayments from './pages/admin/AdminPayments.jsx'
+import NotFound from './pages/NotFound.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 
 export default function App() {
@@ -95,6 +96,9 @@ export default function App() {
           <Route path="schedule" element={<ProSchedule />} />
           <Route path="reviews" element={<ProReviews />} />
         </Route>
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   )

@@ -2,12 +2,23 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { getDb } = require('./_db.js')
 
-const JWT_SECRET = process.env.JWT_SECRET || 'iprofixer-secret-key-change-in-production'
+const JWT_SECRET = process.env.JWT_SECRET
 const JWT_EXPIRES_IN = '7d'
 
+// Simple in-memory token blacklist for logged out users
+const tokenBlacklist = new Set()
+
 async function hashPassword(password) {
-  const salt = await bcrypt.genSalt(10)
+  const salt = await bcrypt.genSalt(12) // Higher salt rounds for security
   return bcrypt.hash(password, salt)
+}
+
+function blacklistToken(token) {
+  tokenBlacklist.add(token)
+}
+
+function isTokenBlacklisted(token) {
+  return tokenBlacklist.has(token)
 }
 
 async function verifyPassword(password, hash) {
@@ -24,7 +35,16 @@ function generateToken(user) {
 
 function verifyToken(token) {
   try {
-    return jwt.verify(token, JWT_SECRET)
+    // Check if token is blacklisted
+    if (isTokenBlacklisted(token)) {
+      return null
+    }
+    const decoded = jwt.verify(token, JWT_SECRET)
+    // Check expiry
+    if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+      return null
+    }
+    return decoded
   } catch {
     return null
   }
@@ -63,4 +83,4 @@ async function authMiddleware(req, res) {
   }
 }
 
-module.exports = { hashPassword, verifyPassword, generateToken, verifyToken, authMiddleware }
+module.exports = { hashPassword, verifyPassword, generateToken, verifyToken, authMiddleware, blacklistToken, isTokenBlacklisted }

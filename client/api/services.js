@@ -5,12 +5,47 @@ async function ensureTables() {
   if (!tablesReady) { await initTables(); tablesReady = true }
 }
 
+// Rate limiting store
+const rateLimitStore = new Map()
+
+function checkRateLimit(key, maxRequests = 100, windowMs = 15 * 60 * 1000) {
+  const now = Date.now()
+  const windowStart = now - windowMs
+  if (!rateLimitStore.has(key)) rateLimitStore.set(key, [])
+  const requests = rateLimitStore.get(key).filter(time => time > windowStart)
+  if (requests.length >= maxRequests) return { allowed: false }
+  requests.push(now)
+  rateLimitStore.set(key, requests)
+  return { allowed: true }
+}
+
+// Security headers
+function setSecurityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('X-XSS-Protection', '1; mode=block')
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  const allowedOrigins = ['https://iprofixer.com.my', 'https://www.iprofixer.com.my', 'https://iprosfixer.vercel.app']
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  setSecurityHeaders(res)
+  
   if (req.method === 'OPTIONS') return res.status(200).end()
+  
+  // Rate limiting
+  const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown'
+  const rateLimit = checkRateLimit(`services:${clientIp}`, 100)
+  if (!rateLimit.allowed) {
+    return res.status(429).json({ success: false, message: 'Too many requests' })
+  }
 
   const url = req.url || ''
 
@@ -45,6 +80,8 @@ module.exports = async function handler(req, res) {
         features: (() => { try { return JSON.parse(s.features || '[]') } catch { return [] } })()
       }))
 
+      // Cache services list for 1 hour since it rarely changes
+      res.setHeader('Cache-Control', 'public, max-age=3600')
       // Flutter BookingProvider reads data.services[] OR data.data[] — provide both
       return res.json({ success: true, data: { services: parsed, all: parsed } })
     }
