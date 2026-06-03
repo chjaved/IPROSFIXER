@@ -1,4 +1,4 @@
-const { getDb, initTables, generateId, sanitizeUser } = require('./_db.js')
+const { getDb, initTables, generateId, sanitizeUser, checkEnvVars } = require('./_db.js')
 const { hashPassword, verifyPassword, generateToken, authMiddleware } = require('./_auth.js')
 
 let tablesReady = false
@@ -87,6 +87,18 @@ module.exports = async function handler(req, res) {
     }
 
     const url = req.url || ''
+    
+    // Health check endpoint
+    if (req.method === 'GET' && url.includes('/health')) {
+      const envStatus = checkEnvVars()
+      return res.json({ 
+        success: true, 
+        message: 'iPROFIXER API running',
+        env: envStatus,
+        timestamp: new Date().toISOString()
+      })
+    }
+    
     const action = url.includes('/register-pro') ? 'register-pro'
       : url.includes('/register')               ? 'register'
       : url.includes('/login')                  ? 'login'

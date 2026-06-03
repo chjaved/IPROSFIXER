@@ -1,21 +1,46 @@
 const { neon } = require('@neondatabase/serverless')
 const crypto = require('crypto')
 
-// Environment variable validation
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL environment variable is required')
-}
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required')
-}
+let sql = null
+let envError = null
 
-// Connection pooling with Neon
-const sql = neon(process.env.DATABASE_URL, {
-  fetchConnectionCache: true
-})
+// Lazy initialization - check env vars when first connecting
+function initDb() {
+  if (sql) return sql
+  
+  if (!process.env.DATABASE_URL) {
+    envError = 'DATABASE_URL environment variable is required'
+    console.error(`[DB] ${envError}`)
+    return null
+  }
+  if (!process.env.JWT_SECRET) {
+    envError = 'JWT_SECRET environment variable is required'
+    console.error(`[DB] ${envError}`)
+    return null
+  }
+  
+  // Connection pooling with Neon
+  sql = neon(process.env.DATABASE_URL, {
+    fetchConnectionCache: true
+  })
+  
+  return sql
+}
 
 function getDb() {
-  return sql
+  const db = initDb()
+  if (!db) {
+    throw new Error(envError || 'Database not initialized')
+  }
+  return db
+}
+
+function checkEnvVars() {
+  return {
+    hasDatabaseUrl: !!process.env.DATABASE_URL,
+    hasJwtSecret: !!process.env.JWT_SECRET,
+    error: envError
+  }
 }
 
 // Sanitize user object - remove sensitive fields
@@ -25,7 +50,7 @@ function sanitizeUser(user) {
   return safe
 }
 
-module.exports = { getDb, initTables, generateId, sanitizeUser }
+module.exports = { getDb, initTables, generateId, sanitizeUser, checkEnvVars }
 
 async function initTables() {
   const sql = getDb()
