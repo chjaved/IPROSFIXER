@@ -56,7 +56,7 @@ Be friendly, concise (2-3 sentences). Guide users to download the mobile app for
     return res.status(200).json({ reply })
 
   } catch (error) {
-    console.error('OpenAI error:', error.message)
+    console.error('OpenAI error:', error.message, error.stack)
     return res.status(200).json({
       reply: 'I can help you with home services - cleaning, AC repair, electrical work, and more. Download our app for instant booking: https://play.google.com/store/apps/details?id=com.iprofixer.app'
     })
