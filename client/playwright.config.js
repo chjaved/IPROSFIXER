@@ -7,7 +7,7 @@ export default defineConfig({
   retries: 1,
   workers: 1,
   use: {
-    baseURL: 'https://iprofixer.com.my',
+    baseURL: 'https://iprosfixer.vercel.app',
     headless: false,
     viewport: { width: 1280, height: 720 },
     screenshot: 'only-on-failure',

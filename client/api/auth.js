@@ -47,16 +47,26 @@ function setSecurityHeaders(res) {
 }
 
 module.exports = async function handler(req, res) {
-  // Set CORS headers - restrict to production domain
+  // Set CORS headers - allow production domains
   res.setHeader('Content-Type', 'application/json')
-  const allowedOrigins = ['https://iprofixer.com.my', 'https://www.iprofixer.com.my', 'https://iprosfixer.vercel.app']
+  const allowedOrigins = [
+    'https://iprofixer.com.my',
+    'https://www.iprofixer.com.my', 
+    'https://iprosfixer.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ]
   const origin = req.headers.origin
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin)
+  } else {
+    // Fallback for cPanel/production
+    res.setHeader('Access-Control-Allow-Origin', 'https://iprofixer.com.my')
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   setSecurityHeaders(res)
+  console.log(`[AUTH] ${req.method} ${req.url} - Origin: ${origin || 'none'}`)
   
   if (req.method === 'OPTIONS') return res.status(200).end()
   
@@ -103,18 +113,28 @@ module.exports = async function handler(req, res) {
 
 async function handleRegister(req, res) {
   const { email, password, name, phone } = req.body || {}
+  console.log('[AUTH] Register attempt:', { email, name, phone })
   
   // Input validation
-  if (!email || !password || !name)
+  if (!email || !password || !name) {
+    console.log('[AUTH] Validation failed: missing fields')
     return res.status(400).json({ success: false, message: 'Email, password, and name are required' })
-  if (!validators.email(email))
+  }
+  if (!validators.email(email)) {
+    console.log('[AUTH] Validation failed: invalid email')
     return res.status(400).json({ success: false, message: 'Please enter a valid email address' })
-  if (!validators.password(password))
+  }
+  if (!validators.password(password)) {
+    console.log('[AUTH] Validation failed: password too short')
     return res.status(400).json({ success: false, message: 'Password must be at least 8 characters' })
-  if (!validators.name(name))
+  }
+  if (!validators.name(name)) {
+    console.log('[AUTH] Validation failed: name invalid')
     return res.status(400).json({ success: false, message: 'Name must be 2-100 characters' })
+  }
 
   const sql = getDb()
+  console.log('[AUTH] DB connection established')
   const existing = await sql`SELECT id FROM users WHERE email = ${email}`
   if (existing.length > 0)
     return res.status(409).json({ success: false, message: 'Email already registered' })
