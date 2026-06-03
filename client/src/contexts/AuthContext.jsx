@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = async (email, password) => {
-    const data = await apiPost('/auth/login', { email, password })
+    const data = await apiPost('/api/auth?action=login', { email, password })
     localStorage.setItem('iprofixer_token', data.token)
     localStorage.setItem('iprofixer_user', JSON.stringify(data.user))
     setUser(data.user)
@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
   }
 
   const signup = async (name, email, password, phone) => {
-    const data = await apiPost('/auth/register', { name, email, password, phone })
+    const data = await apiPost('/api/auth?action=register', { name, email, password, phone })
     localStorage.setItem('iprofixer_token', data.token)
     localStorage.setItem('iprofixer_user', JSON.stringify(data.user))
     setUser(data.user)
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
   }
 
   const signupPro = async (fields) => {
-    const data = await apiPost('/auth/register-pro', fields)
+    const data = await apiPost('/api/auth?action=register-pro', fields)
     localStorage.setItem('iprofixer_token', data.token)
     localStorage.setItem('iprofixer_user', JSON.stringify(data.user))
     setUser(data.user)
