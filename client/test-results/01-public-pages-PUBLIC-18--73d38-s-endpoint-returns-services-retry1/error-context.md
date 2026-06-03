@@ -6,34 +6,38 @@
 
 # Test info
 
-- Name: 01-public-pages.spec.js >> PUBLIC-17 - API health check returns ok
-- Location: tests\01-public-pages.spec.js:160:1
+- Name: 01-public-pages.spec.js >> PUBLIC-18 - API services endpoint returns services
+- Location: tests\01-public-pages.spec.js:167:1
 
 # Error details
 
 ```
 Error: expect(received).toContain(expected) // indexOf
 
-Expected substring: "ok"
-Received string:    "{\"success\":true,\"message\":\"iPROFIXER API running\",\"timestamp\":\"2026-06-03T02:37:26.924Z\"}"
+Expected substring: "clean"
+Received string:    "404
+not found·
+the resource requested could not be found on this server!··
+proudly powered by litespeed web server·
+please be advised that litespeed technologies inc. is not a web hosting company and, as such, has no control over content found on this site."
 ```
 
 # Page snapshot
 
 ```yaml
-- generic [ref=e2]: "{\"success\":true,\"message\":\"iPROFIXER API running\",\"timestamp\":\"2026-06-03T02:37:26.924Z\"}"
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - heading "404" [level=1] [ref=e4]
+    - heading "Not Found" [level=2] [ref=e5]
+    - paragraph [ref=e6]: The resource requested could not be found on this server!
+  - generic [ref=e7]:
+    - text: Proudly powered by LiteSpeed Web Server
+    - paragraph [ref=e8]: Please be advised that LiteSpeed Technologies Inc. is not a web hosting company and, as such, has no control over content found on this site.
 ```
 
 # Test source
 
 ```ts
-  63  | 
-  64  | test('PUBLIC-07 - How It Works page loads', async ({ page }) => {
-  65  |   await page.goto('/how-it-works');
-  66  |   await page.waitForLoadState('networkidle');
-  67  |   await expect(page.locator('body')).toBeVisible();
-  68  |   console.log('✅ How It Works page loaded');
-  69  | });
   70  | 
   71  | test('PUBLIC-08 - For Professionals page loads', async ({ page }) => {
   72  |   await page.goto('/for-professionals');
@@ -127,15 +131,15 @@ Received string:    "{\"success\":true,\"message\":\"iPROFIXER API running\",\"t
   160 | test('PUBLIC-17 - API health check returns ok', async ({ page }) => {
   161 |   await page.goto('/api/health');
   162 |   const body = await page.locator('body').innerText();
-> 163 |   expect(body).toContain('ok');
-      |                ^ Error: expect(received).toContain(expected) // indexOf
+  163 |   expect(body).toContain('ok');
   164 |   console.log('✅ API health check passing');
   165 | });
   166 | 
   167 | test('PUBLIC-18 - API services endpoint returns services', async ({ page }) => {
   168 |   await page.goto('/api/services');
   169 |   const body = await page.locator('body').innerText();
-  170 |   expect(body.toLowerCase()).toContain('clean');
+> 170 |   expect(body.toLowerCase()).toContain('clean');
+      |                              ^ Error: expect(received).toContain(expected) // indexOf
   171 |   console.log('✅ API services endpoint working');
   172 | });
   173 | 
