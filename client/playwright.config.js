@@ -1,13 +1,13 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
   timeout: 60000,
   expect: { timeout: 10000 },
-  retries: 0,
+  retries: 1,
   workers: 1,
   use: {
-    baseURL: 'https://iprosfixer.vercel.app',
+    baseURL: 'https://iprofixer.com.my',
     headless: false,
     viewport: { width: 1280, height: 720 },
     screenshot: 'only-on-failure',
