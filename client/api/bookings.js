@@ -1,5 +1,15 @@
 const { getDb, initTables, generateId } = require('./_db.js')
 const { authMiddleware } = require('./_auth.js')
+const { createNotification } = require('./notifications.js')
+
+// Helper to create timeline event
+async function createTimelineEvent(sql, bookingId, status, userId, notes = null) {
+  const timelineId = generateId()
+  await sql`
+    INSERT INTO booking_timeline (id, booking_id, status, notes, created_by)
+    VALUES (${timelineId}, ${bookingId}, ${status}, ${notes}, ${userId})
+  `
+}
 
 let tablesReady = false
 async function ensureTables() {
@@ -64,13 +74,15 @@ module.exports = async function handler(req, res) {
 
     const url = req.url || ''
     const sql = getDb()
-    // Extract booking ID if present: /api/bookings/some-id
-    const idMatch = url.replace(/\?.*$/, '').match(/\/bookings\/([\w-]+)$/)
+    // Extract booking ID — handles both /bookings/:id and /bookings/:id/approve
+    const idMatch = url.replace(/\?.*$/, '').match(/\/bookings\/([\w-]+)/)
     const bookingId = idMatch ? idMatch[1] : null
+    const isApprove = url.includes('/approve')
 
     if (req.method === 'GET'  && !bookingId) return await listBookings(req, res, sql)
     if (req.method === 'POST' && !bookingId) return await createBooking(req, res, sql)
     if (req.method === 'GET'  && bookingId)  return await getBookingDetail(req, res, sql, bookingId)
+    if (req.method === 'POST' && bookingId && isApprove) return await approveBooking(req, res, sql, bookingId, userId)
     if (req.method === 'PUT'  && bookingId)  return await updateBooking(req, res, sql, bookingId)
 
     return res.status(404).json({ success: false, message: 'Not found' })
@@ -191,6 +203,52 @@ async function updateBooking(req, res, sql, id) {
   // Professional accepting: claim the job
   if (userType === 'professional' && status === 'accepted' && !booking.professional_id) {
     await sql`UPDATE bookings SET professional_id=${userId} WHERE id=${id}`
+    // Create timeline event
+    await createTimelineEvent(sql, id, 'accepted', userId, 'Professional accepted the booking')
+    // Notify customer
+    await createNotification({
+      user_id: booking.consumer_id,
+      type: 'booking_accepted',
+      title: 'Booking Accepted',
+      body: `A professional has accepted your booking for ${booking.service_name}.`,
+      data: JSON.stringify({ booking_id: id })
+    })
+  }
+
+  // On the way
+  if (status === 'on_the_way') {
+    await createTimelineEvent(sql, id, 'on_the_way', userId, 'Professional is on the way')
+    await createNotification({
+      user_id: booking.consumer_id,
+      type: 'on_the_way',
+      title: 'Professional On The Way',
+      body: `Your professional is on the way to your location.`,
+      data: JSON.stringify({ booking_id: id })
+    })
+  }
+
+  // Arrived
+  if (status === 'arrived') {
+    await createTimelineEvent(sql, id, 'arrived', userId, 'Professional arrived at location')
+    await createNotification({
+      user_id: booking.consumer_id,
+      type: 'arrived',
+      title: 'Professional Arrived',
+      body: `Your professional has arrived at your location.`,
+      data: JSON.stringify({ booking_id: id })
+    })
+  }
+
+  // In progress (work started)
+  if (status === 'in_progress') {
+    await createTimelineEvent(sql, id, 'in_progress', userId, 'Work started')
+    await createNotification({
+      user_id: booking.consumer_id,
+      type: 'work_started',
+      title: 'Work Started',
+      body: `Your professional has started working on your service.`,
+      data: JSON.stringify({ booking_id: id })
+    })
   }
 
   // Completed: create transaction + update stats
@@ -201,5 +259,57 @@ async function updateBooking(req, res, sql, id) {
     await sql`UPDATE consumer_profiles SET total_spent=total_spent+${booking.price} WHERE user_id=${booking.consumer_id}`
   }
 
+  // awaiting_approval: do NOT create transaction (wait for customer approval)
+  if (status === 'awaiting_approval') {
+    await createTimelineEvent(sql, id, 'awaiting_approval', userId, 'Job completed, awaiting customer approval')
+    // Notify customer
+    await createNotification({
+      user_id: booking.consumer_id,
+      type: 'booking_awaiting_approval',
+      title: 'Job Awaiting Your Approval',
+      body: `Your professional has completed the job. Please review and approve.`,
+      data: JSON.stringify({ booking_id: id })
+    })
+  }
+
   return res.json({ success: true, message: 'Booking updated' })
+}
+
+async function approveBooking(req, res, sql, bookingId, userId) {
+  const rows = await sql`SELECT * FROM bookings WHERE id = ${bookingId}`
+  if (!rows.length) return res.status(404).json({ success: false, message: 'Booking not found' })
+  const booking = rows[0]
+
+  if (booking.consumer_id !== userId) {
+    return res.status(403).json({ success: false, message: 'Only customer can approve booking' })
+  }
+
+  if (booking.status !== 'awaiting_approval') {
+    return res.status(400).json({ success: false, message: 'Booking is not awaiting approval' })
+  }
+
+  // Update status to completed
+  await sql`UPDATE bookings SET status='completed', updated_at=NOW() WHERE id = ${bookingId}`
+  
+  // Create timeline event
+  await createTimelineEvent(sql, bookingId, 'completed', userId, 'Booking completed and approved')
+
+  // Create transaction
+  const proId = booking.professional_id
+  await sql`INSERT INTO transactions (id, booking_id, payer_id, payee_id, amount, type, status) VALUES (${generateId()}, ${bookingId}, ${booking.consumer_id}, ${proId}, ${booking.price}, 'payment', 'completed')`
+
+  // Update stats
+  await sql`UPDATE professional_profiles SET total_jobs=total_jobs+1 WHERE user_id=${proId}`
+  await sql`UPDATE consumer_profiles SET total_spent=total_spent+${booking.price} WHERE user_id=${booking.consumer_id}`
+
+  // Notify professional
+  await createNotification({
+    user_id: proId,
+    type: 'booking_completed',
+    title: 'Booking Completed',
+    body: `Your booking has been approved and completed. Payment has been processed.`,
+    data: JSON.stringify({ booking_id: bookingId })
+  })
+
+  return res.json({ success: true, message: 'Booking approved and completed' })
 }

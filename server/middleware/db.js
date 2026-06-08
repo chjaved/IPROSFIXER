@@ -155,6 +155,61 @@ async function initTables() {
     )
   `;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS withdrawals (
+      id TEXT PRIMARY KEY,
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      amount REAL NOT NULL,
+      method VARCHAR(50) DEFAULT 'bank_transfer',
+      account_name TEXT NOT NULL,
+      account_number TEXT NOT NULL,
+      bank_name TEXT NOT NULL,
+      status VARCHAR(50) DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected', 'paid')),
+      admin_note TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS disputes (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id),
+      customer_id TEXT NOT NULL REFERENCES users(id),
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      reason TEXT NOT NULL,
+      description TEXT,
+      status VARCHAR(50) DEFAULT 'open' CHECK(status IN ('open', 'investigating', 'resolved')),
+      admin_note TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS conversations (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id),
+      customer_id TEXT NOT NULL REFERENCES users(id),
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(booking_id)
+    )
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS messages (
+      id TEXT PRIMARY KEY,
+      conversation_id TEXT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+      sender_id TEXT NOT NULL REFERENCES users(id),
+      message TEXT NOT NULL,
+      message_type VARCHAR(20) DEFAULT 'text' CHECK(message_type IN ('text')),
+      read_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+
   // Seed default services if empty
   const existing = await sql`SELECT COUNT(*) as count FROM services`;
   if (parseInt(existing[0].count) === 0) {

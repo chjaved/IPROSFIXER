@@ -1,6 +1,6 @@
 const { neon } = require('@neondatabase/serverless');
 const { put } = require('@vercel/blob');
-const { verifyToken } = require('./_auth.js');
+const { verifyToken, adminMiddleware } = require('./_auth.js');
 const nodemailer = require('nodemailer');
 
 module.exports = async (req, res) => {
@@ -176,6 +176,8 @@ module.exports = async (req, res) => {
 
     // GET /api/payments/admin — admin gets all pending payments
     if (req.method === 'GET' && url.includes('/admin')) {
+      if (!(await adminMiddleware(req, res))) return;
+      
       const payments = await sql`
         SELECT p.*, 
                b.booking_number, s.name as service_name, b.address, b.price as booking_amount,
@@ -193,6 +195,7 @@ module.exports = async (req, res) => {
 
     // PUT /api/payments/approve — admin approves payment
     if (req.method === 'PUT' && url.includes('/approve')) {
+      if (!(await adminMiddleware(req, res))) return;
       const { payment_id, action, admin_note } = req.body;
       const commission_rate = 0.15;
 

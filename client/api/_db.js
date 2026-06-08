@@ -63,7 +63,7 @@ async function initTables() {
       name TEXT NOT NULL,
       phone TEXT,
       whatsapp TEXT,
-      type TEXT NOT NULL CHECK(type IN ('consumer', 'professional')),
+      type TEXT NOT NULL CHECK(type IN ('consumer', 'professional', 'admin')),
       status TEXT DEFAULT 'active' CHECK(status IN ('active', 'suspended', 'deleted')),
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -81,6 +81,42 @@ async function initTables() {
       rating REAL DEFAULT 5.0,
       total_jobs INTEGER DEFAULT 0,
       bio TEXT,
+      is_verified BOOLEAN DEFAULT FALSE,
+      admin_note TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS withdrawals (
+      id TEXT PRIMARY KEY,
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      amount REAL NOT NULL,
+      method TEXT NOT NULL,
+      account_name TEXT NOT NULL,
+      account_number TEXT NOT NULL,
+      bank_name TEXT,
+      status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected', 'paid')),
+      admin_note TEXT,
+      processed_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS reschedule_requests (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+      requested_by TEXT NOT NULL REFERENCES users(id),
+      old_date DATE NOT NULL,
+      old_time TIME NOT NULL,
+      new_date DATE NOT NULL,
+      new_time TIME NOT NULL,
+      reason TEXT,
+      status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
+      rejection_reason TEXT,
       created_at TIMESTAMPTZ DEFAULT NOW(),
       updated_at TIMESTAMPTZ DEFAULT NOW()
     )
@@ -171,6 +207,120 @@ async function initTables() {
       user_id TEXT,
       message TEXT,
       response TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS disputes (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id),
+      customer_id TEXT NOT NULL REFERENCES users(id),
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      reason TEXT NOT NULL,
+      description TEXT,
+      status VARCHAR(50) DEFAULT 'open' CHECK(status IN ('open', 'investigating', 'resolved')),
+      admin_note TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS conversations (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id),
+      customer_id TEXT NOT NULL REFERENCES users(id),
+      professional_id TEXT NOT NULL REFERENCES users(id),
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(booking_id)
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS messages (
+      id TEXT PRIMARY KEY,
+      conversation_id TEXT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+      sender_id TEXT NOT NULL REFERENCES users(id),
+      message TEXT NOT NULL,
+      message_type VARCHAR(20) DEFAULT 'text' CHECK(message_type IN ('text')),
+      read_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS booking_photos (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+      uploaded_by TEXT NOT NULL REFERENCES users(id),
+      photo_type VARCHAR(20) NOT NULL CHECK(photo_type IN ('before', 'after')),
+      photo_url TEXT NOT NULL,
+      caption TEXT,
+      mime_type VARCHAR(100),
+      file_size INTEGER,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS checklists (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+      service_id TEXT NOT NULL REFERENCES services(id),
+      created_by TEXT NOT NULL REFERENCES users(id),
+      status VARCHAR(20) DEFAULT 'in_progress' CHECK(status IN ('in_progress', 'completed')),
+      created_at TIMESTAMPTZ DEFAULT NOW(),
+      updated_at TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(booking_id)
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS checklist_items (
+      id TEXT PRIMARY KEY,
+      checklist_id TEXT NOT NULL REFERENCES checklists(id) ON DELETE CASCADE,
+      title TEXT NOT NULL,
+      completed BOOLEAN DEFAULT FALSE,
+      notes TEXT,
+      completed_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    ALTER TABLE professional_profiles ADD COLUMN IF NOT EXISTS qa_score REAL DEFAULT 0
+  `
+
+  await sql`
+    ALTER TABLE professional_profiles ADD COLUMN IF NOT EXISTS total_checklists_completed INTEGER DEFAULT 0
+  `
+
+  await sql`
+    ALTER TABLE professional_profiles ADD COLUMN IF NOT EXISTS total_photos_uploaded INTEGER DEFAULT 0
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS notifications (
+      id TEXT PRIMARY KEY,
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      type VARCHAR(50) NOT NULL,
+      title TEXT NOT NULL,
+      body TEXT,
+      data TEXT,
+      is_read BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS booking_timeline (
+      id TEXT PRIMARY KEY,
+      booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+      status TEXT NOT NULL,
+      notes TEXT,
+      created_by TEXT NOT NULL REFERENCES users(id),
       created_at TIMESTAMPTZ DEFAULT NOW()
     )
   `

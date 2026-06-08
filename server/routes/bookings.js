@@ -145,7 +145,7 @@ router.put('/:id', async (req, res) => {
       await sql`UPDATE bookings SET professional_id=${userId} WHERE id=${id}`;
     }
 
-    // Completed: create transaction + update stats
+    // Completed: create transaction + update stats (only when customer approves)
     if (status === 'completed') {
       const proId = booking.professional_id || userId;
       await sql`INSERT INTO transactions (id, booking_id, payer_id, payee_id, amount, type, status) VALUES (${generateId()}, ${id}, ${booking.consumer_id}, ${proId}, ${booking.price}, 'payment', 'completed')`;
@@ -153,9 +153,57 @@ router.put('/:id', async (req, res) => {
       await sql`UPDATE consumer_profiles SET total_spent=total_spent+${booking.price} WHERE user_id=${booking.consumer_id}`;
     }
 
+    // Awaiting Approval: professional completed work, waiting for customer
+    // No transaction created yet - earnings not finalized
+    if (status === 'awaiting_approval') {
+      // Just update status, no transaction creation
+    }
+
     return res.json({ success: true, message: 'Booking updated' });
   } catch (err) {
     console.error('Update booking error:', err);
+    return res.status(500).json({ success: false, message: err.message || 'Server error' });
+  }
+});
+
+// POST /api/bookings/:id/approve - Customer approves completed work
+router.post('/:id/approve', async (req, res) => {
+  try {
+    await ensureTables();
+    const ok = await authMiddleware(req, res);
+    if (!ok) return;
+
+    const userId = req.user.id;
+    const userType = req.user.type;
+    const id = req.params.id;
+    const sql = getDb();
+
+    if (userType !== 'consumer') {
+      return res.status(403).json({ success: false, message: 'Only customers can approve work' });
+    }
+
+    const rows = await sql`SELECT * FROM bookings WHERE id=${id} AND consumer_id=${userId}`;
+    if (!rows.length) return res.status(404).json({ success: false, message: 'Booking not found' });
+    const booking = rows[0];
+
+    if (booking.status !== 'awaiting_approval') {
+      return res.status(400).json({ success: false, message: 'Booking is not awaiting approval' });
+    }
+
+    // Update status to completed
+    await sql`UPDATE bookings SET status='completed', updated_at=NOW() WHERE id=${id}`;
+
+    // Create transaction and update stats
+    const proId = booking.professional_id;
+    if (proId) {
+      await sql`INSERT INTO transactions (id, booking_id, payer_id, payee_id, amount, type, status) VALUES (${generateId()}, ${id}, ${booking.consumer_id}, ${proId}, ${booking.price}, 'payment', 'completed')`;
+      await sql`UPDATE professional_profiles SET total_jobs=total_jobs+1 WHERE user_id=${proId}`;
+      await sql`UPDATE consumer_profiles SET total_spent=total_spent+${booking.price} WHERE user_id=${booking.consumer_id}`;
+    }
+
+    return res.json({ success: true, message: 'Work approved successfully' });
+  } catch (err) {
+    console.error('Approve booking error:', err);
     return res.status(500).json({ success: false, message: err.message || 'Server error' });
   }
 });

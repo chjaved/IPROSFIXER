@@ -83,4 +83,17 @@ async function authMiddleware(req, res) {
   }
 }
 
-module.exports = { hashPassword, verifyPassword, generateToken, verifyToken, authMiddleware, blacklistToken, isTokenBlacklisted }
+// Admin-only middleware — call as: await adminMiddleware(req, res); if (!req.user) return;
+async function adminMiddleware(req, res) {
+  const authResult = await authMiddleware(req, res)
+  if (!authResult) return false
+  
+  if (req.user.type !== 'admin') {
+    res.status(403).json({ success: false, message: 'Admin access required' })
+    return false
+  }
+  
+  return true
+}
+
+module.exports = { hashPassword, verifyPassword, generateToken, verifyToken, authMiddleware, adminMiddleware, blacklistToken, isTokenBlacklisted }
